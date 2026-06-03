@@ -1,1 +1,561 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دار البنة | DAR ELBANNA - اطلب الآن</title>
+    <!-- استدعاء خط Cairo المميز -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- مكتبة Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- مكتبة FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0e0e0e',
+                            card: '#1a1a1a',
+                            primary: '#ff6b00',
+                            primaryHover: '#e05e00',
+                            accent: '#ffb300',
+                            grayMuted: '#9e9e9e',
+                            danger: '#dc2626'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0e0e0e;
+        }
+        .transition-all-300 { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        /* إخفاء شريط التمرير العادي وتخصيصه للسلة */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1a1a1a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #ff6b00; border-radius: 10px; }
 
+        /* حركة فتح وإغلاق السلة */
+        .cart-open { transform: translateX(0) !important; }
+        .cart-overlay-open { opacity: 1 !important; pointer-events: auto !important; }
+
+        /* حركة أيقونة السلة عند استقبال منتج */
+        .cart-bump { animation: bump 0.3s ease-out; color: #ff6b00; }
+        @keyframes bump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3) translateY(-2px); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-brand-primary selection:text-white overflow-x-hidden">
+
+    <!-- رقم هاتف المطعم -->
+    <script>const RESTAURANT_WHATSAPP = "212636696742";</script>
+
+    <!-- شريط التنقل العلوي (Navbar) -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-white/5 py-4 px-4 md:px-8 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- الشعار والاسم -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBVNA2t5-XgCYSunB46d1PsRV23vDoki5OU9EH4NC9hWd8ND2-NVQ4z2s8IB_7KEpPh1ev7rnC65NiV5uxeBtvC3CT85VUkx4Wk7uJYz6E4Ns1MiVKHH_Cn5IARBEKrTNcQJFnVX7Iq8q-kYBDtD-s5eDCFoazt4uO8_phC1lEoleSjp5h049xmdA8=w16383" alt="شعار دار البنة" class="h-10 md:h-12 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform duration-300">
+                <span class="text-xl md:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent hidden sm:inline-block">
+                    DAR ELBANNA
+                </span>
+            </a>
+
+            <!-- الروابط السريعة -->
+            <div class="hidden md:flex items-center gap-8 font-semibold text-sm">
+                <a href="#home" class="hover:text-brand-primary transition-colors">الرئيسية</a>
+                <a href="#menu" class="hover:text-brand-primary transition-colors">المنيو</a>
+            </div>
+
+            <!-- زر السلة -->
+            <button onclick="toggleCart()" class="relative bg-brand-card hover:bg-brand-primary/20 border border-white/10 p-3 rounded-full transition-all-300 flex items-center justify-center group" id="cartNavbarBtn">
+                <i class="fa-solid fa-basket-shopping text-xl transition-all duration-300" id="cartBtnIcon"></i>
+                <span id="cartBadge" class="absolute -top-1 -right-1 bg-brand-primary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- قسم الواجهة الرئيسية -->
+    <section id="home" class="relative min-h-screen pt-24 flex items-center justify-center bg-gradient-to-b from-brand-dark via-brand-dark to-[#151515] overflow-hidden px-4">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-brand-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 w-full py-12">
+            <div class="text-center lg:text-right space-y-6">
+                <span class="inline-flex items-center gap-2 bg-brand-primary/10 text-brand-primary px-4 py-1.5 rounded-full text-xs md:text-sm font-bold border border-brand-primary/20">
+                    <i class="fa-solid fa-fire-flame-curved animate-pulse"></i>
+                    دار البنة - الطعم اللي كايحمق
+                </span>
+                <h1 class="text-4xl md:text-6xl font-black leading-tight">
+                    أطلب وجبتك المفضلة <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">بضغطة زر واحدة!</span>
+                </h1>
+                <p class="text-brand-grayMuted text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    اختر تصنيفك المفضل، حدد نوع الوجبة والكمية، وسنسحب طلبك مباشرة إلى السلة لطلب سريع عبر الواتساب.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <a href="#menu" class="bg-brand-primary hover:bg-brand-primaryHover text-white text-center px-8 py-3.5 rounded-xl font-bold transition-all-300 shadow-xl shadow-brand-primary/25 flex items-center justify-center gap-2">
+                        <span>اكتشف أصنافنا</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative flex justify-center items-center">
+                <div class="relative w-[280px] sm:w-[380px] md:w-[450px] h-[280px] sm:h-[380px] md:h-[450px] rounded-full overflow-hidden border-4 border-brand-primary/30 shadow-2xl shadow-brand-primary/20 group">
+                    <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800" alt="برجر دار البنة" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-8 right-0 left-0 text-center">
+                        <span class="bg-brand-primary text-white font-bold px-6 py-2 rounded-full text-sm shadow-lg">الأكثر طلباً 🔥</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المنيو (التصنيفات والمنتجات) -->
+    <section id="menu" class="py-20 bg-[#151515] px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto relative">
+            
+            <!-- عنوان القسم المتغير -->
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+                <span id="menuSubtitle" class="text-brand-primary font-bold text-sm uppercase">ماذا تشتهي اليوم؟</span>
+                <h2 id="menuTitle" class="text-3xl md:text-4xl font-black">تصنيفات دار البنة 📋</h2>
+                <div class="w-16 h-1 bg-brand-primary mx-auto rounded-full"></div>
+            </div>
+
+            <!-- حاوية 1: التصنيفات الرئيسية (Categories Grid) -->
+            <div id="categoriesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 transition-all duration-500">
+                <!-- يتم ملؤها بالجافا سكريبت -->
+            </div>
+
+            <!-- حاوية 2: المنتجات داخل التصنيف (Items Grid) - مخفية افتراضياً -->
+            <div id="itemsContainer" class="hidden opacity-0 transition-opacity duration-500">
+                <!-- زر العودة للتصنيفات -->
+                <button onclick="showCategories()" class="mb-8 bg-brand-card hover:bg-white/10 border border-white/10 text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all-300 flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    الرجوع للتصنيفات
+                </button>
+                
+                <div id="itemsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- يتم ملؤها بالمنتجات -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- السلة الجانبية (Cart Sidebar) -->
+    <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[50] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    
+    <div id="cartSidebar" class="fixed top-0 bottom-0 left-0 w-full md:w-[400px] bg-brand-card z-[60] transform -translate-x-full transition-transform duration-300 flex flex-col border-r border-white/10 shadow-2xl">
+        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-brand-dark">
+            <h2 class="text-xl font-black flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-brand-primary"></i>
+                سلة طلباتي
+            </h2>
+            <button onclick="toggleCart()" class="w-8 h-8 hover:bg-white/10 rounded-full flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <div id="cartItemsContainer" class="flex-grow overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            <div id="emptyCartMsg" class="flex flex-col items-center justify-center h-full text-brand-grayMuted opacity-50 space-y-4">
+                <i class="fa-solid fa-cart-arrow-down text-6xl"></i>
+                <p class="font-bold">السلة فارغة حالياً</p>
+                <button onclick="toggleCart()" class="px-4 py-2 bg-white/5 rounded-full text-sm hover:bg-white/10 transition-colors">تصفح المنيو</button>
+            </div>
+        </div>
+
+        <div class="p-5 border-t border-white/10 bg-brand-dark space-y-4">
+            <div class="flex justify-between items-center text-lg">
+                <span class="font-bold text-brand-grayMuted">المجموع الإجمالي:</span>
+                <span id="cartTotalPrice" class="font-black text-2xl text-brand-primary">0 درهم</span>
+            </div>
+            
+            <button onclick="checkoutWhatsApp()" id="checkoutBtn" disabled class="w-full bg-[#25D366] hover:bg-[#1ebd59] disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl font-black transition-all-300 flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 text-lg">
+                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                تأكيد الطلب عبر واتساب
+            </button>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer id="about" class="bg-brand-dark border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 gap-6">
+            <div class="flex items-center gap-3">
+                <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBVNA2t5-XgCYSunB46d1PsRV23vDoki5OU9EH4NC9hWd8ND2-NVQ4z2s8IB_7KEpPh1ev7rnC65NiV5uxeBtvC3CT85VUkx4Wk7uJYz6E4Ns1MiVKHH_Cn5IARBEKrTNcQJFnVX7Iq8q-kYBDtD-s5eDCFoazt4uO8_phC1lEoleSjp5h049xmdA8=w16383" alt="شعار دار البنة" class="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 bg-brand-card hover:bg-brand-primary rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 bg-brand-card hover:bg-brand-primary rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="javascript:void(0)" onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')" class="w-10 h-10 bg-brand-card hover:bg-[#25D366] rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- سكربت المنطق البرمجي والأنيميشن -->
+    <script>
+        // --- 1. قاعدة بيانات التصنيفات ---
+        const categoriesData = [
+            { id: "burger", title: "برجر مشوي", icon: "🍔", itemsCount: "4 أنواع", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" },
+            { id: "pizza", title: "بيتزا إيطالية", icon: "🍕", itemsCount: "4 أنواع", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
+            { id: "tacos", title: "تاكوس غراتيني", icon: "🌮", itemsCount: "4 أنواع", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500" },
+            { id: "sandwich", title: "ساندويتشات", icon: "🥖", itemsCount: "3 أنواع", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" },
+            { id: "sides", title: "مقبلات ومشروبات", icon: "🍟", itemsCount: "3 أنواع", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500" }
+        ];
+
+        // --- 2. قاعدة بيانات المنتجات الموسعة (4 لكل صنف تقريباً) ---
+        const menuData = [
+            // برجر
+            { id: 1, category: "burger", title: "كلاسيك برجر", desc: "لحم، شيدر، خس، طماطم وصلصة.", priceValue: 45, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" },
+            { id: 2, category: "burger", title: "دبل تشيز برجر", desc: "شريحتين لحم، جبن مضاعف، بصل.", priceValue: 59, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" },
+            { id: 3, category: "burger", title: "دجاج كريسبي", desc: "دجاج مقرمش، مايونيز، خس ومخلل.", priceValue: 48, img: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500" },
+            { id: 4, category: "burger", title: "سموكد باربكيو برجر", desc: "لحم مشوي، صلصة مدخنة، حلقات بصل.", priceValue: 55, img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500" },
+            // بيتزا
+            { id: 5, category: "pizza", title: "مارغريتا كلاسيك", desc: "صلصة طماطم، موزاريلا وريحان.", priceValue: 39, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
+            { id: 6, category: "pizza", title: "دجاج باربكيو", desc: "دجاج، باربكيو، بصل أحمر وموزاريلا.", priceValue: 55, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=500" },
+            { id: 7, category: "pizza", title: "بيبروني إيطالي", desc: "شرائح البيبروني اللذيذة مع جبن ذائب.", priceValue: 49, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" },
+            { id: 8, category: "pizza", title: "فواكه البحر", desc: "كروفيت، كالامار، وصلصة بيضاء.", priceValue: 65, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" },
+            // تاكوس
+            { id: 9, category: "tacos", title: "تاكوس ميكس", desc: "لحم مفروم، دجاج، بطاطس مقرمشة وجبن.", priceValue: 49, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500" },
+            { id: 10, category: "tacos", title: "تاكوس كوردون بلو", desc: "قطع كوردون بلو غنية مع بطاطس مقلية.", priceValue: 52, img: "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?w=500" },
+            { id: 11, category: "tacos", title: "تاكوس بولي نورمال", desc: "دجاج متبل بصلصة الكاري اللذيذة.", priceValue: 45, img: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=500" },
+            { id: 12, category: "tacos", title: "تاكوس فياند أشي", desc: "لحم مفروم طازج مع صلصة ألجيريان.", priceValue: 45, img: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=500" },
+            // ساندويتشات
+            { id: 13, category: "sandwich", title: "كلوب ساندويتش", desc: "دجاج، ديك رومي مدخن، بيض، وجبن.", priceValue: 35, img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500" },
+            { id: 14, category: "sandwich", title: "بانيني دجاج", desc: "دجاج، فرماج أحمر، بخبز البانيني الساخن.", priceValue: 30, img: "https://images.unsplash.com/photo-1528736235302-52922df5c122?w=500" },
+            { id: 15, category: "sandwich", title: "بوكاديوس شمالي", desc: "طون، بطاطس، زيتون، سلطة، مايونيز.", priceValue: 25, img: "https://images.unsplash.com/photo-1619860860774-1e2e1734263f?w=500" },
+            // مقبلات
+            { id: 16, category: "sides", title: "بطاطس بالجبن", desc: "بطاطس مقلية مغطاة بصلصة الجبنة الذائبة.", priceValue: 25, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500" },
+            { id: 17, category: "sides", title: "ناجتس الدجاج (6 قطع)", desc: "قطع دجاج ذهبية مع صلصة حارة وحلوة.", priceValue: 30, img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=500" },
+            { id: 18, category: "sides", title: "مشروبات غازية", desc: "كوكا كولا، فانتا، سبرايت (باردة).", priceValue: 10, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500" }
+        ];
+
+        let cart = [];
+
+        // --- 3. عرض التصنيفات (الصفحة الأولى للمنيو) ---
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            
+            categoriesData.forEach(cat => {
+                container.innerHTML += `
+                    <div onclick="openCategory('${cat.id}', '${cat.title}')" class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="relative h-40">
+                            <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                <span class="text-4xl mb-2 drop-shadow-lg">${cat.icon}</span>
+                                <h3 class="font-black text-xl drop-shadow-md">${cat.title}</h3>
+                            </div>
+                        </div>
+                        <div class="p-3 text-center bg-brand-dark/50">
+                            <span class="text-xs text-brand-primary font-bold">تصفح ${cat.itemsCount}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+      
+        // --- 4. التبديل بين التصنيفات والمنتجات ---
+        function openCategory(categoryId, categoryTitle) {
+            // تحديث العناوين
+            document.getElementById('menuTitle').innerText = categoryTitle;
+            document.getElementById('menuSubtitle').innerText = "اختر ما يروق لك";
+
+            // إخفاء التصنيفات وإظهار المنتجات
+            const catContainer = document.getElementById('categoriesContainer');
+            const itemsContainer = document.getElementById('itemsContainer');
+            
+            catContainer.classList.add('hidden');
+            itemsContainer.classList.remove('hidden');
+            
+            // إضافة تأخير بسيط للأنيميشن
+            setTimeout(() => {
+                itemsContainer.classList.remove('opacity-0');
+            }, 50);
+
+            // فلترة ورسم المنتجات
+            const filteredItems = menuData.filter(item => item.category === categoryId);
+            renderItems(filteredItems);
+        }
+
+        function showCategories() {
+            document.getElementById('menuTitle').innerText = "تصنيفات دار البنة 📋";
+            document.getElementById('menuSubtitle').innerText = "ماذا تشتهي اليوم؟";
+
+            const catContainer = document.getElementById('categoriesContainer');
+            const itemsContainer = document.getElementById('itemsContainer');
+            
+            itemsContainer.classList.add('opacity-0');
+            setTimeout(() => {
+                itemsContainer.classList.add('hidden');
+                catContainer.classList.remove('hidden');
+            }, 300);
+        }
+
+        // --- 5. عرض المنتجات مع نظام التحكم بالكمية المدمج ---
+        function renderItems(items) {
+            const grid = document.getElementById('itemsGrid');
+            grid.innerHTML = '';
+            
+            items.forEach(item => {
+                grid.innerHTML += `
+                    <div class="product-card bg-brand-card rounded-2xl p-3 border border-white/5 hover:border-brand-primary/30 transition-all duration-300 flex flex-col h-full" id="product-${item.id}">
+                        <!-- الصورة -->
+                        <div class="relative h-40 rounded-xl overflow-hidden mb-3">
+                            <img src="${item.img}" alt="${item.title}" class="product-img w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- المعلومات -->
+                        <div class="flex-grow flex flex-col">
+                            <h3 class="font-bold text-base text-white mb-1 line-clamp-1">${item.title}</h3>
+                            <p class="text-[11px] text-brand-grayMuted line-clamp-2 mb-2 flex-grow">${item.desc}</p>
+                            <div class="text-brand-primary font-black text-lg mb-3">${item.priceValue} درهم</div>
+                            
+                            <!-- أدوات الإضافة والسلة -->
+                            <div class="flex items-center justify-between gap-2 mt-auto">
+                                <!-- اختيار الكمية -->
+                                <div class="flex items-center bg-brand-dark rounded-lg border border-white/5">
+                                    <button onclick="changeLocalQty(${item.id}, -1)" class="w-8 h-8 flex justify-center items-center text-brand-grayMuted hover:text-white"><i class="fa-solid fa-minus text-xs"></i></button>
+                                    <span id="local-qty-${item.id}" class="w-6 text-center font-bold text-sm">1</span>
+                                    <button onclick="changeLocalQty(${item.id}, 1)" class="w-8 h-8 flex justify-center items-center text-brand-grayMuted hover:text-white"><i class="fa-solid fa-plus text-xs"></i></button>
+                                </div>
+                                
+                                <!-- زر الإضافة مع تأثير الطيران -->
+                                <button onclick="addToCartWithAnimation(event, ${item.id})" class="flex-grow bg-brand-primary hover:bg-brand-primaryHover text-white h-8 rounded-lg font-bold text-xs flex items-center justify-center gap-1 shadow-lg">
+                                    <i class="fa-solid fa-cart-plus"></i> إضافة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // تغيير الكمية محلياً قبل الإضافة
+        function changeLocalQty(id, change) {
+            const qtySpan = document.getElementById(`local-qty-${id}`);
+            let currentQty = parseInt(qtySpan.innerText);
+            if (currentQty + change >= 1) {
+                qtySpan.innerText = currentQty + change;
+            }
+        }
+
+        // --- 6. أنيميشن الطيران إلى السلة (Fly to Cart) ---
+        function addToCartWithAnimation(event, itemId) {
+            const button = event.currentTarget;
+            const productCard = document.getElementById(`product-${itemId}`);
+            const productImg = productCard.querySelector('.product-img');
+            const cartIconBtn = document.getElementById('cartNavbarBtn');
+            const cartIcon = document.getElementById('cartBtnIcon');
+
+            // جلب الكمية المحددة
+            const qtySpan = document.getElementById(`local-qty-${itemId}`);
+            const quantityToAdd = parseInt(qtySpan.innerText);
+
+            // الحصول على إحداثيات الصورة والسلة
+            const imgRect = productImg.getBoundingClientRect();
+            const cartRect = cartIconBtn.getBoundingClientRect();
+
+            // إنشاء صورة طائرة
+            const flyingImg = document.createElement('img');
+            flyingImg.src = productImg.src;
+            flyingImg.style.position = 'fixed';
+            flyingImg.style.top = imgRect.top + 'px';
+            flyingImg.style.left = imgRect.left + 'px';
+            flyingImg.style.width = imgRect.width + 'px';
+            flyingImg.style.height = imgRect.height + 'px';
+            flyingImg.style.borderRadius = '50%';
+            flyingImg.style.objectFit = 'cover';
+            flyingImg.style.zIndex = '9999';
+            // إعداد الانسيابية البصرية
+            flyingImg.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+            flyingImg.style.boxShadow = '0 10px 25px rgba(255, 107, 0, 0.5)';
+            
+            document.body.appendChild(flyingImg);
+
+            // تشغيل الحركة بعد جزء من الثانية
+            setTimeout(() => {
+                flyingImg.style.top = (cartRect.top + 10) + 'px';
+                flyingImg.style.left = (cartRect.left + 10) + 'px';
+                flyingImg.style.width = '20px';
+                flyingImg.style.height = '20px';
+                flyingImg.style.opacity = '0.5';
+                flyingImg.style.transform = 'rotate(360deg)';
+            }, 10);
+
+            // بعد انتهاء الحركة (0.8 ثانية)
+            setTimeout(() => {
+                flyingImg.remove();
+                
+                // تأثير اهتزاز لأيقونة السلة
+                cartIcon.classList.add('cart-bump');
+                setTimeout(() => cartIcon.classList.remove('cart-bump'), 300);
+
+                // إضافة المنتج برمجياً لمصفوفة السلة وتحديث الواجهة
+                addItemsToCartArray(itemId, quantityToAdd);
+                
+                // إعادة تعيين الكمية المحلية إلى 1 بعد الإضافة
+                qtySpan.innerText = '1';
+
+            }, 800);
+        }
+
+        // --- 7. منطق إدارة السلة ---
+        function addItemsToCartArray(itemId, qty) {
+            const itemDef = menuData.find(i => i.id === itemId);
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += qty;
+            } else {
+                cart.push({
+                    id: itemDef.id,
+                    title: itemDef.title,
+                    priceValue: itemDef.priceValue,
+                    img: itemDef.img,
+                    quantity: qty
+                });
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function changeCartItemQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                if (item.quantity + change >= 1) {
+                    item.quantity += change;
+                    updateCartUI();
+                } else if (item.quantity + change === 0) {
+                    removeFromCart(id);
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            const badge = document.getElementById('cartBadge');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+                emptyMsg.style.display = 'none';
+                checkoutBtn.disabled = false;
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+                emptyMsg.style.display = 'flex';
+                checkoutBtn.disabled = true;
+                container.innerHTML = ''; 
+                container.appendChild(emptyMsg);
+            }
+
+            if (cart.length > 0) {
+                container.innerHTML = ''; 
+                container.appendChild(emptyMsg); 
+                
+                let totalPrice = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.priceValue * item.quantity;
+                    totalPrice += itemTotal;
+                    
+                    container.innerHTML += `
+                        <div class="flex gap-3 bg-brand-dark p-3 rounded-xl border border-white/5 items-center">
+                            <img src="${item.img}" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-sm text-white line-clamp-1">${item.title}</h4>
+                                <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
+                                
+                                <div class="flex items-center gap-3 mt-2">
+                                    <div class="flex items-center gap-2 bg-brand-card rounded-md px-2 py-1 border border-white/5">
+                                        <button onclick="changeCartItemQty(${item.id}, -1)" class="text-brand-grayMuted hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                        <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                                        <button onclick="changeCartItemQty(${item.id}, 1)" class="text-brand-grayMuted hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                    </div>
+                                    <button onclick="removeFromCart(${item.id})" class="text-brand-grayMuted hover:text-brand-danger text-xs transition-colors ml-auto">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                totalPriceEl.innerText = `${totalPrice} درهم`;
+            } else {
+                totalPriceEl.innerText = `0 درهم`;
+            }
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            sidebar.classList.toggle('cart-open');
+            overlay.classList.toggle('cart-overlay-open');
+        }
+
+        // --- 8. الإرسال للواتساب ---
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+
+            let message = "مرحباً مطعم دار البنة 🍔\nأود تقديم طلب جديد:\n\n";
+            message += "📋 *تفاصيل الطلب:*\n";
+            message += "-------------------\n";
+            
+            let grandTotal = 0;
+            cart.forEach(item => {
+                const itemTotal = item.priceValue * item.quantity;
+                grandTotal += itemTotal;
+                message += `▪️ ${item.quantity}x ${item.title}\n   (${itemTotal} درهم)\n`;
+            });
+
+            message += "-------------------\n";
+            message += `💰 *المجموع الإجمالي: ${grandTotal} درهم*\n\n`;
+            message += "📍 الرجاء تأكيد استلام الطلب وتحديد مدة التجهيز.\nشكراً لكم!";
+
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodedMessage}`;
+            
+            window.open(waUrl, '_blank');
+        }
+
+        // التهيئة عند تحميل الصفحة
+        window.onload = () => {
+            renderCategories(); // رسم التصنيفات في البداية
+            updateCartUI(); 
+        };
+    </script>
+</body>
+</html>
