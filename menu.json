@@ -1,771 +1,718 @@
-{
-<<<<<<< HEAD
-  "categories": [
-    {
-      "id": "boisson",
-      "name": "مشروبات"
-    },
-    {
-      "id": "burger",
-      "name": "برجر"
-    },
-    {
-      "id": "dessert",
-      "name": "حلويات"
-    },
-    {
-      "id": "jus frais",
-      "name": "عصائر طازجة"
-    },
-    {
-      "id": "pasticcio - gratin",
-      "name": "باستيشيو و غراتان"
-    },
-    {
-      "id": "plats",
-      "name": "أطباق"
-    },
-    {
-      "id": "plats au sauce champignons",
-      "name": "أطباق بصلصة الفطر"
-    },
-    {
-      "id": "poulet rôtisserie",
-      "name": "دجاج محمر"
-    },
-    {
-      "id": "pâtes",
-      "name": "معكرونة"
-    },
-    {
-      "id": "sandwich",
-      "name": "سندويشات"
-    },
-    {
-      "id": "panini",
-      "name": "بانيني"
-    },
-    {
-      "id": "pizza",
-      "name": "بيتزا"
-    },
-    {
-      "id": "salades",
-      "name": "سلطات"
-    },
-    {
-      "id": "tacos",
-      "name": "طاكو"
-    }
-=======
-  "categoriesData": [
-      {
-        "id": "burger",
-        "title": "برجر خخخخ",
-        "icon": "🍔",
-        "img": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500",
-        "color": "from-orange-500/20"
-      },
-      {
-        "id": "pizza",
-        "title": "بيتزا إيطالية",
-        "icon": "🍕",
-        "img": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500",
-        "color": "from-red-500/20"
-      },
-      {
-        "id": "tacos",
-        "title": "تاكوس فرنسي",
-        "icon": "🌮",
-        "img": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500",
-        "color": "from-yellow-500/20"
-      },
-      {
-        "id": "sandwich",
-        "title": "ساندويتشات",
-        "icon": "🥖",
-        "img": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500",
-        "color": "from-amber-700/20"
-      },
-      {
-        "id": "sides",
-        "title": "مقبلات جانبية",
-        "icon": "🍟",
-        "img": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500",
-        "color": "from-yellow-400/20"
-      },
-      {
-        "id": "drinks",
-        "title": "مشروبات",
-        "icon": "🥤",
-        "img": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500",
-        "color": "from-blue-500/20"
-      },
-      {
-        "id": "desserts",
-        "title": "حلويات",
-        "icon": "🍰",
-        "img": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500",
-        "color": "from-pink-500/20"
-      }
->>>>>>> b2b13725413c8457ca179d997907d8d213a2f8e6
-    ],
-    "menu": [
-      {
-        "id": 1,
-        "category": "boisson",
-        "title": "مشروب غازي",
-        "desc": "مشروبات باردة ومنعشة تروي عطشك",
-        "price": 20,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Boisson gazeuse.jpg"
-      },
-      {
-        "id": 2,
-        "category": "boisson",
-        "title": "ماء غازي 1 لتر",
-        "desc": "مشروبات باردة ومنعشة تروي عطشك",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau gazeuse 1 L.jpg"
-      },
-      {
-        "id": 3,
-        "category": "boisson",
-        "title": "ماء غازي كبير",
-        "desc": "مشروبات باردة ومنعشة تروي عطشك",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau gazeuse maxi.jpg"
-      },
-      {
-        "id": 4,
-        "category": "boisson",
-        "title": "ماء معدني 1 لتر",
-        "desc": "مشروبات باردة ومنعشة تروي عطشك",
-        "price": 20,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau minérale 1 L.jpg"
-      },
-      {
-        "id": 5,
-        "category": "boisson",
-        "title": "ماء معدني 50 مل",
-        "desc": "مشروبات باردة ومنعشة تروي عطشك",
-        "price": 15,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau minérale 50 cl.jpg"
-      },
-      {
-        "id": 6,
-        "category": "burger",
-        "title": "بيج برجر",
-        "desc": "برجر شهي محضر بعناية مع الخبز الطازج والصلصات المميزة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Bigg.jpeg"
-      },
-      {
-        "id": 7,
-        "category": "burger",
-        "title": "تشيز برجر",
-        "desc": "برجر شهي محضر بعناية مع الخبز الطازج والصلصات المميزة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Cheese.jpg"
-      },
-      {
-        "id": 8,
-        "category": "burger",
-        "title": "تشيكن برجر",
-        "desc": "برجر شهي محضر بعناية مع الخبز الطازج والصلصات المميزة",
-        "price": 38,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Chicken.jpg"
-      },
-      {
-        "id": 9,
-        "category": "burger",
-        "title": "برجر ميكس",
-        "desc": "برجر شهي محضر بعناية مع الخبز الطازج والصلصات المميزة",
-        "price": 42,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Mixte.png"
-      },
-      {
-        "id": 10,
-        "category": "burger",
-        "title": "برجر عادي",
-        "desc": "برجر شهي محضر بعناية مع الخبز الطازج والصلصات المميزة",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Simple.jpg"
-      },
-      {
-        "id": 11,
-        "category": "dessert",
-        "title": "مهلبية",
-        "desc": "حلى لذيذ يختم وجبتك بطعم رائع",
-        "price": 20,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Dessert/Mhalabia.jpg"
-      },
-      {
-        "id": 12,
-        "category": "dessert",
-        "title": "بانا كوتا",
-        "desc": "حلى لذيذ يختم وجبتك بطعم رائع",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Dessert/Panna cotta.jpeg"
-      },
-      {
-        "id": 13,
-        "category": "dessert",
-        "title": "سلطة فواكه",
-        "desc": "حلى لذيذ يختم وجبتك بطعم رائع",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Dessert/Salade Fruit.jpeg"
-      },
-      {
-        "id": 14,
-        "category": "jus frais",
-        "title": "عصير أفوكادو بالفواكه الجافة",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus avocat fruits secs.jpg"
-      },
-      {
-        "id": 15,
-        "category": "jus frais",
-        "title": "عصير أناناس",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d'ananas.jpg"
-      },
-      {
-        "id": 16,
-        "category": "jus frais",
-        "title": "عصير أفوكادو",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d'avocat.jpg"
-      },
-      {
-        "id": 17,
-        "category": "jus frais",
-        "title": "عصير برتقال",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 20,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d'orange.jpg"
-      },
-      {
-        "id": 18,
-        "category": "jus frais",
-        "title": "عصير موز",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de banane.jpg"
-      },
-      {
-        "id": 19,
-        "category": "jus frais",
-        "title": "عصير فراولة",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 28,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de fraise.jpg"
-      },
-      {
-        "id": 20,
-        "category": "jus frais",
-        "title": "عصير مانجو",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de mangue.jpg"
-      },
-      {
-        "id": 21,
-        "category": "jus frais",
-        "title": "موهيتو",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de mojito.jpg"
-      },
-      {
-        "id": 22,
-        "category": "jus frais",
-        "title": "عصير تفاح وبرتقال",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de pomme - orange.jpeg"
-      },
-      {
-        "id": 23,
-        "category": "jus frais",
-        "title": "عصير تفاح",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de pomme.jpg"
-      },
-      {
-        "id": 24,
-        "category": "jus frais",
-        "title": "زعزع",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de zaâzaâ.jpg"
-      },
-      {
-        "id": 25,
-        "category": "jus frais",
-        "title": "باناشي",
-        "desc": "عصير طبيعي طازج منعش ومليء بالفيتامينات",
-        "price": 28,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus panaché.jpg"
-      },
-      {
-        "id": 26,
-        "category": "pasticcio - gratin",
-        "title": "باستيشيو ديك رومي مدخن",
-        "desc": "طبق غراتان غني بالجبن والصلصة المحضرة في الفرن",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Dinde Fumée.jpg"
-      },
-      {
-        "id": 27,
-        "category": "pasticcio - gratin",
-        "title": "باستيشيو فواكه البحر",
-        "desc": "طبق غراتان غني بالجبن والصلصة المحضرة في الفرن",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Fruits de mer.jpg"
-      },
-      {
-        "id": 28,
-        "category": "pasticcio - gratin",
-        "title": "باستيشيو ميكس",
-        "desc": "طبق غراتان غني بالجبن والصلصة المحضرة في الفرن",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Mixte.jpg"
-      },
-      {
-        "id": 29,
-        "category": "pasticcio - gratin",
-        "title": "باستيشيو دجاج",
-        "desc": "طبق غراتان غني بالجبن والصلصة المحضرة في الفرن",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Poulet.jpg"
-      },
-      {
-        "id": 30,
-        "category": "pasticcio - gratin",
-        "title": "باستيشيو كفتة",
-        "desc": "طبق غراتان غني بالجبن والصلصة المحضرة في الفرن",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Viande hachée.jpg"
-      },
-      {
-        "id": 31,
-        "category": "plats",
-        "title": "طبق كبدة",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 40,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/Foie.jpg"
-      },
-      {
-        "id": 32,
-        "category": "plats",
-        "title": "طبق دجاج",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/Poulet.jpg"
-      },
-      {
-        "id": 33,
-        "category": "plats",
-        "title": "طبق نقانق",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 40,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/Saucisse.jpeg"
-      },
-      {
-        "id": 34,
-        "category": "plats",
-        "title": "طبق كفتة",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/Viande hachée.jpg"
-      },
-      {
-        "id": 35,
-        "category": "plats",
-        "title": "طبق ميكس",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/mixte.jpg"
-      },
-      {
-        "id": 36,
-        "category": "plats",
-        "title": "طبق لحم",
-        "desc": "أطباق متنوعة ولذيذة محضرة من أجود المكونات",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats/viand.jpg"
-      },
-      {
-        "id": 37,
-        "category": "plats au sauce champignons",
-        "title": "دجاج بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Chicken.jpg"
-      },
-      {
-        "id": 38,
-        "category": "plats au sauce champignons",
-        "title": "كوردون بلو بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 60,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Cordon Bleu.jpg"
-      },
-      {
-        "id": 39,
-        "category": "plats au sauce champignons",
-        "title": "ناجتس بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Nuggets.jpg"
-      },
-      {
-        "id": 40,
-        "category": "plats au sauce champignons",
-        "title": "ستيك لحم بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 65,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Steak de Viande.jpeg"
-      },
-      {
-        "id": 41,
-        "category": "plats au sauce champignons",
-        "title": "ستيك لحم بصلصة الفطر (2)",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 65,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Steak de Viande.jpg"
-      },
-      {
-        "id": 42,
-        "category": "plats au sauce champignons",
-        "title": "إيمانسيه دجاج بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 58,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Émincé de Poulet.jpg"
-      },
-      {
-        "id": 43,
-        "category": "plats au sauce champignons",
-        "title": "إيمانسيه لحم بصلصة الفطر",
-        "desc": "طبق مميز مع صلصة الفطر الغنية واللذيذة",
-        "price": 60,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Émincé de viande.jpg"
-      },
-      {
-        "id": 44,
-        "category": "poulet rôtisserie",
-        "title": "دجاج محمر",
-        "desc": "دجاج محمر بتتبيلة سرية يقدم مع الإضافات",
-        "price": 70,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Poulet rôtisserie/AdobeStock_107353013_1600x.jpg"
-      },
-      {
-        "id": 45,
-        "category": "poulet rôtisserie",
-        "title": "دجاج محمر بالليمون",
-        "desc": "دجاج محمر بتتبيلة سرية يقدم مع الإضافات",
-        "price": 75,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Poulet rôtisserie/Rotisserie-Chicken-lemon-rosemary-on-board-scaled.jpeg"
-      },
-      {
-        "id": 46,
-        "category": "pâtes",
-        "title": "معكرونة 4 أجبان",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/4 Fromages.jpg"
-      },
-      {
-        "id": 47,
-        "category": "pâtes",
-        "title": "معكرونة بولونيز",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/Bolognaise.jpg"
-      },
-      {
-        "id": 48,
-        "category": "pâtes",
-        "title": "معكرونة كاربونارا",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 48,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/Carbonara.jpg"
-      },
-      {
-        "id": 49,
-        "category": "pâtes",
-        "title": "معكرونة فواكه البحر",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/Fruits de mer.jpeg"
-      },
-      {
-        "id": 50,
-        "category": "pâtes",
-        "title": "معكرونة بالدجاج",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/Poulet.jpg"
-      },
-      {
-        "id": 51,
-        "category": "pâtes",
-        "title": "معكرونة بالطون",
-        "desc": "مكرونة محضرة على الطريقة الإيطالية بصلصات متنوعة",
-        "price": 40,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Pâtes/Thon.jpg"
-      },
-      {
-        "id": 52,
-        "category": "sandwich",
-        "title": "سندويش كوردون بلو",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Cordon Bleu.jpg"
-      },
-      {
-        "id": 53,
-        "category": "sandwich",
-        "title": "سندويش كبدة",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Foie.jpg"
-      },
-      {
-        "id": 54,
-        "category": "sandwich",
-        "title": "سندويش ميكس",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Mixte.jpeg"
-      },
-      {
-        "id": 55,
-        "category": "sandwich",
-        "title": "سندويش نقانق",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Saucisse.jpg"
-      },
-      {
-        "id": 56,
-        "category": "sandwich",
-        "title": "سندويش بالطون",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Thon.jpg"
-      },
-      {
-        "id": 57,
-        "category": "sandwich",
-        "title": "سندويش كفتة",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/Viande hachée.jpg"
-      },
-      {
-        "id": 58,
-        "category": "sandwich",
-        "title": "سندويش دجاج",
-        "desc": "سندويش محضر بخبز طازج وحشوات لذيذة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/Sandwich/poulet.jpg"
-      },
-      {
-        "id": 59,
-        "category": "panini",
-        "title": "بانيني",
-        "desc": "بانيني محمص ومقرمش محشو بألذ المكونات",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/panini/panini.jpg"
-      },
-      {
-        "id": 60,
-        "category": "pizza",
-        "title": "بيتزا فواكه البحر",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Fruits de mer.jpg"
-      },
-      {
-        "id": 61,
-        "category": "pizza",
-        "title": "بيتزا بيو فود",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 60,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Bio Food.jpeg"
-      },
-      {
-        "id": 62,
-        "category": "pizza",
-        "title": "بيتزا مارغريتا",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Margherita.jpg"
-      },
-      {
-        "id": 63,
-        "category": "pizza",
-        "title": "بيتزا رويال",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Royale.jpg"
-      },
-      {
-        "id": 64,
-        "category": "pizza",
-        "title": "بيتزا أمريكية",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza américaine.jpg"
-      },
-      {
-        "id": 65,
-        "category": "pizza",
-        "title": "بيتزا بالدجاج",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza au poulet.jpeg"
-      },
-      {
-        "id": 66,
-        "category": "pizza",
-        "title": "بيتزا بالطون",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza au thon.jpg"
-      },
-      {
-        "id": 67,
-        "category": "pizza",
-        "title": "بيتزا 4 أجبان",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza aux 4 fromages.jpg"
-      },
-      {
-        "id": 68,
-        "category": "pizza",
-        "title": "بيتزا 4 فصول",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza aux 4 saisons.jpg"
-      },
-      {
-        "id": 69,
-        "category": "pizza",
-        "title": "بيتزا شاركوتري",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 55,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza charcuterie.jpg"
-      },
-      {
-        "id": 70,
-        "category": "pizza",
-        "title": "بيتزا نباتية",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 40,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza végétarienne.png"
-      },
-      {
-        "id": 71,
-        "category": "pizza",
-        "title": "بيتزا بالكفتة",
-        "desc": "بيتزا إيطالية أصيلة بجبنة الموتزاريلا الذائبة والمكونات الطازجة",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/pizza/VIANDE HACHEE.jpg"
-      },
-      {
-        "id": 72,
-        "category": "salades",
-        "title": "سلطة سيزر",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/César.jpg"
-      },
-      {
-        "id": 73,
-        "category": "salades",
-        "title": "سلطة فواكه البحر",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/Fruit de mer.jpeg"
-      },
-      {
-        "id": 74,
-        "category": "salades",
-        "title": "سلطة الدار",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/Maison.jpg"
-      },
-      {
-        "id": 75,
-        "category": "salades",
-        "title": "سلطة مغربية",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 25,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/Marocain.jpg"
-      },
-      {
-        "id": 76,
-        "category": "salades",
-        "title": "سلطة نيسواز",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 35,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/Nicois.jpg"
-      },
-      {
-        "id": 77,
-        "category": "salades",
-        "title": "سلطة بالخضار والزيتون",
-        "desc": "سلطة صحية وطازجة غنية بالخضروات والصلصات",
-        "price": 30,
-        "img": "https://lhaj9.github.io/Darelbanna/images/salades/vegetables-olive.jpg"
-      },
-      {
-        "id": 78,
-        "category": "tacos",
-        "title": "طاكو كوردون بلو",
-        "desc": "طاكو محشو باللحم والصلصات المميزة مع البطاطس",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Cordon Bleu.png"
-      },
-      {
-        "id": 79,
-        "category": "tacos",
-        "title": "طاكو ميكس",
-        "desc": "طاكو محشو باللحم والصلصات المميزة مع البطاطس",
-        "price": 50,
-        "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Mixte.jpg"
-      },
-      {
-        "id": 80,
-        "category": "tacos",
-        "title": "طاكو ناجتس",
-        "desc": "طاكو محشو باللحم والصلصات المميزة مع البطاطس",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Nuggets.jpg"
-      },
-      {
-        "id": 81,
-        "category": "tacos",
-        "title": "طاكو دجاج",
-        "desc": "طاكو محشو باللحم والصلصات المميزة مع البطاطس",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Poulet.jpg"
-      },
-      {
-        "id": 82,
-        "category": "tacos",
-        "title": "طاكو كفتة",
-        "desc": "طاكو محشو باللحم والصلصات المميزة مع البطاطس",
-        "price": 45,
-        "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Viande hachée.jpg"
-      }
-    ]
-  }
+﻿{
+    "categories":  [
+                       {
+                           "id":  "boisson",
+                           "name":  "مشروبات منعشة"
+                       },
+                       {
+                           "id":  "burger",
+                           "name":  "برجر فاخر"
+                       },
+                       {
+                           "id":  "dessert",
+                           "name":  "حلويات ولذائذ"
+                       },
+                       {
+                           "id":  "jus frais",
+                           "name":  "عصائر طبيعية"
+                       },
+                       {
+                           "id":  "pasticcio - gratin",
+                           "name":  "باستيشيو وغراتان"
+                       },
+                       {
+                           "id":  "plats",
+                           "name":  "أطباق رئيسية"
+                       },
+                       {
+                           "id":  "plats au sauce champignons",
+                           "name":  "أطباق بصلصة الفطر"
+                       },
+                       {
+                           "id":  "poulet rôtisserie",
+                           "name":  "دجاج محمر وشواية"
+                       },
+                       {
+                           "id":  "pâtes",
+                           "name":  "معكرونة إيطالية"
+                       },
+                       {
+                           "id":  "sandwich",
+                           "name":  "سندويشات سريعة"
+                       },
+                       {
+                           "id":  "panini",
+                           "name":  "بانيني لذيذ"
+                       },
+                       {
+                           "id":  "pizza",
+                           "name":  "بيتزا إيطالية"
+                       },
+                       {
+                           "id":  "salades",
+                           "name":  "سلطات طازجة"
+                       },
+                       {
+                           "id":  "tacos",
+                           "name":  "تاكوس شهي"
+                       }
+                   ],
+    "menu":  [
+                 {
+                     "id":  1,
+                     "category":  "boisson",
+                     "title":  "مشروب غازي",
+                     "desc":  "مشروبات غازية باردة ومنعشة بمختلف النكهات",
+                     "price":  10,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Boisson/Boisson gazeuse.jpg"
+                 },
+                 {
+                     "id":  2,
+                     "category":  "boisson",
+                     "title":  "ماء غازي 1 لتر",
+                     "desc":  "ماء فوار طبيعي ومنعش عبوة 1 لتر",
+                     "price":  15,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau gazeuse 1 L.jpg"
+                 },
+                 {
+                     "id":  3,
+                     "category":  "boisson",
+                     "title":  "ماء غازي كبير",
+                     "desc":  "ماء فوار حجم عائلي منعش",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau gazeuse maxi.jpg"
+                 },
+                 {
+                     "id":  4,
+                     "category":  "boisson",
+                     "title":  "ماء معدني 1 لتر",
+                     "desc":  "ماء معدني طبيعي نقي عبوة 1 لتر",
+                     "price":  8,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau minérale 1 L.jpg"
+                 },
+                 {
+                     "id":  5,
+                     "category":  "boisson",
+                     "title":  "ماء معدني 50 مل",
+                     "desc":  "زجاجة ماء معدني طبيعي نقي 50 سنتيلتر",
+                     "price":  5,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Boisson/Eau minérale 50 cl.jpg"
+                 },
+                 {
+                     "id":  6,
+                     "category":  "burger",
+                     "title":  "بيج برجر",
+                     "desc":  "برجر ضخم مع شريحتين لحم، جبن ذائب، خس وصلصة خاصة",
+                     "price":  45,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Burger/Bigg.jpeg"
+                 },
+                 {
+                     "id":  7,
+                     "category":  "burger",
+                     "title":  "تشيز برجر",
+                     "desc":  "برجر كلاسيكي مع شريحة لحم وجبنة شيدر ذائبة وخضار طازجة",
+                     "price":  30,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Burger/Cheese.jpg"
+                 },
+                 {
+                     "id":  8,
+                     "category":  "burger",
+                     "title":  "برجر دجاج",
+                     "desc":  "صدر دجاج مقرمش مع الخس والمايونيز وجبنة شيدر",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Burger/Chicken.jpg"
+                 },
+                 {
+                     "id":  9,
+                     "category":  "burger",
+                     "title":  "برجر ميكس",
+                     "desc":  "مزيج رائع من لحم البقر والدجاج المقرمش مع الجبنة والصلصة",
+                     "price":  48,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Burger/Mixte.png"
+                 },
+                 {
+                     "id":  10,
+                     "category":  "burger",
+                     "title":  "برجر كلاسيك",
+                     "desc":  "برجر بسيط ولذيذ مع شريحة لحم بقري مشوي وخضار طازجة",
+                     "price":  25,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Burger/Simple.jpg"
+                 },
+                 {
+                     "id":  11,
+                     "category":  "dessert",
+                     "title":  "مهلبية بالهيل واللوز",
+                     "desc":  "حلوى المهلبية الشرقية التقليدية بنكهة ماء الزهر والمكسرات",
+                     "price":  18,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Dessert/Mhalabia.jpg"
+                 },
+                 {
+                     "id":  12,
+                     "category":  "dessert",
+                     "title":  "بانا كوتا بالتوت",
+                     "desc":  "حلوى بانا كوتا إيطالية كريمية تقدم مع صوص التوت البري",
+                     "price":  22,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Dessert/Panna cotta.jpeg"
+                 },
+                 {
+                     "id":  13,
+                     "category":  "dessert",
+                     "title":  "سلطة فواكه طازجة",
+                     "desc":  "تشكيلة من الفواكه الموسمية الطازجة والمقطعة بعناية",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Dessert/Salade Fruit.jpeg"
+                 },
+                 {
+                     "id":  14,
+                     "category":  "jus frais",
+                     "title":  "عصير أفوكادو بالفواكه الجافة",
+                     "desc":  "عصير أفوكادو غني مع العسل والمكسرات المشكلة والفواكه الجافة",
+                     "price":  28,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus avocat fruits secs.jpg"
+                 },
+                 {
+                     "id":  15,
+                     "category":  "jus frais",
+                     "title":  "عصير أناناس طبيعي",
+                     "desc":  "عصير أناناس طازج ومنعش محضر من حبات الأناناس الطازجة",
+                     "price":  22,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d\u0027ananas.jpg"
+                 },
+                 {
+                     "id":  16,
+                     "category":  "jus frais",
+                     "title":  "عصير أفوكادو",
+                     "desc":  "عصير أفوكادو طبيعي كريمي ولذيذ غني بالطاقة",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d\u0027avocat.jpg"
+                 },
+                 {
+                     "id":  17,
+                     "category":  "jus frais",
+                     "title":  "عصير برتقال طازج",
+                     "desc":  "عصير برتقال طبيعي 100% معصور طازجاً غني بفيتامين سي",
+                     "price":  15,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus d\u0027orange.jpg"
+                 },
+                 {
+                     "id":  18,
+                     "category":  "jus frais",
+                     "title":  "عصير موز بالحليب",
+                     "desc":  "مزيج رائع من الموز الطازج والحليب البارد مع لمسة عسل",
+                     "price":  18,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de banane.jpg"
+                 },
+                 {
+                     "id":  19,
+                     "category":  "jus frais",
+                     "title":  "عصير فراولة طبيعي",
+                     "desc":  "عصير فراولة منعش ولذيذ محضر من قطع الفراولة الطازجة",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de fraise.jpg"
+                 },
+                 {
+                     "id":  20,
+                     "category":  "jus frais",
+                     "title":  "عصير مانجو طبيعي",
+                     "desc":  "عصير مانجو طبيعي غني وبارد من أجود حبات المانجو",
+                     "price":  22,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de mangue.jpg"
+                 },
+                 {
+                     "id":  21,
+                     "category":  "jus frais",
+                     "title":  "موهيتو منعش",
+                     "desc":  "مشروب الموهيتو الكلاسيكي مع الليمون والنعناع والثلج المجروش",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de mojito.jpg"
+                 },
+                 {
+                     "id":  22,
+                     "category":  "jus frais",
+                     "title":  "عصير تفاح وبرتقال",
+                     "desc":  "كوكتيل منعش يجمع بين عصير التفاح الطبيعي والبرتقال الطازج",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de pomme - orange.jpeg"
+                 },
+                 {
+                     "id":  23,
+                     "category":  "jus frais",
+                     "title":  "عصير تفاح طبيعي",
+                     "desc":  "عصير تفاح طازج ومصفي غني بالطعم المنعش",
+                     "price":  18,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de pomme.jpg"
+                 },
+                 {
+                     "id":  24,
+                     "category":  "jus frais",
+                     "title":  "عصير زعزع الشهير",
+                     "desc":  "عصير زعزع المغربي التقليدي الغني بالفواكه الجافة والشوكولاتة والكراميل",
+                     "price":  30,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus de zaâzaâ.jpg"
+                 },
+                 {
+                     "id":  25,
+                     "category":  "jus frais",
+                     "title":  "عصير باناشي مشكل",
+                     "desc":  "كوكتيل فواكه مشكلة بالحليب لذيذ ومغذي للغاية",
+                     "price":  22,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Jus Frais/Jus panaché.jpg"
+                 },
+                 {
+                     "id":  26,
+                     "category":  "panini",
+                     "title":  "بانيني ميكس",
+                     "desc":  "خبز البانيني الإيطالي المحمص والمحشو بالدجاج والجبن والصلصة",
+                     "price":  25,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/panini/panini.jpg"
+                 },
+                 {
+                     "id":  27,
+                     "category":  "pasticcio - gratin",
+                     "title":  "باستيشيو بالديك الرومي المدخن",
+                     "desc":  "غراتان باستيشيو الشهير بقطع الديك الرومي المدخن والصلصة البيضاء والجبن",
+                     "price":  38,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Dinde Fumée.jpg"
+                 },
+                 {
+                     "id":  28,
+                     "category":  "pasticcio - gratin",
+                     "title":  "باستيشيو بفواكه البحر",
+                     "desc":  "باستيشيو غني بفواكه البحر الطازجة من روبيان وكاليماري مع الجبن الذائب",
+                     "price":  48,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Fruits de mer.jpg"
+                 },
+                 {
+                     "id":  29,
+                     "category":  "pasticcio - gratin",
+                     "title":  "باستيشيو ميكس",
+                     "desc":  "باستيشيو يجمع بين الدجاج، الكفتة، والديك الرومي مع صلصة البشاميل والجبن",
+                     "price":  42,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Mixte.jpg"
+                 },
+                 {
+                     "id":  30,
+                     "category":  "pasticcio - gratin",
+                     "title":  "باستيشيو بالدجاج",
+                     "desc":  "باستيشيو تقليدي بقطع الدجاج المتبل وصلصة البشاميل الكريمية والجبن الشيدر",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Poulet.jpg"
+                 },
+                 {
+                     "id":  31,
+                     "category":  "pasticcio - gratin",
+                     "title":  "باستيشيو باللحم المفروم",
+                     "desc":  "باستيشيو كلاسيكي باللحم المفروم المتبل والجبن الذائب والبطاطس المقرمشة",
+                     "price":  38,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pasticcio - Gratin/Viande hachée.jpg"
+                 },
+                 {
+                     "id":  32,
+                     "category":  "pizza",
+                     "title":  "بيتزا فواكه البحر",
+                     "desc":  "بيتزا غنية بفواكه البحر الطازجة من جمبري وكاليماري مع صلصة الطماطم والموزاريلا",
+                     "price":  65,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Fruits de mer.jpg"
+                 },
+                 {
+                     "id":  33,
+                     "category":  "pizza",
+                     "title":  "بيتزا أمريكية بالبيبروني",
+                     "desc":  "بيتزا على الطريقة الأمريكية مغطاة بشرائح البيبروني البقري والجبن الوفير",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza américaine.jpg"
+                 },
+                 {
+                     "id":  34,
+                     "category":  "pizza",
+                     "title":  "بيتزا بالدجاج",
+                     "desc":  "قطع الدجاج المتبل مع الفلفل الألوان والزيتون الأسود والجبن الذائب",
+                     "price":  50,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza au poulet.jpeg"
+                 },
+                 {
+                     "id":  35,
+                     "category":  "pizza",
+                     "title":  "بيتزا بالطون",
+                     "desc":  "بيتزا بقطع التونة الفاخرة والبصل والزيتون مع جبنة الموزاريلا",
+                     "price":  45,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza au thon.jpg"
+                 },
+                 {
+                     "id":  36,
+                     "category":  "pizza",
+                     "title":  "بيتزا الأجبان الأربعة",
+                     "desc":  "مزيج رائع من أربعة أجبان فاخرة لمتعة لا تقاوم",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza aux 4 fromages.jpg"
+                 },
+                 {
+                     "id":  37,
+                     "category":  "pizza",
+                     "title":  "بيتزا الفصول الأربعة",
+                     "desc":  "مقسمة بأربعة حشوات مختلفة: خضار، تونة، دجاج، ولحم مفروم",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza aux 4 saisons.jpg"
+                 },
+                 {
+                     "id":  38,
+                     "category":  "pizza",
+                     "title":  "بيتزا بيو فود الصحية",
+                     "desc":  "بيتزا بمكونات عضوية وصحية مع الخضروات الطازجة وزيت الزيتون",
+                     "price":  50,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Bio Food.jpeg"
+                 },
+                 {
+                     "id":  39,
+                     "category":  "pizza",
+                     "title":  "بيتزا بالشاركوتري",
+                     "desc":  "مغطاة بتشكيلة من اللحوم الباردة المدخنة وجبن الموزاريلا الغني",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza charcuterie.jpg"
+                 },
+                 {
+                     "id":  40,
+                     "category":  "pizza",
+                     "title":  "بيتزا مارغريتا",
+                     "desc":  "البيتزا الإيطالية الكلاسيكية بصلصة الطماطم وجبنة الموزاريلا والريحان",
+                     "price":  38,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Margherita.jpg"
+                 },
+                 {
+                     "id":  41,
+                     "category":  "pizza",
+                     "title":  "بيتزا رويال الملكية",
+                     "desc":  "حشوة ملكية غنية باللحم المفروم، البيبروني، الفطر، والخضار",
+                     "price":  60,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza Royale.jpg"
+                 },
+                 {
+                     "id":  42,
+                     "category":  "pizza",
+                     "title":  "بيتزا نباتية بالخضار",
+                     "desc":  "تشكيلة من الخضروات الطازجة المشوية كالفلفل، الطماطم، البصل، والفطر",
+                     "price":  42,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/Pizza végétarienne.png"
+                 },
+                 {
+                     "id":  43,
+                     "category":  "pizza",
+                     "title":  "بيتزا باللحم المفروم",
+                     "desc":  "بيتزا مغطاة باللحم المفروم المتبل والبهارات الإيطالية وجبن الموزاريلا",
+                     "price":  50,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/pizza/VIANDE HACHEE.jpg"
+                 },
+                 {
+                     "id":  44,
+                     "category":  "plats",
+                     "title":  "طبق كبدة مشرملة",
+                     "desc":  "قطع الكبدة الطازجة المطهوة على الطريقة المغربية مع التوابل والكزبرة",
+                     "price":  45,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/Foie.jpg"
+                 },
+                 {
+                     "id":  45,
+                     "category":  "plats",
+                     "title":  "طبق مشويات ميكس",
+                     "desc":  "طبق متنوع يضم الكفتة، الدجاج، والنقانق المشوية مع البطاطس والسلطة",
+                     "price":  60,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/mixte.jpg"
+                 },
+                 {
+                     "id":  46,
+                     "category":  "plats",
+                     "title":  "طبق صدر دجاج مشوي",
+                     "desc":  "صدور الدجاج المتبلة والمشوية تقدم مع الأرز أو البطاطس المقلية والسلطة",
+                     "price":  50,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/Poulet.jpg"
+                 },
+                 {
+                     "id":  47,
+                     "category":  "plats",
+                     "title":  "طبق نقانق مشوية",
+                     "desc":  "نقانق بقرية مشوية على الفحم تقدم مع البطاطس المقلية والصلصات",
+                     "price":  40,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/Saucisse.jpeg"
+                 },
+                 {
+                     "id":  48,
+                     "category":  "plats",
+                     "title":  "طبق لحم مشوي",
+                     "desc":  "قطع اللحم البقري الطري والمتبل المشوي يقدم ساخناً مع المقبلات",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/viand.jpg"
+                 },
+                 {
+                     "id":  49,
+                     "category":  "plats",
+                     "title":  "طبق كفتة مشوية",
+                     "desc":  "كفتة متبلة على الطريقة المغربية التقليدية مشوية على الفحم",
+                     "price":  50,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats/Viande hachée.jpg"
+                 },
+                 {
+                     "id":  50,
+                     "category":  "plats au sauce champignons",
+                     "title":  "دجاج بصلصة الفطر",
+                     "desc":  "شرائح صدر الدجاج الطرية المطهوة ببطء في كريمة الطهي الغنية مع قطع الفطر",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Chicken.jpg"
+                 },
+                 {
+                     "id":  51,
+                     "category":  "plats au sauce champignons",
+                     "title":  "كوردون بلو بصلصة الفطر",
+                     "desc":  "لفائف الدجاج المحشوة بالجبن والديك الرومي مع صلصة الفطر الكريمية",
+                     "price":  60,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Cordon Bleu.jpg"
+                 },
+                 {
+                     "id":  52,
+                     "category":  "plats au sauce champignons",
+                     "title":  "ناجتس دجاج بصلصة الفطر",
+                     "desc":  "قطع ناجتس مقرمشة تقدم مع صلصة الفطر الكريمية الساخنة",
+                     "price":  45,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Nuggets.jpg"
+                 },
+                 {
+                     "id":  53,
+                     "category":  "plats au sauce champignons",
+                     "title":  "ستيك لحم بصلصة الفطر",
+                     "desc":  "ستيك لحم بقري مشوي ومتبل بصلصة الفطر الغنية بالكريمة",
+                     "price":  68,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Steak de Viande.jpeg"
+                 },
+                 {
+                     "id":  54,
+                     "category":  "plats au sauce champignons",
+                     "title":  "ستيك لحم بصلصة الفطر",
+                     "desc":  "ستيك لحم بقري مشوي ومتبل بصلصة الفطر الغنية بالكريمة",
+                     "price":  68,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Steak de Viande.jpg"
+                 },
+                 {
+                     "id":  55,
+                     "category":  "plats au sauce champignons",
+                     "title":  "إيمانسيه دجاج بالفطر",
+                     "desc":  "شرائح دجاج رفيعة مطهوة بصلصة الكريمة والفطر الطازج",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Émincé de Poulet.jpg"
+                 },
+                 {
+                     "id":  56,
+                     "category":  "plats au sauce champignons",
+                     "title":  "إيمانسيه لحم بالفطر",
+                     "desc":  "شرائح لحم رفيعة مطهوة مع الفطر والبصل بصلصة الكريمة الغنية",
+                     "price":  60,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Plats au sauce champignons/Émincé de viande.jpg"
+                 },
+                 {
+                     "id":  57,
+                     "category":  "poulet rôtisserie",
+                     "title":  "دجاج محمر كامل",
+                     "desc":  "دجاجة كاملة محمرة بالفرن متبلة بالأعشاب والليمون على الطريقة المغربية",
+                     "price":  75,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Poulet rôtisserie/AdobeStock_107353013_1600x.jpg"
+                 },
+                 {
+                     "id":  58,
+                     "category":  "poulet rôtisserie",
+                     "title":  "نصف دجاجة محمرة بالروزماري",
+                     "desc":  "نصف دجاجة مشوية متبلة بالروزماري والثوم والليمون تقدم ساخنة",
+                     "price":  40,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Poulet rôtisserie/Rotisserie-Chicken-lemon-rosemary-on-board-scaled.jpeg"
+                 },
+                 {
+                     "id":  59,
+                     "category":  "pâtes",
+                     "title":  "باستا الأجبان الأربعة",
+                     "desc":  "معكرونة مغطاة بصلصة غنية من أربعة أنواع من الأجبان الفاخرة",
+                     "price":  42,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/4 Fromages.jpg"
+                 },
+                 {
+                     "id":  60,
+                     "category":  "pâtes",
+                     "title":  "باستا بولونيز",
+                     "desc":  "معكرونة إيطالية بصلصة اللحم المفروم والطماطم والأعشاب العطرية",
+                     "price":  38,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/Bolognaise.jpg"
+                 },
+                 {
+                     "id":  61,
+                     "category":  "pâtes",
+                     "title":  "باستا كاربونارا",
+                     "desc":  "معكرونة بصلصة الكريمة والبيض والجبن البارميزان مع الديك الرومي المدخن",
+                     "price":  45,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/Carbonara.jpg"
+                 },
+                 {
+                     "id":  62,
+                     "category":  "pâtes",
+                     "title":  "باستا فواكه البحر",
+                     "desc":  "معكرونة بفواكه البحر الطازجة من جمبري وكاليماري بصلصة الطماطم أو الكريمة",
+                     "price":  55,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/Fruits de mer.jpeg"
+                 },
+                 {
+                     "id":  63,
+                     "category":  "pâtes",
+                     "title":  "باستا بالدجاج والفطر",
+                     "desc":  "معكرونة بقطع الدجاج الطرية والفطر الطازج بصلصة الكريمة البيضاء",
+                     "price":  40,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/Poulet.jpg"
+                 },
+                 {
+                     "id":  64,
+                     "category":  "pâtes",
+                     "title":  "باستا بالطونة والزيتون",
+                     "desc":  "معكرونة خفيفة بقطع التونة وصلصة الطماطم والزيتون الأسود",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Pâtes/Thon.jpg"
+                 },
+                 {
+                     "id":  65,
+                     "category":  "salades",
+                     "title":  "سلطة سيزر بالدجاج",
+                     "desc":  "خس طازج، قطع صدر دجاج مشوي، خبز محمص، مغطاة بصلصة السيزر والبارميزان",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/César.jpg"
+                 },
+                 {
+                     "id":  66,
+                     "category":  "salades",
+                     "title":  "سلطة فواكه البحر",
+                     "desc":  "سلطة منعشة بفواكه البحر المتنوعة مع الخضار الورقية وصلصة الليمون",
+                     "price":  48,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/Fruit de mer.jpeg"
+                 },
+                 {
+                     "id":  67,
+                     "category":  "salades",
+                     "title":  "سلطة الدار المميزة",
+                     "desc":  "سلطة خاصة بمكونات طازجة مشكلة من الخضروات والبيض والصلصة الخاصة",
+                     "price":  30,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/Maison.jpg"
+                 },
+                 {
+                     "id":  68,
+                     "category":  "salades",
+                     "title":  "سلطة مغربية تقليدية",
+                     "desc":  "مزيج كلاسيكي من الطماطم الطازجة، الخيار، البصل، البقدونس وزيت الزيتون",
+                     "price":  18,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/Marocain.jpg"
+                 },
+                 {
+                     "id":  69,
+                     "category":  "salades",
+                     "title":  "سلطة نيسواز",
+                     "desc":  "سلطة نيسواز الشهيرة بالتونة، البيض المسلوق، البطاطس، الفاصوليا والزيتون",
+                     "price":  30,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/Nicois.jpg"
+                 },
+                 {
+                     "id":  70,
+                     "category":  "salades",
+                     "title":  "سلطة الخضار والزيتون",
+                     "desc":  "سلطة يونانية بالخضار الطازجة، جبنة الفيتا، والزيتون الأسود الفاخر",
+                     "price":  28,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/salades/vegetables-olive.jpg"
+                 },
+                 {
+                     "id":  71,
+                     "category":  "sandwich",
+                     "title":  "سندويش كوردون بلو",
+                     "desc":  "كوردون بلو مقرمش بالجبن مع الخس، الطماطم والصلصات بخبز طازج",
+                     "price":  28,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Cordon Bleu.jpg"
+                 },
+                 {
+                     "id":  72,
+                     "category":  "sandwich",
+                     "title":  "سندويش كبدة مغربية",
+                     "desc":  "كبدة متبلة ومطهوة تقدم في خبز طازج مع البصل والبهارات",
+                     "price":  25,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Foie.jpg"
+                 },
+                 {
+                     "id":  73,
+                     "category":  "sandwich",
+                     "title":  "سندويش ميكس",
+                     "desc":  "سندويش يجمع بين الكفتة والدجاج مع الجبن والبطاطس المقلية",
+                     "price":  32,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Mixte.jpeg"
+                 },
+                 {
+                     "id":  74,
+                     "category":  "sandwich",
+                     "title":  "سندويش دجاج مشوي",
+                     "desc":  "شرائح صدر دجاج مشوية مع الخس والمايونيز والجبن",
+                     "price":  25,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/poulet.jpg"
+                 },
+                 {
+                     "id":  75,
+                     "category":  "sandwich",
+                     "title":  "سندويش نقانق",
+                     "desc":  "نقانق مشوية مع الخردل والصلصات والخضار في خبز ساندويش",
+                     "price":  22,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Saucisse.jpg"
+                 },
+                 {
+                     "id":  76,
+                     "category":  "sandwich",
+                     "title":  "سندويش تونة بالبيض",
+                     "desc":  "سندويش كلاسيكي بالتونة، البيض المسلوق، المايونيز والسلطة",
+                     "price":  20,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Thon.jpg"
+                 },
+                 {
+                     "id":  77,
+                     "category":  "sandwich",
+                     "title":  "سندويش كفتة",
+                     "desc":  "سندويش كفتة مشوية متبلة بالبهارات المغربية مع السلطة والصلصة",
+                     "price":  28,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/Sandwich/Viande hachée.jpg"
+                 },
+                 {
+                     "id":  78,
+                     "category":  "tacos",
+                     "title":  "طاكو كوردون بلو",
+                     "desc":  "تاكوس فرنسي محشو بقطع الكوردون بلو المقرمشة، البطاطس وصلصة الجبن الغنية",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/tacos/Cordon Bleu.png"
+                 },
+                 {
+                     "id":  79,
+                     "category":  "tacos",
+                     "title":  "طاكو ميكس",
+                     "desc":  "تاكوس بحشوة مشكلة من الدجاج والكفتة والبطاطس المقلية وصلصة الجبن",
+                     "price":  40,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/tacos/Mixte.jpg"
+                 },
+                 {
+                     "id":  80,
+                     "category":  "tacos",
+                     "title":  "طاكو ناجتس",
+                     "desc":  "تاكوس فرنسي بقطع الناجتس الذهبية المقرمشة والبطاطس وصلصة الجبن",
+                     "price":  32,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/tacos/Nuggets.jpg"
+                 },
+                 {
+                     "id":  81,
+                     "category":  "tacos",
+                     "title":  "طاكو دجاج متبل",
+                     "desc":  "قطع دجاج متبلة ومطهوة مع البطاطس المقلية وصلصة الجبن الكريمية",
+                     "price":  32,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/tacos/Poulet.jpg"
+                 },
+                 {
+                     "id":  82,
+                     "category":  "tacos",
+                     "title":  "طاكو باللحم المفروم",
+                     "desc":  "تاكوس باللحم المفروم اللذيذ مع البطاطس وصلصة الجبن الخاصة",
+                     "price":  35,
+                     "img":  "https://lhaj9.github.io/Darelbanna/images/tacos/Viande hachée.jpg"
+                 }
+             ]
+}
