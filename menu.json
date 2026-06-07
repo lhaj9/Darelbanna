@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "categories": [
     { "id": "boisson", "name": "مشروبات" },
     { "id": "burger", "name": "برجر" },
@@ -14,6 +15,16 @@
     { "id": "pizza", "name": "بيتزا" },
     { "id": "salades", "name": "سلطات" },
     { "id": "tacos", "name": "طاكو" }
+=======
+  "categoriesData": [
+    { "id": "burger", "title": "برجر خخخخ", "icon": "🍔", "img": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", "color": "from-orange-500/20" },
+    { "id": "pizza", "title": "بيتزا إيطالية", "icon": "🍕", "img": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", "color": "from-red-500/20" },
+    { "id": "tacos", "title": "تاكوس فرنسي", "icon": "🌮", "img": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", "color": "from-yellow-500/20" },
+    { "id": "sandwich", "title": "ساندويتشات", "icon": "🥖", "img": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", "color": "from-amber-700/20" },
+    { "id": "sides", "title": "مقبلات جانبية", "icon": "🍟", "img": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500", "color": "from-yellow-400/20" },
+    { "id": "drinks", "title": "مشروبات", "icon": "🥤", "img": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500", "color": "from-blue-500/20" },
+    { "id": "desserts", "title": "حلويات", "icon": "🍰", "img": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500", "color": "from-pink-500/20" }
+>>>>>>> b2b13725413c8457ca179d997907d8d213a2f8e6
   ],
   "menu": [
     { "id": 1, "category": "boisson", "title": "مشروب غازي", "desc": "مشروبات باردة ومنعشة تروي عطشك", "price": 20, "img": "https://lhaj9.github.io/Darelbanna/images/Boisson/Boisson gazeuse.jpg" },
