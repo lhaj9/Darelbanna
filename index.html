@@ -1257,13 +1257,13 @@
         // التهيئة النهائية وجلب البيانات
         window.onload = async () => {
             try {
-                const response = await fetch('menu.json');
+                const response = await fetch('menu.json?v=' + Date.now());
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                categoriesData = data.categoriesData || [];
-                menuData = data.menuData || [];
+                categoriesData = data.categoriesData || data.categories || [];
+                menuData = data.menuData || data.menu || [];
 
                 // رسم التصنيفات وتحديث السلة
                 renderCategories();
