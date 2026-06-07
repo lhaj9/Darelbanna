@@ -841,73 +841,9 @@
     <!--           xالسكربتات والمنطق البرمجي         -->
     <!-- ========================================== -->
     <script>
-        // --- 0. إزالة شاشة التحميل (Preloader) ---
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800); // تأخير بسيط لجمالية العرض
-        });
-
-        // --- 1. قاعدة بيانات ضخمة للتصنيفات والمنتجات ---
-        const categoriesData = [
-            { id: "burger", title: "برجر مشوي", icon: "🍔", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", color: "from-orange-500/20" },
-            { id: "pizza", title: "بيتزا إيطالية", icon: "🍕", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", color: "from-red-500/20" },
-            { id: "tacos", title: "تاكوس فرنسي", icon: "🌮", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", color: "from-yellow-500/20" },
-            { id: "sandwich", title: "ساندويتشات", icon: "🥖", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", color: "from-amber-700/20" },
-            { id: "sides", title: "مقبلات جانبية", icon: "🍟", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500", color: "from-yellow-400/20" },
-            { id: "drinks", title: "مشروبات", icon: "🥤", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500", color: "from-blue-500/20" },
-            { id: "desserts", title: "حلويات", icon: "🍰", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500", color: "from-pink-500/20" }
-        ];
-
-        const menuData = [
-            // --- برجر ---
-            { id: 1, category: "burger", title: "برجر كلاسيك دار البنة", desc: "لحم بقر 150ج، جبن شيدر، خس، طماطم، صلصة دار البنة.", price: 45, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" },
-            { id: 2, category: "burger", title: "دبل تشيز مونستر", desc: "شريحتين لحم 300ج، 4 شرائح جبن، بصل مكرمل مدخن.", price: 65, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" },
-            { id: 3, category: "burger", title: "كريسبي تشيكن حار", desc: "صدر دجاج مقرمش حار، مايونيز بالثوم، خس، مخلل.", price: 48, img: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500" },
-            { id: 4, category: "burger", title: "سموك هاوس باربكيو", desc: "لحم مشوي، لحم مقدد، حلقات بصل مقلية، صلصة BBQ.", price: 59, img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500" },
-            { id: 5, category: "burger", title: "ترافل ماشروم سويس", desc: "لحم مشوي، فطر طازج، جبن سويسري، زيت الكمأة.", price: 70, img: "https://images.unsplash.com/photo-1594212691516-436fe290a184?w=500" },
-            { id: 6, category: "burger", title: "فيجي برجر نباتي", desc: "فطيرة خضروات، أفوكادو، طماطم، صلصة زبادي.", price: 40, img: "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=500" },
-
-            // --- بيتزا ---
-            { id: 7, category: "pizza", title: "مارغريتا الأصلية", desc: "صلصة طماطم سان مارزانو، موزاريلا طازجة، ريحان وزيت زيتون.", price: 45, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
-            { id: 8, category: "pizza", title: "بيبروني لافرز", desc: "شرائح بيبروني بقري كثيفة، جبن موزاريلا، صلصة طماطم.", price: 55, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" },
-            { id: 9, category: "pizza", title: "تشيكن باربكيو", desc: "دجاج مشوي، بصل أحمر، كزبرة، صلصة طماطم وصلصة باربكيو.", price: 60, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=500" },
-            { id: 10, category: "pizza", title: "فواكه البحر الملكية", desc: "جمبري، كاليماري، بلح البحر، ثوم، وبقدونس.", price: 85, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" },
-            { id: 11, category: "pizza", title: "أجبان أربعة (كواترو)", desc: "موزاريلا، بارميزان، جورجونزولا، وجبن ماعز.", price: 65, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
-            { id: 12, category: "pizza", title: "بيتزا الخضار المشوية", desc: "باذنجان، فلفل ألوان، كوسا، فطر، وزيتون أسود.", price: 50, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=500" },
-
-            // --- تاكوس ---
-            { id: 13, category: "tacos", title: "طاكوس دجاج", desc: "لحم مفروم، دجاج متبل، بطاطس مقرمشة، صلصة الجبن وصلصة ألجيريان.", price: 55, img: "images/tacos/Poulet.jpg" },
-            { id: 14, category: "tacos", title: "تاكوس كوردون بلو", desc: "قطع كوردون بلو محشوة ديك رومي وجبن، بطاطس، صلصة الجبن.", price: 59, img: "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?w=500" },
-            { id: 15, category: "tacos", title: "تاكوس بولي تيكا", desc: "دجاج بتتبيلة التيكا الهندية، بطاطس، صلصة ثوم وجبن.", price: 50, img: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=500" },
-            { id: 16, category: "tacos", title: "تاكوس فياند أشي", desc: "لحم مفروم طازج، بطاطس، بصل، صلصة ساموراي حارة وجبن.", price: 50, img: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=500" },
-            { id: 17, category: "tacos", title: "تاكوس ميجا XXL", desc: "حجم عملاق! 3 لحوم من اختيارك، دبل جبن، بطاطس وصلصات.", price: 85, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500" },
-
-            // --- ساندويتشات ---
-            { id: 18, category: "sandwich", title: "كلوب ساندويتش دار البنة", desc: "خبز توست محمص 3 طبقات، دجاج، ديك رومي مدخن، بيض مقلي، وجبن.", price: 45, img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500" },
-            { id: 19, category: "sandwich", title: "فيلي تشيز ستيك", desc: "شرائح لحم بقري رفيعة، فلفل أخضر، بصل، وجبن ذائب بخبز فرنسي.", price: 60, img: "https://images.unsplash.com/photo-1528736235302-52922df5c122?w=500" },
-            { id: 20, category: "sandwich", title: "بانيني دجاج بيستو", desc: "دجاج مشوي، صلصة بيستو إيطالية، طماطم مجففة، وجبن موزاريلا.", price: 40, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" },
-            { id: 21, category: "sandwich", title: "بوكاديوس مغربي", desc: "طون، بطاطس مسلوقة، بيض، زيتون، أرز، وسلطة مغربية بالمايونيز.", price: 25, img: "https://images.unsplash.com/photo-1619860860774-1e2e1734263f?w=500" },
-
-            // --- مقبلات ---
-            { id: 22, category: "sides", title: "بطاطس كريسبي بالجبن والبيكون", desc: "بطاطس مقلية ذهبية مغطاة بصلصة الشيدر وقطع اللحم المقدد المقرمش.", price: 35, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500" },
-            { id: 23, category: "sides", title: "أجنحة دجاج بافلو (6 قطع)", desc: "أجنحة دجاج مقلية بصلصة البافلو الحارة مع صلصة الرانش الجانبية.", price: 40, img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=500" },
-            { id: 24, category: "sides", title: "أصابع الموزاريلا المقلية", desc: "5 أصابع موزاريلا مقرمشة من الخارج وذائبة من الداخل مع صلصة مارينارا.", price: 35, img: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=500" },
-            { id: 25, category: "sides", title: "حلقات البصل المقرمشة", desc: "حلقات بصل طازجة مقلية بخليط خاص مقرمش مع صلصة الباربيكيو.", price: 25, img: "https://images.unsplash.com/photo-1639024470008-01d78201b1b4?w=500" },
-
-            // --- مشروبات ---
-            { id: 26, category: "drinks", title: "موهيتو فراولة كلاسيك", desc: "مزيج منعش من الليمون، النعناع الطازج، هريس الفراولة والصودا.", price: 25, img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=500" },
-            { id: 27, category: "drinks", title: "ميلك شيك أوريو", desc: "آيس كريم فانيليا مخفوق مع حليب وبسكويت أوريو مغطى بالكريمة.", price: 30, img: "https://images.unsplash.com/photo-1572490122747-3968b25ce858?w=500" },
-            { id: 28, category: "drinks", title: "عصير برتقال طبيعي فريش", desc: "عصير برتقال طازج معصور يومياً بدون سكر مضاف.", price: 20, img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500" },
-            { id: 29, category: "drinks", title: "مشروبات غازية (علبة)", desc: "كوكاكولا، سبرايت، فانتا، هاواي (بمختلف الأحجام).", price: 10, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500" },
-
-            // --- حلويات ---
-            { id: 30, category: "desserts", title: "تشيز كيك نيويورك", desc: "شريحة تشيز كيك غنية وكريمية مع صلصة التوت البري.", price: 35, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500" },
-            { id: 31, category: "desserts", title: "تيراميسو إيطالي", desc: "طبقات من بسكويت السافوياردي المغمس بالقهوة مع كريمة الماسكاربوني.", price: 40, img: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=500" },
-            { id: 32, category: "desserts", title: "براوني الشوكولاتة والآيسكريم", desc: "قطعة براوني دافئة وغنية بالشوكولاتة تقدم مع كرة آيس كريم فانيليا.", price: 35, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500" }
-        ];
+        // --- 1. قاعدة بيانات ضخمة للتصنيفات والمنتجات (ديناميكية) ---
+        let categoriesData = [];
+        let menuData = [];
 
         let cart = [];
 
@@ -1318,17 +1254,32 @@
             }
         });
 
-        // التهيئة النهائية
-        window.onload = () => {
-            renderCategories();
-            updateCartUI();
+        // التهيئة النهائية وجلب البيانات
+        window.onload = async () => {
+            try {
+                const response = await fetch('menu.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                categoriesData = data.categoriesData || [];
+                menuData = data.menuData || [];
 
-            // تهيئة شاشة التحميل
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800);
+                // رسم التصنيفات وتحديث السلة
+                renderCategories();
+                updateCartUI();
+            } catch (error) {
+                console.error("فشل في تحميل القائمة من menu.json:", error);
+            } finally {
+                // إخفاء شاشة التحميل بعد انتهاء التحميل والرسم
+                setTimeout(() => {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => preloader.style.display = 'none', 500);
+                    }
+                }, 800);
+            }
         };
     </script>
 </body>
