@@ -1,6 +1,6 @@
 {
   "categoriesData": [
-    { "id": "burger", "title": "برجر مشوي", "icon": "🍔", "img": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", "color": "from-orange-500/20" },
+    { "id": "burger", "title": "برجر خخخخ", "icon": "🍔", "img": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", "color": "from-orange-500/20" },
     { "id": "pizza", "title": "بيتزا إيطالية", "icon": "🍕", "img": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", "color": "from-red-500/20" },
     { "id": "tacos", "title": "تاكوس فرنسي", "icon": "🌮", "img": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", "color": "from-yellow-500/20" },
     { "id": "sandwich", "title": "ساندويتشات", "icon": "🥖", "img": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", "color": "from-amber-700/20" },
