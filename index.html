@@ -324,6 +324,53 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+        /* Mobile Dashboard */
+        .mobile-dash-search {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+        .mobile-dash-search:focus-within {
+            border-color: rgba(255,107,0,0.5);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 20px rgba(255,107,0,0.1);
+        }
+        .mobile-promo-card {
+            background: linear-gradient(135deg, #ff6b00 0%, #cc5500 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .mobile-promo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .mobile-cat-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-cat-item:active {
+            transform: scale(0.92);
+        }
+        .mobile-popular-card {
+            transition: all 0.3s ease;
+        }
+        .mobile-popular-card:active {
+            transform: scale(0.97);
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .promo-shimmer {
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
     </style>
 </head>
 
@@ -349,7 +396,7 @@
 
     <!-- شريط التنقل (Navbar) -->
     <nav id="navbar"
-        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-3 md:py-4 px-4 md:px-8 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent">
+        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-3 md:py-4 px-4 md:px-8 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent hidden md:block">
         <div class="max-w-7xl mx-auto flex justify-center md:justify-between items-center w-full">
 
             <!-- الشعار -->
@@ -398,7 +445,7 @@
     <!-- شريط التنقل السفلي (Bottom Navigation Bar) للهواتف -->
     <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 z-[50] bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)] transition-transform duration-300">
         <!-- الرئيسية -->
-        <a href="#home" onclick="closeMobileMenuPage(); setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
+        <a href="#home" onclick="goToMobileDashboard(); setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
             <i class="fa-solid fa-house text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">الرئيسية</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full"></span>
@@ -451,21 +498,21 @@
         
         <!-- شبكة الخيارات التفاعلية (2x2 Grid) -->
         <div class="grid grid-cols-2 gap-3 p-6 overflow-y-auto max-h-[50vh] flex-grow">
-            <a href="#home" onclick="toggleMobileMenu(); closeMobileMenuPage()"
+            <a href="#home" onclick="toggleMobileMenu(); goToMobileDashboard()"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-house text-lg"></i>
                 </div>
                 <span class="text-white">الرئيسية</span>
             </a>
-            <a href="#features" onclick="toggleMobileMenu()"
+            <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('features')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-star text-lg"></i>
                 </div>
                 <span class="text-white">مميزاتنا</span>
             </a>
-            <a href="#promo" onclick="toggleMobileMenu()"
+            <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('promo')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-fire text-lg"></i>
@@ -479,14 +526,14 @@
                 </div>
                 <span class="text-white">قائمة الطعام</span>
             </a>
-            <a href="#gallery" onclick="toggleMobileMenu()"
+            <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('gallery')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-images text-lg"></i>
                 </div>
                 <span class="text-white">معرض الصور</span>
             </a>
-            <a href="#testimonials" onclick="toggleMobileMenu()"
+            <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('testimonials')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-comments text-lg"></i>
@@ -509,7 +556,7 @@
     </div>
 
     <!-- الواجهة الرئيسية (Hero Slider) -->
-    <header id="home" class="relative h-screen flex items-center justify-center overflow-hidden bg-brand-darker">
+    <header id="home" class="relative h-screen hidden md:flex items-center justify-center overflow-hidden bg-brand-darker">
         <!-- شرائح الخلفية -->
         <div id="heroSlider" class="absolute inset-0 z-0">
             <div class="slide active bg-cover bg-center"
@@ -601,7 +648,7 @@
     </header>
 
     <!-- قسم المميزات -->
-    <section id="features" class="py-24 bg-brand-dark relative z-10 border-t border-white/5">
+    <section id="features" class="py-24 bg-brand-dark relative z-10 border-t border-white/5 hidden md:block">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16 reveal">
                 <span class="text-brand-accent font-bold tracking-widest text-sm uppercase">لماذا نحن الأفضل؟</span>
@@ -649,7 +696,7 @@
     </section>
 
     <!-- قسم العرض الخاص -->
-    <section id="promo" class="py-20 relative bg-brand-primary overflow-hidden">
+    <section id="promo" class="py-20 relative bg-brand-primary overflow-hidden hidden md:block">
         <div
             class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1920')] bg-cover bg-center mix-blend-overlay opacity-20">
         </div>
@@ -696,7 +743,7 @@
     </section>
 
     <!-- المنيو التفاعلي (Categories Grid) -->
-    <section id="menu" class="py-24 bg-[#050505] min-h-screen relative border-t border-white/5">
+    <section id="menu" class="py-24 bg-[#050505] min-h-screen relative border-t border-white/5 hidden md:block">
         <div class="absolute inset-0 bg-pattern opacity-10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16 reveal">
@@ -920,7 +967,7 @@
     </div>
 
     <!-- معرض الصور -->
-    <section id="gallery" class="py-20 bg-brand-dark overflow-hidden border-t border-white/5">
+    <section id="gallery" class="py-20 bg-brand-dark overflow-hidden border-t border-white/5 hidden md:block">
         <div class="max-w-7xl mx-auto px-4 mb-12 text-center reveal">
             <h2 class="text-3xl md:text-4xl font-black mb-4">من مطبخنا إليك 📸</h2>
             <p class="text-brand-grayMuted">صور حقيقية لوجباتنا تفتح الشهية</p>
@@ -967,7 +1014,7 @@
     </section>
 
     <!-- آراء الزبائن -->
-    <section id="testimonials" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative">
+    <section id="testimonials" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative hidden md:block">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-black mb-16 reveal">ماذا يقول عشاق دار البنة؟ 💬</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
@@ -1054,7 +1101,7 @@
     </div>
 
     <!-- الفوتر -->
-    <footer class="bg-[#050505] pt-16 pb-8 border-t border-white/5 relative overflow-hidden">
+    <footer class="bg-[#050505] pt-16 pb-8 border-t border-white/5 relative overflow-hidden hidden md:block">
         <div class="absolute inset-0 bg-brand-primary/5 opacity-20 blur-[100px] pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 mb-12">
             <div class="space-y-6">
@@ -1139,8 +1186,92 @@
         </div>
     </footer>
 
+    <!-- ====================================================================== -->
+    <!-- لوحة تحكم التطبيق للهواتف (Mobile App Dashboard) -->
+    <!-- ====================================================================== -->
+    <div id="mobileDashboard" class="block md:hidden bg-brand-darker min-h-screen pb-24">
+
+        <!-- رأس التطبيق (App Header) -->
+        <div class="px-4 pt-6 pb-4 bg-gradient-to-b from-[#0f0f0f] to-brand-darker">
+            <!-- شعار وترحيب -->
+            <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                    <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار دار البنة" class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.4)]">
+                    <div>
+                        <p class="text-sm text-gray-400 leading-tight">مرحباً بك في</p>
+                        <h1 class="text-lg font-black text-white leading-tight">دار البنة 🍔</h1>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="javascript:void(0)" onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
+                        class="w-10 h-10 bg-[#25D366]/10 text-[#25D366] rounded-full flex items-center justify-center border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- شريط البحث -->
+            <div class="mobile-dash-search flex items-center gap-3 rounded-2xl px-4 py-3">
+                <i class="fa-solid fa-magnifying-glass text-brand-grayMuted text-sm"></i>
+                <input type="text" id="mobileDashSearch" placeholder="ابحث عن وجبتك المفضلة..." class="bg-transparent border-none outline-none text-white text-sm flex-grow placeholder-gray-500" oninput="filterMobileDashboard(this.value)">
+            </div>
+        </div>
+
+        <!-- بانر العروض (Promo Card) -->
+        <div class="px-4 mb-5">
+            <div class="mobile-promo-card rounded-2xl p-5 flex items-center justify-between gap-3 shadow-[0_8px_30px_rgba(255,107,0,0.25)]">
+                <div class="flex-1 z-10">
+                    <span class="bg-black/25 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white/90 border border-white/15 inline-block mb-2">عرض نهاية الأسبوع 🔥</span>
+                    <h3 class="text-base font-black text-white leading-snug mb-1">وجبة التوفير العائلية</h3>
+                    <p class="text-[11px] text-white/80 mb-3 leading-relaxed">2 بيتزا + 2 برجر + بطاطس + مشروب فقط بـ <strong>149 درهم</strong></p>
+                    <button onclick="addPromoToCart()" class="bg-white text-brand-primary px-4 py-2 rounded-xl text-xs font-black hover:bg-gray-100 transition-all shadow-md flex items-center gap-1.5">
+                        <i class="fa-solid fa-cart-plus"></i> اطلب الآن
+                    </button>
+                </div>
+                <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-white/20 shadow-lg shrink-0 z-10">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&q=80" alt="عرض عائلي" class="w-full h-full object-cover">
+                </div>
+                <!-- تأثير الوميض -->
+                <div class="absolute inset-0 promo-shimmer rounded-2xl pointer-events-none"></div>
+            </div>
+        </div>
+
+        <!-- التصنيفات الأفقية (Horizontal Categories) -->
+        <div class="mb-5">
+            <div class="flex items-center justify-between px-4 mb-3">
+                <h2 class="text-base font-black text-white">التصنيفات</h2>
+                <button onclick="openMobileMenuPage()" class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
+                    عرض الكل <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                </button>
+            </div>
+            <div id="mobileDashCategories" class="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2">
+                <!-- يتم ملؤه برمجياً -->
+            </div>
+        </div>
+
+        <!-- الوجبات الشائعة (Popular Items) -->
+        <div class="px-4">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-base font-black text-white">⭐ الأكثر طلباً</h2>
+                <button onclick="openMobileMenuPage()" class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
+                    قائمة الطعام <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                </button>
+            </div>
+            <div id="mobileDashPopularItems" class="grid grid-cols-2 gap-3">
+                <!-- يتم ملؤه برمجياً -->
+            </div>
+        </div>
+
+        <!-- نتائج بحث الموبايل -->
+        <div id="mobileDashSearchResults" class="px-4 mt-4 hidden">
+            <h3 class="text-sm font-bold text-brand-grayMuted mb-3">نتائج البحث:</h3>
+            <div id="mobileDashSearchGrid" class="grid grid-cols-2 gap-3"></div>
+        </div>
+
+    </div>
+
     <!-- الأزرار العائمة (واتساب وصعود) -->
-    <div id="floatingActions" class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 flex flex-col gap-3">
+    <div id="floatingActions" class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 hidden md:flex flex-col gap-3">
         <a href="javascript:void(0)" onclick="window.scrollTo(0,0)"
             class="w-12 h-12 bg-black/50 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-brand-primary transition-all shadow-lg hidden"
             id="scrollTopBtn"><i class="fa-solid fa-arrow-up"></i></a>
@@ -1224,6 +1355,168 @@
             }
         }
 
+        // --- 2.5. لوحة التحكم المحمولة (Mobile Dashboard Renderers) ---
+        function renderMobileDashCategories() {
+            const container = document.getElementById('mobileDashCategories');
+            if (!container || categoriesData.length === 0) return;
+            container.innerHTML = '';
+            categoriesData.forEach((cat, index) => {
+                container.innerHTML += `
+                    <div onclick="openCategoryPage('${cat.id}', '${cat.title}', '${cat.icon}')" class="mobile-cat-item flex flex-col items-center gap-1.5 cursor-pointer shrink-0" style="animation: fadeUp 0.4s ease forwards ${index * 0.04}s; opacity: 0;">
+                        <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/10 shadow-md relative">
+                            <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-1 left-1/2 -translate-x-1/2 text-xl drop-shadow-lg">${cat.icon}</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-300 text-center leading-tight max-w-[72px] line-clamp-1">${cat.title}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function renderPopularItems() {
+            const container = document.getElementById('mobileDashPopularItems');
+            if (!container || menuData.length === 0) return;
+
+            // اختيار وجبات متنوعة من تصنيفات مختلفة
+            const popularIds = ['burger', 'pizza', 'tacos', 'sandwich', 'pâtes', 'plats'];
+            let popular = [];
+            popularIds.forEach(catId => {
+                const items = menuData.filter(i => i.category === catId);
+                if (items.length > 0) {
+                    // اختيار العنصر ذو السعر الأعلى كـ "الأكثر طلباً"
+                    const best = items.reduce((a, b) => a.price > b.price ? a : b);
+                    popular.push(best);
+                }
+            });
+            // الحد الأقصى 6 وجبات
+            popular = popular.slice(0, 6);
+
+            container.innerHTML = '';
+            popular.forEach((item, index) => {
+                container.innerHTML += renderMobileItemCard(item, index);
+            });
+        }
+
+        function renderMobileItemCard(item, index) {
+            return `
+                <div class="mobile-popular-card glass-panel rounded-2xl overflow-hidden border border-white/5 shadow-lg" id="mobile-product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.06}s; opacity: 0;">
+                    <div class="relative h-28">
+                        <img src="${item.img}" alt="${item.title}" class="product-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        <div class="absolute top-2 left-2 bg-brand-dark/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                            <span class="text-brand-primary font-black text-[11px]">${item.price} <span class="text-[8px]">درهم</span></span>
+                        </div>
+                    </div>
+                    <div class="p-2.5 space-y-2">
+                        <h3 class="font-bold text-xs text-white line-clamp-1">${item.title}</h3>
+                        <p class="text-[10px] text-brand-grayMuted line-clamp-1 leading-relaxed">${item.desc}</p>
+                        <div class="flex items-center gap-1.5">
+                            <div class="flex items-center gap-0.5 bg-[#0a0a0a] rounded-lg border border-white/5 px-1 py-0.5">
+                                <button onclick="event.stopPropagation(); changeLocalQty(${item.id}, -1)" class="w-5 h-5 rounded flex justify-center items-center text-brand-grayMuted hover:text-white transition-colors"><i class="fa-solid fa-minus text-[8px]"></i></button>
+                                <span id="local-qty-${item.id}" class="w-4 text-center font-bold text-[10px] select-none">1</span>
+                                <button onclick="event.stopPropagation(); changeLocalQty(${item.id}, 1)" class="w-5 h-5 rounded flex justify-center items-center text-brand-grayMuted hover:text-white transition-colors"><i class="fa-solid fa-plus text-[8px]"></i></button>
+                            </div>
+                            <button onclick="event.stopPropagation(); addToCartWithAnimation(event, ${item.id})" class="flex-grow bg-brand-primary hover:bg-[#e05e00] text-white h-7 rounded-lg font-bold text-[10px] flex items-center justify-center gap-1 shadow-md transition-all">
+                                <i class="fa-solid fa-cart-plus text-[10px]"></i> أضف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterMobileDashboard(query) {
+            const searchResults = document.getElementById('mobileDashSearchResults');
+            const searchGrid = document.getElementById('mobileDashSearchGrid');
+            const popularSection = document.getElementById('mobileDashPopularItems')?.closest('.px-4');
+            const categoriesSection = document.getElementById('mobileDashCategories')?.closest('.mb-5');
+
+            if (!query || query.trim() === '') {
+                if (searchResults) searchResults.classList.add('hidden');
+                if (popularSection) popularSection.style.display = '';
+                if (categoriesSection) categoriesSection.style.display = '';
+                return;
+            }
+
+            const q = query.trim().toLowerCase();
+            const results = menuData.filter(item => 
+                item.title.toLowerCase().includes(q) || 
+                item.desc.toLowerCase().includes(q)
+            ).slice(0, 8);
+
+            if (results.length > 0) {
+                if (searchResults) searchResults.classList.remove('hidden');
+                if (popularSection) popularSection.style.display = 'none';
+                if (categoriesSection) categoriesSection.style.display = 'none';
+                searchGrid.innerHTML = '';
+                results.forEach((item, index) => {
+                    searchGrid.innerHTML += renderMobileItemCard(item, index);
+                });
+            } else {
+                if (searchResults) searchResults.classList.remove('hidden');
+                if (popularSection) popularSection.style.display = 'none';
+                if (categoriesSection) categoriesSection.style.display = 'none';
+                searchGrid.innerHTML = `
+                    <div class="col-span-2 text-center py-8">
+                        <i class="fa-solid fa-search text-3xl text-white/10 mb-3"></i>
+                        <p class="text-sm text-brand-grayMuted">لا توجد نتائج لـ "${query}"</p>
+                    </div>
+                `;
+            }
+        }
+
+        function goToMobileDashboard() {
+            // إغلاق جميع الصفحات الوهمية المفتوحة
+            if (isMobileMenuPageOpen) closeMobileMenuPage();
+            if (isVirtualPageOpen) closeCategoryPage();
+            if (isCheckoutPageOpen) closeCheckoutPage();
+
+            // التمرير لأعلى الشاشة (لوحة التحكم)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // مسح البحث
+            const searchInput = document.getElementById('mobileDashSearch');
+            if (searchInput) {
+                searchInput.value = '';
+                filterMobileDashboard('');
+            }
+        }
+
+        function openMobileInfoPage(sectionId) {
+            // فتح الأقسام المخفية (مميزاتنا، معرض الصور، آراء الزبائن) في وضع الهاتف
+            // عبر تمرير الصفحة إلى القسم المعني بعد إظهاره مؤقتاً
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
+            // إظهار القسم مؤقتاً
+            section.classList.remove('hidden');
+            section.classList.add('block');
+            
+            // إخفاء لوحة التحكم
+            const dashboard = document.getElementById('mobileDashboard');
+            if (dashboard) dashboard.classList.add('hidden');
+            
+            // تمرير للقسم
+            section.scrollIntoView({ behavior: 'smooth' });
+
+            // حفظ حالة للرجوع
+            history.pushState({ mobileInfoPage: sectionId }, '');
+
+            // الاستماع للرجوع
+            const handlePop = function() {
+                section.classList.add('hidden');
+                section.classList.remove('block');
+                if (dashboard) {
+                    dashboard.classList.remove('hidden');
+                    dashboard.classList.add('block');
+                }
+                window.scrollTo({ top: 0 });
+                window.removeEventListener('popstate', handlePop);
+            };
+            // سيتم التعامل معه في الحدث العام popstate
+        }
+
         // --- 3. نافذة التصنيف الوهمية (App Experience) ---
         function openCategoryPage(categoryId, title, icon) {
             isVirtualPageOpen = true;
@@ -1253,6 +1546,41 @@
 
         // الاستماع لزر الرجوع لإغلاق الصفحات الوهمية بدلاً من مغادرة الموقع
         window.addEventListener('popstate', function (event) {
+            // التعامل مع صفحات المعلومات المفتوحة من قائمة "المزيد" في الهاتف
+            if (event.state && event.state.mobileInfoPage) {
+                const sectionId = event.state.mobileInfoPage;
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('hidden');
+                    section.classList.remove('block');
+                }
+                const dashboard = document.getElementById('mobileDashboard');
+                if (dashboard) {
+                    dashboard.classList.remove('hidden');
+                    dashboard.classList.add('block');
+                }
+                window.scrollTo({ top: 0 });
+                return;
+            }
+            // صفحة معلومات بدون state (رجوع من صفحة معلومات مفتوحة)
+            const openInfoSections = ['features', 'promo', 'gallery', 'testimonials'];
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                openInfoSections.forEach(id => {
+                    const sec = document.getElementById(id);
+                    if (sec && !sec.classList.contains('hidden')) {
+                        sec.classList.add('hidden');
+                        sec.classList.remove('block');
+                    }
+                });
+                const dashboard = document.getElementById('mobileDashboard');
+                if (dashboard && dashboard.classList.contains('hidden')) {
+                    dashboard.classList.remove('hidden');
+                    dashboard.classList.add('block');
+                    window.scrollTo({ top: 0 });
+                }
+            }
+
             if (isVirtualPageOpen) {
                 closeCategoryPage(true);
             } else if (isCheckoutPageOpen) {
@@ -2368,6 +2696,8 @@
                 categoriesData = data.categoriesData || data.categories || [];
                 menuData = data.menuData || data.menu || [];
                 renderCategories();
+                renderMobileDashCategories();
+                renderPopularItems();
             } catch (error) {
                 console.error("فشل التحميل:", error);
             } finally {
