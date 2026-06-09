@@ -1572,7 +1572,7 @@
             // النص (إذا وُجد)
             const textHtml = review.text
                 ? `<p class="text-gray-300 text-xs leading-relaxed mt-2">${review.text.replace(/\n/g, '<br>')}</p>`
-                : '';
+                : `<p class="text-gray-500 text-xs leading-relaxed mt-2">تقييم بالنجوم</p>`;
 
             // تفاصيل غنية (شارات الطعام/الخدمة/الأجواء)
             let detailsBadges = '';
@@ -1670,10 +1670,7 @@
             // بطاقات أفقية
             const scroll = document.getElementById('mobileReviewsScroll');
             if (!scroll || reviewsData.length === 0) return;
-            // فقط المراجعات التي تحتوي على نص أو صور (لتكون البطاقات ذات معنى)
-            const visibleReviews = reviewsData.filter(r => r.text || (r.photos && r.photos.length > 0));
-            const toShow = visibleReviews.length > 0 ? visibleReviews : reviewsData.slice(0, 8);
-            scroll.innerHTML = toShow.map(r => buildReviewCard(r, 'w-[280px] shrink-0 snap-center')).join('');
+            scroll.innerHTML = reviewsData.map(r => buildReviewCard(r, 'w-[280px] shrink-0 snap-center')).join('');
         }
 
         function renderMobileItemCard(item, index, extraClasses = '') {
