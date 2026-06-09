@@ -658,6 +658,127 @@
         </div>
     </div>
 
+    <!-- ========================================================================= -->
+    <!-- صفحة تأكيد الطلب الوهمية (Checkout Virtual Page Bottom Sheet) -->
+    <!-- ========================================================================= -->
+    <div id="checkoutVirtualPage"
+        class="fixed inset-0 bg-[#0a0a0a] z-[56] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-cairo">
+        
+        <!-- الهيدر الخاص بصفحة التأكيد -->
+        <div class="glass-panel border-b border-white/10 px-4 py-4 flex items-center justify-between sticky top-0 z-20 bg-brand-dark/90 backdrop-blur-xl">
+            <button onclick="closeCheckoutPage()"
+                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:-translate-x-1 transition-all border border-white/10">
+                <i class="fa-solid fa-arrow-right text-lg"></i>
+            </button>
+            <h2 class="text-xl md:text-2xl font-black text-brand-primary flex-1 text-center drop-shadow-md">إتمام الطلب</h2>
+            <div class="w-10 h-10"></div> <!-- موازن الهيدر -->
+        </div>
+
+        <!-- المحتوى الداخلي للصفحة -->
+        <div class="flex-grow overflow-y-auto p-4 md:p-8 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
+            <div class="max-w-2xl mx-auto pb-24 space-y-6">
+                
+                <!-- مراجعة السلة (معاينة مصغرة) -->
+                <div class="glass-panel rounded-3xl p-6 border border-white/5 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
+                        <i class="fa-solid fa-list-check text-brand-primary"></i> مراجعة الوجبات المطلوبة
+                    </h3>
+                    <div id="checkoutSummaryList" class="space-y-3 divide-y divide-white/5">
+                        <!-- تمتلئ عبر JS -->
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-white/5 text-sm font-bold text-white">
+                        <span>المجموع الإجمالي:</span>
+                        <span id="checkoutTotalAmount" class="text-brand-primary text-lg font-black">0 درهم</span>
+                    </div>
+                </div>
+
+                <!-- نموذج تأكيد الطلب -->
+                <div class="glass-panel rounded-3xl p-6 border border-white/5 space-y-6">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
+                        <i class="fa-solid fa-user-pen text-brand-primary"></i> بيانات المستلم
+                    </h3>
+                    
+                    <!-- الاسم -->
+                    <div class="space-y-2">
+                        <label for="customerName" class="text-xs font-bold text-brand-grayMuted block">الاسم الشخصي (اختياري)</label>
+                        <input type="text" id="customerName" placeholder="مثال: أحمد محمد" 
+                            class="w-full bg-[#0d0d0d] border border-white/5 focus:border-brand-primary/50 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none transition-all duration-300">
+                    </div>
+
+                    <!-- نوع الطلب -->
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold text-brand-grayMuted block">طريقة استلام الطلب</span>
+                        <div class="grid grid-cols-3 gap-3">
+                            <!-- خيار التوصيل -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="orderType" value="delivery" checked class="peer hidden" onchange="toggleOrderTypeFields()">
+                                <div class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/5 peer-checked:border-brand-primary peer-checked:bg-brand-primary/10 hover:bg-white/10 transition-all text-center gap-2">
+                                    <i class="fa-solid fa-motorcycle text-xl text-brand-grayMuted peer-checked:text-brand-primary"></i>
+                                    <span class="text-xs font-bold text-white">توصيل للمنزل</span>
+                                </div>
+                            </label>
+                            
+                            <!-- خيار الاستلام من المحل -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="orderType" value="takeaway" class="peer hidden" onchange="toggleOrderTypeFields()">
+                                <div class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/5 peer-checked:border-brand-primary peer-checked:bg-brand-primary/10 hover:bg-white/10 transition-all text-center gap-2">
+                                    <i class="fa-solid fa-bag-shopping text-xl text-brand-grayMuted peer-checked:text-brand-primary"></i>
+                                    <span class="text-xs font-bold text-white">استلام من المحل</span>
+                                </div>
+                            </label>
+
+                            <!-- خيار الأكل في المطعم -->
+                            <label class="cursor-pointer">
+                                <input type="radio" name="orderType" value="dinein" class="peer hidden" onchange="toggleOrderTypeFields()">
+                                <div class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/5 peer-checked:border-brand-primary peer-checked:bg-brand-primary/10 hover:bg-white/10 transition-all text-center gap-2">
+                                    <i class="fa-solid fa-utensils text-xl text-brand-grayMuted peer-checked:text-brand-primary"></i>
+                                    <span class="text-xs font-bold text-white">أكل في المطعم</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- قسم العنوان والموقع الجغرافي (توصيل للمنزل فقط) -->
+                    <div id="deliveryFieldsSection" class="space-y-4 border-t border-white/5 pt-4 transition-all duration-500 overflow-hidden">
+                        <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-map-location-dot text-brand-primary"></i> تفاصيل التوصيل والموقع
+                        </h4>
+                        
+                        <!-- إرسال الموقع لاحقاً -->
+                        <label class="flex items-center gap-2 cursor-pointer bg-[#0d0d0d] p-3 rounded-2xl border border-white/5 hover:bg-white/5 transition-colors">
+                            <input type="checkbox" id="sendLocationLater" class="w-4 h-4 accent-brand-primary rounded" onchange="toggleSendLocationLater()">
+                            <span class="text-xs font-bold text-brand-grayMuted">سأرسل موقعي الجغرافي عبر الواتساب لاحقاً</span>
+                        </label>
+
+                        <!-- العنوان اليدوي وزر الـ GPS -->
+                        <div id="deliveryAddressWrapper" class="space-y-3">
+                            <div class="space-y-2">
+                                <label for="customerAddress" class="text-xs font-bold text-brand-grayMuted block">العنوان السكني التفصيلي</label>
+                                <textarea id="customerAddress" rows="2" placeholder="مثال: شارع طارق، إقامة الياسمين، شقة 5" 
+                                    class="w-full bg-[#0d0d0d] border border-white/5 focus:border-brand-primary/50 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none transition-all duration-300"></textarea>
+                            </div>
+
+                            <button onclick="getUserGeolocation()" type="button" id="geolocationBtn"
+                                class="w-full bg-white/5 hover:bg-brand-primary/20 text-white font-bold py-3 px-4 rounded-2xl transition-all border border-white/10 flex items-center justify-center gap-2 hover:-translate-y-0.5">
+                                <i class="fa-solid fa-location-crosshairs text-brand-primary text-lg"></i>
+                                <span id="geolocationBtnText">تحديد موقعي الجغرافي تلقائياً (GPS)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- زر الإرسال النهائي -->
+                <button onclick="submitCheckoutForm()" id="checkoutSubmitBtn"
+                    class="w-full bg-brand-primary hover:bg-brand-primaryHover text-white font-black py-4 px-6 rounded-2xl transition-all shadow-[0_0_30px_rgba(255,159,26,0.3)] hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    إرسال الطلب النهائي للواتساب
+                </button>
+
+            </div>
+        </div>
+    </div>
+
     <!-- معرض الصور -->
     <section id="gallery" class="py-20 bg-brand-dark overflow-hidden border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 mb-12 text-center reveal">
@@ -782,9 +903,9 @@
                 <span id="cartTotalPrice" class="font-black text-3xl text-brand-primary">0 <span
                         class="text-lg">درهم</span></span>
             </div>
-            <button onclick="checkoutWhatsApp()" id="checkoutBtn" disabled
-                class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] hover:shadow-[0_0_20px_rgba(37,211,102,0.4)] disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-400 disabled:shadow-none disabled:cursor-not-allowed text-white py-4 rounded-2xl font-black transition-all duration-300 flex items-center justify-center gap-3 text-xl hover:-translate-y-1">
-                <i class="fa-brands fa-whatsapp text-3xl"></i> أرسل الطلب للواتساب
+            <button onclick="openCheckoutPage()" id="checkoutBtn" disabled
+                class="w-full bg-gradient-to-r from-brand-primary to-brand-primaryHover hover:shadow-[0_0_20px_rgba(255,159,26,0.4)] disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-400 disabled:shadow-none disabled:cursor-not-allowed text-white py-4 rounded-2xl font-black transition-all duration-300 flex items-center justify-center gap-3 text-xl hover:-translate-y-1">
+                <i class="fa-solid fa-list-check text-2xl"></i> تأكيد الطلب وإتمامه
             </button>
             <p class="text-center text-[11px] text-brand-grayMuted"><i class="fa-solid fa-lock text-[9px] mr-1"></i>
                 الدفع يكون عند الاستلام.</p>
@@ -888,6 +1009,8 @@
         let menuData = [];
         let cart = [];
         let isVirtualPageOpen = false;
+        let isCheckoutPageOpen = false;
+        let customerGeolocationLink = '';
 
         // --- 1. القوائم للهواتف (Mobile Menu) ---
         function toggleMobileMenu() {
@@ -948,10 +1071,12 @@
             }
         }
 
-        // الاستماع لزر الرجوع لإغلاق الصفحة الوهمية بدلاً من مغادرة الموقع
+        // الاستماع لزر الرجوع لإغلاق الصفحات الوهمية بدلاً من مغادرة الموقع
         window.addEventListener('popstate', function(event) {
             if (isVirtualPageOpen) {
                 closeCategoryPage(true);
+            } else if (isCheckoutPageOpen) {
+                closeCheckoutPage(true);
             }
         });
 
@@ -1477,13 +1602,190 @@
             window.location.href = window.location.origin + window.location.pathname;
         }
 
-        function checkoutWhatsApp() {
+        // --- 3.5. صفحة إتمام وتأكيد الطلب (Checkout sheet logic) ---
+        function openCheckoutPage() {
+            if (cart.length === 0) {
+                showToast("السلة فارغة! يرجى إضافة وجبات أولاً", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+                return;
+            }
+            
+            isCheckoutPageOpen = true;
+            document.body.style.overflow = 'hidden';
+
+            // إغلاق السلة الجانبية
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar) sidebar.classList.remove('cart-open');
+            if (overlay) overlay.classList.remove('overlay-open');
+
+            // فتح صفحة التأكيد الوهمية
+            const checkoutPage = document.getElementById('checkoutVirtualPage');
+            if (checkoutPage) checkoutPage.classList.add('virtual-page-open');
+
+            // بناء معاينة السلة المصغرة
+            const summaryList = document.getElementById('checkoutSummaryList');
+            const totalAmountEl = document.getElementById('checkoutTotalAmount');
+            let total = 0;
+            summaryList.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                summaryList.innerHTML += `
+                    <div class="flex items-center justify-between py-3 text-sm">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover border border-white/10">
+                            <div>
+                                <h4 class="font-bold text-white">${item.title}</h4>
+                                <span class="text-xs text-brand-grayMuted">الكمية: ${item.quantity} × ${item.price} درهم</span>
+                            </div>
+                        </div>
+                        <span class="font-black text-brand-primary">${itemTotal} درهم</span>
+                    </div>
+                `;
+            });
+            if (totalAmountEl) totalAmountEl.innerText = `${total} درهم`;
+
+            // تهيئة الحقول الافتراضية
+            customerGeolocationLink = '';
+            const geoBtn = document.getElementById('geolocationBtn');
+            const geoBtnText = document.getElementById('geolocationBtnText');
+            if (geoBtn) {
+                geoBtn.className = "w-full bg-white/5 hover:bg-brand-primary/20 text-white font-bold py-3 px-4 rounded-2xl transition-all border border-white/10 flex items-center justify-center gap-2 hover:-translate-y-0.5";
+            }
+            if (geoBtnText) geoBtnText.innerText = "تحديد موقعي الجغرافي تلقائياً (GPS)";
+
+            const sendLaterCheckbox = document.getElementById('sendLocationLater');
+            if (sendLaterCheckbox) sendLaterCheckbox.checked = false;
+            toggleSendLocationLater();
+
+            const orderTypeRadio = document.querySelector('input[name="orderType"][value="delivery"]');
+            if (orderTypeRadio) orderTypeRadio.checked = true;
+            toggleOrderTypeFields();
+
+            // إضافة حالة وهمية للمتصفح لدعم زر الرجوع في الموبايل
+            history.pushState({ checkoutPage: true }, '');
+        }
+
+        function closeCheckoutPage(fromPopState = false) {
+            isCheckoutPageOpen = false;
+            document.body.style.overflow = '';
+
+            const checkoutPage = document.getElementById('checkoutVirtualPage');
+            if (checkoutPage) checkoutPage.classList.remove('virtual-page-open');
+
+            // إعادة فتح السلة الجانبية
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar) sidebar.classList.add('cart-open');
+            if (overlay) overlay.classList.add('overlay-open');
+
+            // تراجع خطوة في التاريخ إذا أغلق يدوياً ولم يأت من popstate
+            if (!fromPopState && window.history.state && window.history.state.checkoutPage) {
+                history.back();
+            }
+        }
+
+        function toggleOrderTypeFields() {
+            const section = document.getElementById('deliveryFieldsSection');
+            if (!section) return;
+            const orderType = document.querySelector('input[name="orderType"]:checked').value;
+            if (orderType === 'delivery') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        function toggleSendLocationLater() {
+            const checkbox = document.getElementById('sendLocationLater');
+            const addressWrapper = document.getElementById('deliveryAddressWrapper');
+            const addressTextarea = document.getElementById('customerAddress');
+            const geoBtn = document.getElementById('geolocationBtn');
+            
+            if (checkbox && checkbox.checked) {
+                if (addressWrapper) addressWrapper.classList.add('opacity-40', 'pointer-events-none');
+                if (addressTextarea) addressTextarea.disabled = true;
+                if (geoBtn) geoBtn.disabled = true;
+            } else {
+                if (addressWrapper) addressWrapper.classList.remove('opacity-40', 'pointer-events-none');
+                if (addressTextarea) addressTextarea.disabled = false;
+                if (geoBtn) geoBtn.disabled = false;
+            }
+        }
+
+        function getUserGeolocation() {
+            const geoBtn = document.getElementById('geolocationBtn');
+            const geoBtnText = document.getElementById('geolocationBtnText');
+            
+            if (!navigator.geolocation) {
+                showToast("خاصية تحديد الموقع غير مدعومة في متصفحك", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+                return;
+            }
+
+            if (geoBtnText) geoBtnText.innerText = "جاري جلب الموقع الجغرافي... ⏳";
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    customerGeolocationLink = `https://maps.google.com/?q=${lat},${lng}`;
+                    
+                    if (geoBtn) {
+                        geoBtn.className = "w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold py-3 px-4 rounded-2xl transition-all border border-emerald-500/30 flex items-center justify-center gap-2";
+                    }
+                    if (geoBtnText) geoBtnText.innerText = "تم تحديد الموقع بنجاح ✅";
+                    showToast("تم جلب موقعك الجغرافي بنجاح!", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+                },
+                (error) => {
+                    console.error("خطأ GPS:", error);
+                    if (geoBtnText) geoBtnText.innerText = "تحديد موقعي الجغرافي تلقائياً (GPS)";
+                    showToast("يرجى كتابة العنوان يدوياً أو إرسال الموقع في الواتساب", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+                },
+                { enableHighAccuracy: true, timeout: 8000 }
+            );
+        }
+
+        function submitCheckoutForm() {
             if (cart.length === 0) return;
             
             const orderTime = new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour: '2-digit', minute: '2-digit', hour12: true });
             const orderDate = new Date().toLocaleDateString('ar-EG-u-nu-latn', { year: 'numeric', month: '2-digit', day: '2-digit' });
             
+            const name = document.getElementById('customerName').value.trim();
+            const orderType = document.querySelector('input[name="orderType"]:checked').value;
+            const sendLater = document.getElementById('sendLocationLater').checked;
+            const address = document.getElementById('customerAddress').value.trim();
+            
+            let orderTypeArabic = "توصيل للمنزل 🏍️";
+            if (orderType === 'takeaway') orderTypeArabic = "أخذ الطلب من المحل (Takeaway) 🛍️";
+            if (orderType === 'dinein') orderTypeArabic = "الأكل في المطعم (Dine-in) 🍽️";
+
             let message = "🌟 *طلب جديد - مطعم دار البنة* 🌟\n\n";
+            
+            if (name) {
+                message += `👤 *الزبون:* ${name}\n`;
+            }
+            message += `🏷️ *نوع الطلب:* ${orderTypeArabic}\n`;
+
+            if (orderType === 'delivery') {
+                message += `📍 *تفاصيل التوصيل:*\n`;
+                if (sendLater) {
+                    message += `> _سأرسل موقعي الجغرافي عبر الواتساب لاحقاً_\n`;
+                } else {
+                    if (address) {
+                        message += `> *العنوان:* ${address}\n`;
+                    }
+                    if (customerGeolocationLink) {
+                        message += `> *موقع GPS:* ${customerGeolocationLink}\n`;
+                    }
+                    if (!address && !customerGeolocationLink) {
+                        message += `> _لم يتم تحديد عنوان أو موقع_\n`;
+                    }
+                }
+            }
+            message += "\n";
+            
             message += "*📋 تفاصيل الطلب:*\n";
             message += "----------------------------------------\n";
             
@@ -1530,19 +1832,22 @@
             
             message += "الرجاء تأكيد استلام الطلب وتجهيزه. شكراً لكم! 🍔";
             
+            // إغلاق صفحة التأكيد وحذف حالة history المضافة
+            isCheckoutPageOpen = false;
+            const checkoutPage = document.getElementById('checkoutVirtualPage');
+            if (checkoutPage) checkoutPage.classList.remove('virtual-page-open');
+            
+            // إذا كان هناك حالة وهمية لصفحة التأكيد في التاريخ، نتراجع عنها
+            if (window.history.state && window.history.state.checkoutPage) {
+                history.back();
+            }
+
             window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
 
             // تفريغ السلة وتحديث الواجهة بعد التوجيه للواتساب لتجنب تكرار الطلب
             setTimeout(() => {
                 cart = [];
                 updateCartUI();
-                
-                // إغلاق السلة الجانبية تلقائياً إن كانت مفتوحة
-                const sidebar = document.getElementById('cartSidebar');
-                const overlay = document.getElementById('cartOverlay');
-                if (sidebar) sidebar.classList.remove('cart-open');
-                if (overlay) overlay.classList.remove('overlay-open');
-
                 showToast("تم تفريغ السلة لتجهيز طلباتك القادمة", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
             }, 1000);
         }
