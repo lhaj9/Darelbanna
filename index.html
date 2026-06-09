@@ -68,6 +68,19 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* تنسيقات خاصة بالطباعة للفاتورة الرقمية */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            #invoiceContainer {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+            }
+        }
+
         /* شريط التمرير */
         ::-webkit-scrollbar {
             width: 8px;
@@ -865,7 +878,7 @@
     </div>
 
     <!-- حاوية الفاتورة الرقمية -->
-    <div id="invoiceContainer" class="hidden min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 font-cairo"></div>
+    <div id="invoiceContainer" class="hidden min-h-screen bg-brand-darker text-white p-4 md:p-8 font-cairo print:bg-white print:text-black"></div>
 
     <!-- ========================================== -->
     <!--           السكربتات والمنطق البرمجي          -->
@@ -1218,9 +1231,9 @@
             const preloader = document.getElementById('preloader');
             if (preloader) preloader.style.display = 'none';
 
-            // تكييف الخلفية والنصوص للطباعة والعرض المريح
-            document.body.style.backgroundColor = '#f9fafb';
-            document.body.style.color = '#111827';
+            // تكييف الخلفية والنصوص للتوافق الكامل مع المظهر الداكن للموقع
+            document.body.style.backgroundColor = '#050505';
+            document.body.style.color = '#ffffff';
 
             const elementsToHide = [
                 'navbar', 'home', 'features', 'promo', 'menu', 
@@ -1250,10 +1263,10 @@
             const compactCart = decodeCart(encodedStr);
             if (!compactCart || compactCart.length === 0) {
                 container.innerHTML = `
-                    <div class="max-w-md mx-auto my-12 bg-white rounded-3xl p-8 text-center shadow-lg border border-gray-100">
+                    <div class="max-w-md mx-auto my-12 bg-brand-dark rounded-3xl p-8 text-center shadow-2xl border border-white/5">
                         <i class="fa-solid fa-triangle-exclamation text-brand-primary text-5xl mb-4"></i>
-                        <h2 class="text-xl font-bold text-gray-800 mb-2">فشل استرداد الطلب</h2>
-                        <p class="text-gray-500 text-sm mb-6">يبدو أن رابط الفاتورة غير صالح أو تعرض للتلف.</p>
+                        <h2 class="text-xl font-bold text-white mb-2">فشل استرداد الطلب</h2>
+                        <p class="text-brand-grayMuted text-sm mb-6">يبدو أن رابط الفاتورة غير صالح أو تعرض للتلف.</p>
                         <button onclick="goBackToMenu()" class="w-full bg-brand-primary hover:bg-brand-primaryHover text-white py-3 rounded-xl font-bold transition-all">العودة للموقع الرئيسي</button>
                     </div>
                 `;
@@ -1261,6 +1274,8 @@
             }
 
             let total = 0;
+            
+            // 1. توليد صفوف الجدول للشاشات الكبيرة والطباعة
             const itemsRows = compactCart.map(savedItem => {
                 let itemDetails = null;
                 if (savedItem.id === 999) {
@@ -1279,35 +1294,84 @@
                 total += itemTotal;
 
                 return `
-                    <tr class="border-b border-gray-100 text-gray-700">
+                    <tr class="border-b border-white/5 text-white print:border-gray-100 print:text-gray-700">
                         <td class="py-4 px-2 sm:px-4 text-right">
                             <div class="flex items-center gap-3">
-                                <img src="${itemDetails.img}" class="w-12 h-12 rounded-lg object-cover border border-gray-200 shrink-0">
+                                <img src="${itemDetails.img}" class="w-12 h-12 rounded-lg object-cover border border-white/10 shrink-0 print:border-gray-200">
                                 <div>
-                                    <div class="font-bold text-sm text-gray-800">${itemDetails.title}</div>
-                                    <div class="text-xs text-gray-400">${itemDetails.price} درهم للواحدة</div>
+                                    <div class="font-bold text-sm text-white print:text-gray-800">${itemDetails.title}</div>
+                                    <div class="text-xs text-brand-grayMuted print:text-gray-400">${itemDetails.price} درهم للواحدة</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="py-4 px-2 sm:px-4 text-center font-bold text-gray-800">${savedItem.qty}x</td>
+                        <td class="py-4 px-2 sm:px-4 text-center font-bold text-white print:text-gray-800">${savedItem.qty}x</td>
                         <td class="py-4 px-2 sm:px-4 text-right">
-                            ${savedItem.note ? `<span class="bg-amber-50 text-amber-800 px-2.5 py-1 rounded-lg text-xs font-semibold border border-amber-100 inline-block max-w-[150px] sm:max-w-xs truncate" title="${savedItem.note}">📝 ${savedItem.note}</span>` : '<span class="text-gray-300">-</span>'}
+                            ${savedItem.note ? `<span class="bg-amber-950/30 text-amber-400 px-2.5 py-1 rounded-lg text-xs font-semibold border border-amber-900/30 inline-block max-w-[150px] sm:max-w-xs break-words print:bg-amber-50 print:text-amber-800 print:border-amber-100" title="${savedItem.note}">📝 ${savedItem.note}</span>` : '<span class="text-brand-grayMuted print:text-gray-300">-</span>'}
                         </td>
                         <td class="py-4 px-2 sm:px-4 text-left font-black text-brand-primary text-sm sm:text-base">${itemTotal} درهم</td>
                     </tr>
                 `;
             }).join('');
 
+            // 2. توليد بطاقات الوجبات للشاشات الصغيرة لتجنب التمرير الأفقي
+            const itemsCards = compactCart.map(savedItem => {
+                let itemDetails = null;
+                if (savedItem.id === 999) {
+                    itemDetails = {
+                        title: "عرض التوفير العائلي 🔥",
+                        price: 149,
+                        img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500"
+                    };
+                } else {
+                    itemDetails = menuData.find(m => m.id === savedItem.id);
+                }
+
+                if (!itemDetails) return '';
+
+                const itemTotal = itemDetails.price * savedItem.qty;
+
+                return `
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex flex-col gap-3 shadow-md relative print:hidden">
+                        <div class="flex items-center gap-3">
+                            <img src="${itemDetails.img}" class="w-14 h-14 rounded-xl object-cover border border-white/10 shrink-0">
+                            <div class="min-w-0 flex-1">
+                                <div class="font-bold text-sm text-white truncate">${itemDetails.title}</div>
+                                <div class="text-xs text-brand-grayMuted mt-0.5">${itemDetails.price} درهم للواحدة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center border-t border-white/5 pt-2 text-xs">
+                            <span class="text-brand-grayMuted">الكمية:</span>
+                            <span class="font-bold text-white">${savedItem.qty}x</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center border-t border-white/5 pt-2 text-xs">
+                            <span class="text-brand-grayMuted">المجموع الفرعي:</span>
+                            <span class="font-black text-brand-primary text-sm">${itemTotal} درهم</span>
+                        </div>
+
+                        ${savedItem.note ? `
+                        <div class="border-t border-white/5 pt-2 text-xs flex flex-col gap-1">
+                            <span class="text-brand-grayMuted">ملاحظة خاصة:</span>
+                            <span class="bg-amber-950/30 text-amber-400 px-2.5 py-1.5 rounded-xl font-medium border border-amber-900/30 break-words">📝 ${savedItem.note}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
             const orderNo = Math.floor(100000 + Math.random() * 900000);
-            const dateStr = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
-            const timeStr = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            // إجبار استخدام الأرقام اللاتينية لضمان الرسمية والوضوح البرمجي
+            const dateStr = new Date().toLocaleDateString('ar-EG-u-nu-latn', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour: '2-digit', minute: '2-digit', hour12: true });
 
             container.innerHTML = `
-                <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 my-4 sm:my-8 print:shadow-none print:border-none print:my-0 print:p-0">
+                <div class="max-w-3xl mx-auto bg-brand-dark border border-white/5 rounded-3xl p-6 sm:p-8 shadow-2xl my-4 sm:my-8 print:shadow-none print:border-none print:my-0 print:p-0 print:bg-white print:text-black">
                     
-                    <!-- أزرار الإجراءات (تختفي عند الطباعة) -->
-                    <div class="flex flex-wrap gap-3 mb-6 print:hidden items-center justify-between border-b border-gray-100 pb-6">
-                        <button onclick="goBackToMenu()" class="flex items-center gap-2 text-gray-600 hover:text-brand-primary font-bold text-sm bg-gray-100 hover:bg-brand-primary/10 px-4 py-2.5 rounded-xl transition-all">
+                    <!-- أزرار الإجراءات العلوية (تختفي عند الطباعة) -->
+                    <div class="flex flex-wrap gap-3 mb-6 print:hidden items-center justify-between border-b border-white/5 pb-6">
+                        <button onclick="goBackToMenu()" class="flex items-center gap-2 text-white hover:text-brand-primary font-bold text-sm bg-white/5 hover:bg-brand-primary/10 px-4 py-2.5 rounded-xl transition-all border border-white/10">
                             <i class="fa-solid fa-arrow-right"></i> العودة للموقع الرئيسي
                         </button>
                         <button onclick="window.print()" class="flex items-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-md hover:-translate-y-0.5">
@@ -1316,27 +1380,32 @@
                     </div>
 
                     <!-- ترويسة الفاتورة -->
-                    <div class="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6 border-b-2 border-dashed border-gray-100 pb-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6 border-b-2 border-dashed border-white/5 pb-8 print:border-gray-200">
                         <div class="flex items-center gap-4 text-right">
                             <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" class="h-16 w-auto object-contain">
                             <div>
-                                <h1 class="text-2xl font-black text-gray-900 leading-tight">مطعم دار البنة</h1>
-                                <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mt-1">DAR ELBANNA - Premium Fast Food</p>
+                                <h1 class="text-2xl font-black text-white print:text-gray-900 leading-tight">مطعم دار البنة</h1>
+                                <p class="text-xs text-brand-grayMuted uppercase tracking-widest font-semibold mt-1 print:text-gray-500">DAR ELBANNA - Premium Fast Food</p>
                             </div>
                         </div>
-                        <div class="text-center sm:text-left text-sm text-gray-600 space-y-1">
-                            <div class="text-lg font-black text-brand-primary">فاتورة طلب رقم #${orderNo}</div>
-                            <div>التاريخ: ${dateStr}</div>
-                            <div>الوقت: ${timeStr}</div>
-                            <div>طريقة الدفع: <span class="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold text-xs border border-emerald-100 inline-block">الدفع عند الاستلام</span></div>
+                        <div class="text-center sm:text-left text-sm text-brand-grayMuted space-y-1 font-mono print:text-gray-600">
+                            <div class="text-lg font-black text-brand-primary font-cairo">فاتورة طلب رقم #${orderNo}</div>
+                            <div class="text-xs sm:text-sm bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg inline-block print:bg-gray-100 print:text-black print:border-gray-200">
+                                <span class="font-cairo">التاريخ:</span> ${dateStr}
+                            </div>
+                            <br class="hidden sm:inline">
+                            <div class="text-xs sm:text-sm bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg inline-block print:bg-gray-100 print:text-black print:border-gray-200 mt-1">
+                                <span class="font-cairo">الوقت:</span> ${timeStr}
+                            </div>
+                            <div class="text-xs mt-2 font-cairo">طريقة الدفع: <span class="bg-emerald-950/30 text-emerald-400 px-2.5 py-1 rounded-lg font-bold border border-emerald-900/30 inline-block print:bg-emerald-50 print:text-emerald-800 print:border-emerald-100">الدفع عند الاستلام</span></div>
                         </div>
                     </div>
 
-                    <!-- جدول الوجبات -->
-                    <div class="overflow-x-auto my-8">
+                    <!-- جدول الوجبات (للشاشات الكبيرة والطباعة) -->
+                    <div class="overflow-x-auto my-8 hidden sm:block print:block">
                         <table class="w-full text-right border-collapse">
                             <thead>
-                                <tr class="border-b-2 border-gray-100 text-gray-500 text-xs sm:text-sm">
+                                <tr class="border-b-2 border-white/5 text-brand-grayMuted text-xs sm:text-sm print:border-gray-200 print:text-gray-500">
                                     <th class="py-3 px-2 sm:px-4 font-bold">الوجبة</th>
                                     <th class="py-3 px-2 sm:px-4 font-bold text-center">الكمية</th>
                                     <th class="py-3 px-2 sm:px-4 font-bold text-right">الملاحظات</th>
@@ -1349,25 +1418,40 @@
                         </table>
                     </div>
 
+                    <!-- بطاقات الوجبات للهواتف (للشاشات الصغيرة فقط وتختفي عند الطباعة) -->
+                    <div class="my-6 block sm:hidden print:hidden space-y-4">
+                        ${itemsCards}
+                    </div>
+
                     <!-- المجموع الإجمالي -->
-                    <div class="flex flex-col sm:flex-row justify-between items-center bg-gray-50 p-6 rounded-2xl border border-gray-100 gap-4 mt-6 print:bg-white print:border-t-2 print:border-b-2 print:border-gray-200 print:rounded-none">
+                    <div class="flex flex-col sm:flex-row justify-between items-center bg-brand-card p-6 rounded-2xl border border-white/5 gap-4 mt-6 print:bg-white print:border-t-2 print:border-b-2 print:border-gray-200 print:rounded-none">
                         <div class="text-center sm:text-right">
-                            <div class="text-sm font-semibold text-gray-500">حالة الدفع</div>
-                            <div class="text-base font-bold text-emerald-600 flex items-center gap-1.5 justify-center sm:justify-start mt-0.5">
+                            <div class="text-sm font-semibold text-brand-grayMuted print:text-gray-500">حالة الدفع</div>
+                            <div class="text-base font-bold text-emerald-400 flex items-center gap-1.5 justify-center sm:justify-start mt-0.5 print:text-emerald-600">
                                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 بانتظار الاستلام والدفع
                             </div>
                         </div>
                         <div class="text-center sm:text-left flex items-center gap-4 sm:gap-6">
-                            <span class="text-base font-bold text-gray-500">المجموع الإجمالي:</span>
+                            <span class="text-base font-bold text-brand-grayMuted print:text-gray-500">المجموع الإجمالي:</span>
                             <span class="text-3xl font-black text-brand-primary">${total} درهم</span>
                         </div>
                     </div>
 
                     <!-- رسالة شكر تظهر في الطباعة أيضاً -->
-                    <div class="text-center mt-10 text-xs text-gray-400 border-t border-gray-100 pt-6">
-                        <p class="font-bold text-gray-600 mb-1">شكراً لطلبكم من مطعم دار البنة!</p>
+                    <div class="text-center mt-10 text-xs text-brand-grayMuted border-t border-white/5 pt-6 print:border-gray-200 print:text-gray-400">
+                        <p class="font-bold text-white print:text-gray-600 mb-1">شكراً لطلبكم من مطعم دار البنة!</p>
                         <p>شارع محمد الخامس، وسط المدينة | هاتف: 212636696742</p>
+                    </div>
+
+                    <!-- أزرار الإجراءات السفلية المكررة (تختفي عند الطباعة) -->
+                    <div class="flex flex-wrap gap-3 print:hidden items-center justify-between border-t border-white/5 pt-6 mt-6">
+                        <button onclick="goBackToMenu()" class="flex items-center gap-2 text-white hover:text-brand-primary font-bold text-sm bg-white/5 hover:bg-brand-primary/10 px-4 py-2.5 rounded-xl transition-all border border-white/10">
+                            <i class="fa-solid fa-arrow-right"></i> العودة للموقع الرئيسي
+                        </button>
+                        <button onclick="window.print()" class="flex items-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-md hover:-translate-y-0.5">
+                            <i class="fa-solid fa-print"></i> طباعة الفاتورة / حفظ PDF
+                        </button>
                     </div>
 
                 </div>
@@ -1381,8 +1465,8 @@
         function checkoutWhatsApp() {
             if (cart.length === 0) return;
             
-            const orderTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
-            const orderDate = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            const orderTime = new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const orderDate = new Date().toLocaleDateString('ar-EG-u-nu-latn', { year: 'numeric', month: '2-digit', day: '2-digit' });
             
             let message = "🌟 *طلب جديد - مطعم دار البنة* 🌟\n\n";
             message += "*📋 تفاصيل الطلب:*\n";
