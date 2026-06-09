@@ -1946,6 +1946,9 @@
 
         // إخفاء الواجهة الرئيسية وعرض الفاتورة الرقمية
         function showInvoiceView(encodedStr) {
+            // تصفير التمرير فوراً لضمان ظهور الفاتورة من أعلى الشاشة
+            window.scrollTo(0, 0);
+
             const preloader = document.getElementById('preloader');
             if (preloader) preloader.style.display = 'none';
 
@@ -1956,7 +1959,8 @@
             const elementsToHide = [
                 'navbar', 'home', 'features', 'promo', 'menu',
                 'gallery', 'testimonials', 'cartOverlay', 'cartSidebar',
-                'scrollTopBtn', 'floatingActions', 'mobileBottomNav'
+                'scrollTopBtn', 'floatingActions', 'mobileBottomNav',
+                'mobileDashboard' // لوحة تحكم الهاتف الجديدة
             ];
             elementsToHide.forEach(id => {
                 const el = document.getElementById(id);
@@ -1969,6 +1973,8 @@
             const container = document.getElementById('invoiceContainer');
             if (container) {
                 container.classList.remove('hidden');
+                container.style.marginTop = '0';
+                container.style.paddingTop = '16px';
                 buildInvoice(encodedStr);
             }
         }
@@ -2773,8 +2779,11 @@
                 categoriesData = data.categoriesData || data.categories || [];
                 menuData = data.menuData || data.menu || [];
                 renderCategories();
-                renderMobileDashCategories();
-                renderPopularItems();
+                // لا داعي لرسم لوحة التحكم المحمولة عند عرض الفاتورة (يمنع الوميض)
+                if (!orderData) {
+                    renderMobileDashCategories();
+                    renderPopularItems();
+                }
             } catch (error) {
                 console.error("فشل التحميل:", error);
             } finally {
