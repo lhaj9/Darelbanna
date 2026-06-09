@@ -195,46 +195,53 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* نافذة الإشعارات (Toasts) */
+        /* نافذة الإشعارات (Toasts) - أعلى الشاشة */
         #toastContainer {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 9999;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999999;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            width: max-content;
+            max-width: 90vw;
+            pointer-events: none;
         }
 
         .toast {
             background: #141414;
-            border-left: 4px solid #ff6b00;
+            border-right: 4px solid #ff6b00;
             padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255,107,0,0.1);
             display: flex;
             align-items: center;
             gap: 12px;
-            animation: slideIn 0.3s ease-out forwards, fadeOut 0.5s ease-in 2.5s forwards;
+            animation: toastDropIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, toastFadeOut 0.4s ease-in 2.5s forwards;
             min-width: 250px;
+            pointer-events: auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        @keyframes slideIn {
+        @keyframes toastDropIn {
             from {
-                transform: translateX(-100%);
+                transform: translateY(-100%);
                 opacity: 0;
             }
-
             to {
-                transform: translateX(0);
+                transform: translateY(0);
                 opacity: 1;
             }
         }
 
-        @keyframes fadeOut {
+        @keyframes toastFadeOut {
             to {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(-20px);
             }
         }
 
@@ -2308,11 +2315,16 @@
                     showToast("تم جلب موقعك الجغرافي بنجاح!", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
                 },
                 (error) => {
-                    console.error("خطأ GPS:", error);
+                    const errorMessages = {
+                        1: 'تم رفض صلاحية الوصول للموقع (Permission Denied)',
+                        2: 'الموقع الجغرافي غير متاح حالياً (Position Unavailable)',
+                        3: 'انتهى الوقت المحدد لجلب الموقع (Timeout)'
+                    };
+                    console.error(`خطأ GPS [Code ${error.code}]:`, errorMessages[error.code] || error.message);
                     if (geoBtnText) geoBtnText.innerText = "تحديد موقعي الجغرافي تلقائياً (GPS)";
                     showToast("يرجى كتابة العنوان يدوياً أو إرسال الموقع في الواتساب", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
                 },
-                { enableHighAccuracy: true, timeout: 8000 }
+                { enableHighAccuracy: true, maximumAge: 0 }
             );
         }
 
@@ -2402,23 +2414,44 @@
 
             message += "الرجاء تأكيد استلام الطلب وتجهيزه. شكراً لكم! 🍔";
 
-            // إغلاق صفحة التأكيد وحذف حالة history المضافة
+            // --- إغلاق يدوي شامل لتجنب تشنج الواجهة عند العودة من الواتساب ---
             isCheckoutPageOpen = false;
+
+            // 1. إغلاق صفحة التأكيد الوهمية
             const checkoutPage = document.getElementById('checkoutVirtualPage');
             if (checkoutPage) checkoutPage.classList.remove('virtual-page-open');
 
-            // إذا كان هناك حالة وهمية لصفحة التأكيد في التاريخ، نتراجع عنها
+            // 2. استعادة قابلية التمرير للصفحة
+            document.body.style.overflow = '';
+
+            // 3. إظهار الشريط السفلي (كان مخفياً أثناء صفحة التأكيد)
+            const bottomNav = document.getElementById('mobileBottomNav');
+            if (bottomNav) bottomNav.classList.remove('translate-y-full');
+
+            // 4. التأكد من إغلاق السلة الجانبية تماماً (وليس فتحها!)
+            const cartSidebar = document.getElementById('cartSidebar');
+            const cartOverlay = document.getElementById('cartOverlay');
+            if (cartSidebar) cartSidebar.classList.remove('cart-open');
+            if (cartOverlay) cartOverlay.classList.remove('overlay-open');
+
+            // 5. إذا كان هناك حالة وهمية لصفحة التأكيد في التاريخ، نتراجع عنها
             if (window.history.state && window.history.state.checkoutPage) {
                 history.back();
             }
 
+            // 6. فتح الواتساب
             window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
 
-            // تفريغ السلة وتحديث الواجهة بعد التوجيه للواتساب لتجنب تكرار الطلب
+            // 7. تفريغ السلة والعودة للشاشة الرئيسية بعد لحظة
             setTimeout(() => {
                 cart = [];
                 updateCartUI();
                 showToast("تم تفريغ السلة لتجهيز طلباتك القادمة", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+
+                // العودة للوحة التحكم الرئيسية في الهاتف
+                if (window.innerWidth < 768) {
+                    goToMobileDashboard();
+                }
             }, 1000);
         }
 
