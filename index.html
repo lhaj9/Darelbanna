@@ -1186,18 +1186,46 @@
 
         function checkoutWhatsApp() {
             if (cart.length === 0) return;
-            let message = "🌟 *مرحباً مطعم دار البنة* 🌟\nأود تقديم طلب جديد:\n\n📋 *التفاصيل:*\n--------------------\n";
+            
+            const orderTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const orderDate = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            
+            let message = "🌟 *طلب جديد - مطعم دار البنة* 🌟\n\n";
+            message += "*📋 تفاصيل الطلب:*\n";
+            message += "----------------------------------------\n";
+            
             let grandTotal = 0;
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 grandTotal += itemTotal;
-                message += `▪️ *${item.quantity}x* ${item.title} (${itemTotal} درهم)\n`;
+                
+                // تنسيق وعرض الأسعار (مع استيعاب شطب السعر القديم إن وجد)
+                let priceDisplay = `*${itemTotal} درهم*`;
+                if (item.oldPrice) {
+                    const itemOldTotal = item.oldPrice * item.quantity;
+                    priceDisplay = `~${itemOldTotal} درهم~ *${itemTotal} درهم*`;
+                } else if (item.id === 999) {
+                    // السعر التقريبي الأصلي للعرض العائلي هو 200 درهم
+                    const promoOldTotal = 200 * item.quantity;
+                    priceDisplay = `~${promoOldTotal} درهم~ *${itemTotal} درهم*`;
+                }
+                
+                message += `* \`${item.quantity}x\` ${item.title} (${priceDisplay})\n`;
+                
                 if (item.note && item.note.trim() !== '') {
-                    message += `  📝 *ملاحظة:* _${item.note.trim()}_\n`;
+                    message += `> 📝 *ملاحظة:* _${item.note.trim()}_\n`;
                 }
             });
-            message += "--------------------\n";
-            message += `💰 *الإجمالي: ${grandTotal} درهم*\n\nالرجاء تأكيد استلام الطلب. شكراً! 🍔`;
+            
+            message += "----------------------------------------\n\n";
+            message += `*💰 المجموع الإجمالي: ${grandTotal} درهم*\n\n`;
+            
+            // تفاصيل إضافية بتنسيق monospace و inline code
+            message += `\`\`\`الوقت: ${orderTime}\`\`\`\n`;
+            message += `\`\`\`التاريخ: ${orderDate}\`\`\`\n`;
+            message += `*طريقة الدفع:* \`الدفع عند الاستلام\`\n\n`;
+            message += "الرجاء تأكيد استلام الطلب وتجهيزه. شكراً لكم! 🍔";
+            
             window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
