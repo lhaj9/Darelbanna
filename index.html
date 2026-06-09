@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>دار البنة | DAR ELBANNA - مطعم الوجبات السريعة الفاخرة</title>
     <meta name="description" content="اطلب أشهى البرجر، البيتزا، والتاكوس من دار البنة. توصيل سريع ومذاق لا ينسى.">
 
-    <!-- الخطوط 0000000000000000000 -->
+    <!-- الخطوط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap"
@@ -65,6 +65,7 @@
             background-color: #0a0a0a;
             color: #fff;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* شريط التمرير */
@@ -95,7 +96,7 @@
             position: fixed;
             inset: 0;
             background: #0a0a0a;
-            z-index: 9999;
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -216,14 +217,22 @@
             }
         }
 
-        /* تأثير سلة المشتريات */
+        /* تأثير السلة و القوائم */
         .cart-open {
             transform: translateX(0) !important;
         }
 
-        .cart-overlay-open {
+        .mobile-menu-open {
+            transform: translateX(0) !important;
+        }
+
+        .overlay-open {
             opacity: 1 !important;
             pointer-events: auto !important;
+        }
+
+        .virtual-page-open {
+            transform: translateY(0) !important;
         }
 
         .cart-bump {
@@ -241,17 +250,17 @@
             }
 
             100% {
-                transform: scale(1) rotate(0);
+                transform: scale(1);
+                rotate(0);
             }
         }
 
-        /* خلفية الباترن */
+        /* خلفية الباترن و السلايدر */
         .bg-pattern {
             background-image: radial-gradient(rgba(255, 107, 0, 0.1) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
-        /* Slider */
         .slide {
             position: absolute;
             inset: 0;
@@ -263,15 +272,28 @@
             opacity: 1;
             z-index: 10;
         }
+
+        /* تقليم النصوص */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 
-<body class="selection:bg-brand-primary selection:text-white relative">
+<body class="selection:bg-brand-primary selection:text-white relative pb-20 md:pb-0">
 
-    <!-- ثوابت المطعم -->
     <script>
         const RESTAURANT_WHATSAPP = "212636696742";
-        const LOGO_URL = "https://lhaj9.github.io/Darelbanna/resources/logo.png";
     </script>
 
     <!-- شاشة التحميل (Preloader) -->
@@ -290,12 +312,19 @@
 
     <!-- شريط التنقل (Navbar) -->
     <nav id="navbar"
-        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-4 md:px-8 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent">
+        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-3 md:py-4 px-4 md:px-8 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+            <!-- زر قائمة الهواتف (Hamburger) -->
+            <button onclick="toggleMobileMenu()"
+                class="md:hidden text-white text-2xl p-2 hover:text-brand-primary transition-colors focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+
             <!-- الشعار -->
             <a href="#" class="flex items-center gap-3 group">
                 <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار دار البنة"
-                    class="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.5)] group-hover:scale-110 transition-transform duration-500">
+                    class="h-9 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.5)] group-hover:scale-110 transition-transform duration-500">
                 <div class="flex flex-col hidden sm:flex">
                     <span
                         class="text-xl md:text-2xl font-black tracking-tighter text-white group-hover:text-brand-primary transition-colors">DAR
@@ -305,7 +334,7 @@
                 </div>
             </a>
 
-            <!-- الروابط -->
+            <!-- الروابط (للشاشات الكبيرة) -->
             <div
                 class="hidden md:flex items-center gap-8 bg-black/40 backdrop-blur-md px-8 py-3 rounded-full border border-white/10">
                 <a href="#home" class="text-sm font-bold hover:text-brand-primary transition-colors">الرئيسية</a>
@@ -324,34 +353,72 @@
                 </a>
 
                 <button onclick="toggleCart()"
-                    class="relative glass-panel hover:border-brand-primary/50 p-3 rounded-full transition-all duration-300 group shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                    class="relative glass-panel hover:border-brand-primary/50 p-2.5 md:p-3 rounded-full transition-all duration-300 group shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                     id="cartNavbarBtn">
-                    <i class="fa-solid fa-basket-shopping text-xl transition-all duration-300" id="cartBtnIcon"></i>
+                    <i class="fa-solid fa-basket-shopping text-lg md:text-xl transition-all duration-300"
+                        id="cartBtnIcon"></i>
                     <span id="cartBadge"
-                        class="absolute -top-2 -right-2 bg-brand-primary text-white text-[11px] font-black w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-brand-dark transform scale-0 transition-transform duration-300">0</span>
+                        class="absolute -top-2 -right-2 bg-brand-primary text-white text-[10px] md:text-[11px] font-black w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-brand-dark transform scale-0 transition-transform duration-300">0</span>
                 </button>
             </div>
         </div>
     </nav>
 
+    <!-- قائمة الهواتف الجانبية (Mobile Menu) -->
+    <div id="mobileMenuOverlay" onclick="toggleMobileMenu()"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[45] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+    </div>
+    <div id="mobileMenu"
+        class="fixed top-0 right-0 bottom-0 w-[280px] bg-[#0a0a0a] z-[50] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col md:hidden border-l border-white/5 shadow-2xl">
+        <div
+            class="p-6 border-b border-white/5 flex justify-between items-center bg-gradient-to-b from-brand-primary/10 to-transparent">
+            <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار" class="h-10">
+            <button onclick="toggleMobileMenu()"
+                class="w-10 h-10 bg-white/5 rounded-full flex justify-center items-center text-white hover:bg-brand-primary transition-colors"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+        <div class="flex flex-col p-6 gap-2 overflow-y-auto flex-grow">
+            <a href="#home" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-house text-brand-primary"></i> الرئيسية</a>
+            <a href="#features" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-star text-brand-primary"></i> مميزاتنا</a>
+            <a href="#promo" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-fire text-brand-primary"></i> عروض اليوم</a>
+            <a href="#menu" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-utensils text-brand-primary"></i> قائمة الطعام</a>
+            <a href="#gallery" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-images text-brand-primary"></i> معرض الصور</a>
+            <a href="#testimonials" onclick="toggleMobileMenu()"
+                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
+                    class="fa-solid fa-comments text-brand-primary"></i> آراء الزبائن</a>
+        </div>
+        <div class="p-6 border-t border-white/5 bg-black">
+            <button onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
+                class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-4 rounded-xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(37,211,102,0.3)]">
+                <i class="fa-brands fa-whatsapp text-2xl"></i> تواصل معنا
+            </button>
+        </div>
+    </div>
+
     <!-- الواجهة الرئيسية (Hero Slider) -->
     <header id="home" class="relative h-screen flex items-center justify-center overflow-hidden bg-brand-darker">
-
         <!-- شرائح الخلفية -->
         <div id="heroSlider" class="absolute inset-0 z-0">
-            <!-- الشريحة 1 -->
             <div class="slide active bg-cover bg-center"
                 style="background-image: url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1920&q=80');">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-darker via-brand-darker/80 to-transparent">
                 </div>
             </div>
-            <!-- الشريحة 2 -->
             <div class="slide bg-cover bg-center"
                 style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&q=80');">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-darker via-brand-darker/80 to-transparent">
                 </div>
             </div>
-            <!-- الشريحة 3 -->
             <div class="slide bg-cover bg-center"
                 style="background-image: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1920&q=80');">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-darker via-brand-darker/80 to-transparent">
@@ -362,7 +429,8 @@
         <div class="absolute inset-0 bg-pattern z-0 opacity-30"></div>
 
         <!-- محتوى الواجهة -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+        <div
+            class="relative z-10 max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full mt-10 md:mt-0">
             <div class="space-y-6 md:space-y-8 text-center lg:text-right reveal-right active">
                 <div
                     class="inline-flex items-center gap-2 glass-panel text-brand-primary px-5 py-2 rounded-full text-xs md:text-sm font-bold border border-brand-primary/30 shadow-[0_0_15px_rgba(255,107,0,0.2)]">
@@ -396,7 +464,7 @@
                 </div>
             </div>
 
-            <!-- صورة تفاعلية عائمة -->
+            <!-- صورة تفاعلية عائمة (تظهر في الشاشات الكبيرة) -->
             <div class="hidden lg:flex justify-center relative reveal-left active">
                 <div
                     class="w-[500px] h-[500px] rounded-full border border-white/5 bg-gradient-to-tr from-brand-primary/20 to-transparent absolute animate-spin-slow">
@@ -405,7 +473,6 @@
                     alt="برجر عائم"
                     class="w-[450px] object-cover rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.8)] animate-float border-8 border-brand-dark z-10">
 
-                <!-- شارات متحركة -->
                 <div class="absolute top-10 right-10 glass-panel px-4 py-2 rounded-xl border border-white/10 animate-float z-20"
                     style="animation-delay: 1s;">
                     <div class="text-xl font-black text-white">⭐ 4.9/5</div>
@@ -420,8 +487,7 @@
             </div>
         </div>
 
-        <!-- مؤشرات السلايدر -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20 hidden md:flex">
             <button class="w-8 h-2 rounded-full bg-brand-primary transition-all slider-dot"
                 onclick="goToSlide(0)"></button>
             <button class="w-3 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all slider-dot"
@@ -431,7 +497,7 @@
         </div>
     </header>
 
-    <!-- قسم المميزات (Features) -->
+    <!-- قسم المميزات -->
     <section id="features" class="py-24 bg-brand-dark relative z-10 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16 reveal">
@@ -450,10 +516,9 @@
                     </div>
                     <h3 class="text-2xl font-black mb-3 text-white group-hover:text-brand-primary transition-colors">
                         مكونات طازجة يومياً</h3>
-                    <p class="text-brand-grayMuted text-sm leading-relaxed">نختار لحومنا وخضرواتنا بعناية فائقة فجر كل
-                        يوم لنضمن لك وجبة صحية ومفعمة بالنكهات الحقيقية.</p>
+                    <p class="text-brand-grayMuted text-sm leading-relaxed">نختار لحومنا وخضرواتنا بعناية فائقة لنضمن لك
+                        وجبة صحية ومفعمة بالنكهات.</p>
                 </div>
-
                 <div
                     class="glass-panel p-8 rounded-3xl reveal-scale hover:-translate-y-3 transition-transform duration-500 group text-center border-t border-brand-primary/20 delay-100">
                     <div
@@ -463,9 +528,8 @@
                     <h3 class="text-2xl font-black mb-3 text-white group-hover:text-brand-primary transition-colors">
                         وصفاتنا السرية</h3>
                     <p class="text-brand-grayMuted text-sm leading-relaxed">تميزنا بصلصات منزلية الصنع بمقادير سرية وخبز
-                        يخبز خصيصاً لنا ليضفي لمسة ساحرة لن تجدها في أي مكان آخر.</p>
+                        يخبز خصيصاً لنا ليضفي لمسة ساحرة.</p>
                 </div>
-
                 <div
                     class="glass-panel p-8 rounded-3xl reveal-scale hover:-translate-y-3 transition-transform duration-500 group text-center border-t border-brand-primary/20 delay-200">
                     <div
@@ -475,13 +539,13 @@
                     <h3 class="text-2xl font-black mb-3 text-white group-hover:text-brand-primary transition-colors">
                         توصيل سريع وساخن</h3>
                     <p class="text-brand-grayMuted text-sm leading-relaxed">أسطولنا مجهز بحقائب حرارية عالية الجودة
-                        لضمان وصول وجبتك وهي تتصاعد منها الأبخرة وكأنك داخل المطعم.</p>
+                        لضمان وصول وجبتك ساخنة.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- قسم العرض الخاص (Promo Countdown) -->
+    <!-- قسم العرض الخاص -->
     <section id="promo" class="py-20 relative bg-brand-primary overflow-hidden">
         <div
             class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1920')] bg-cover bg-center mix-blend-overlay opacity-20">
@@ -528,53 +592,66 @@
         </div>
     </section>
 
-    <!-- المنيو التفاعلي الضخم (The Core App) -->
+    <!-- المنيو التفاعلي (Categories Grid) -->
     <section id="menu" class="py-24 bg-[#050505] min-h-screen relative border-t border-white/5">
         <div class="absolute inset-0 bg-pattern opacity-10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 relative z-10">
-
-            <!-- الهيدر -->
             <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-                <span id="menuSubtitle" class="text-brand-primary font-bold tracking-widest text-sm uppercase">اكتشف
-                    المذاق</span>
-                <h2 id="menuTitle" class="text-4xl md:text-5xl font-black mt-2">القائمة الرئيسية 📖</h2>
+                <span class="text-brand-primary font-bold tracking-widest text-sm uppercase">اكتشف المذاق</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-2">القائمة الرئيسية 📖</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-brand-primary to-transparent mx-auto mt-6 rounded-full">
                 </div>
             </div>
 
             <!-- حاوية التصنيفات الكبرى -->
             <div id="categoriesContainer"
-                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 transition-all duration-500 reveal">
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 reveal">
                 <!-- جافاسكريبت سيملأ هذا -->
             </div>
-
-            <!-- حاوية المنتجات داخل التصنيف -->
-            <div id="itemsContainer" class="hidden opacity-0 transition-opacity duration-500">
-                <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
-                    <h3 id="currentCategoryTitle"
-                        class="text-2xl font-black text-brand-primary flex items-center gap-2"></h3>
-                    <button onclick="showCategories()"
-                        class="glass-panel hover:bg-white/10 text-white px-5 py-2 rounded-xl font-bold text-sm transition-all-300 flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-right"></i> كل التصنيفات
-                    </button>
-                </div>
-
-                <div id="itemsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    <!-- جافاسكريبت سيملأ هذا بالمنتجات -->
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- معرض الصور (Gallery) -->
-    <section id="gallery" class="py-20 bg-brand-dark overflow-hidden">
+    <!-- ========================================================================= -->
+    <!-- الصفحة الوهمية الخاصة بفتح التصنيف (App-like Virtual Page Bottom Sheet) -->
+    <!-- ========================================================================= -->
+    <div id="categoryVirtualPage"
+        class="fixed inset-0 bg-[#0a0a0a] z-[55] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+
+        <!-- الهيدر الخاص بالصفحة الوهمية -->
+        <div
+            class="glass-panel border-b border-white/10 px-4 py-4 flex items-center justify-between sticky top-0 z-20 bg-brand-dark/90 backdrop-blur-xl">
+            <button onclick="closeCategoryPage()"
+                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:-translate-x-1 transition-all border border-white/10">
+                <i class="fa-solid fa-arrow-right text-lg"></i>
+            </button>
+            <h2 id="virtualPageTitle"
+                class="text-xl md:text-2xl font-black text-brand-primary flex-1 text-center drop-shadow-md">التصنيف</h2>
+            <button onclick="toggleCart()"
+                class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center relative hover:bg-brand-primary/20 transition-colors border border-brand-primary/30"
+                id="virtualCartBtn">
+                <i class="fa-solid fa-basket-shopping text-lg" id="virtualCartBtnIcon"></i>
+                <span id="virtualPageCartBadge"
+                    class="absolute -top-1.5 -right-1.5 bg-brand-danger text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform shadow-lg border-2 border-[#0a0a0a]">0</span>
+            </button>
+        </div>
+
+        <!-- حاوية المنتجات داخل الصفحة الوهمية -->
+        <div
+            class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
+            <div id="virtualPageItemsGrid"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto pb-20">
+                <!-- المنتجات تظهر هنا عبر الجافاسكريبت بتصميم هجين (أفقي للموبايل، عمودي للكمبيوتر) -->
+            </div>
+        </div>
+    </div>
+
+    <!-- معرض الصور -->
+    <section id="gallery" class="py-20 bg-brand-dark overflow-hidden border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 mb-12 text-center reveal">
             <h2 class="text-3xl md:text-4xl font-black mb-4">من مطبخنا إليك 📸</h2>
             <p class="text-brand-grayMuted">صور حقيقية لوجباتنا تفتح الشهية</p>
         </div>
 
-        <!-- معرض بتمرير أفقي لا نهائي -->
         <div class="flex gap-4 overflow-x-auto pb-8 px-4 no-scrollbar reveal" style="scroll-snap-type: x mandatory;">
             <div class="min-w-[280px] md:min-w-[350px] h-64 rounded-2xl overflow-hidden relative group"
                 style="scroll-snap-align: start;">
@@ -612,60 +689,41 @@
                     <i class="fa-brands fa-instagram mr-2"></i> @DarElbanna
                 </div>
             </div>
-            <div class="min-w-[280px] md:min-w-[350px] h-64 rounded-2xl overflow-hidden relative group"
-                style="scroll-snap-align: start;">
-                <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                <div
-                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xl">
-                    <i class="fa-brands fa-instagram mr-2"></i> @DarElbanna
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- آراء الزبائن (Testimonials) -->
+    <!-- آراء الزبائن -->
     <section id="testimonials" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-black mb-16 reveal">ماذا يقول عشاق دار البنة؟ 💬</h2>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-                <!-- تقييم 1 -->
                 <div class="glass-panel p-8 rounded-3xl relative mt-8">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg"
                         class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
                             class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                     <p class="text-gray-300 italic mb-4 text-sm">"أفضل برجر ذقته في المدينة! اللحم طري جداً والخبز فريش.
                         التوصيل كان في الوقت المحدد والوجبة ساخنة."</p>
                     <h4 class="font-bold text-white">- أحمد م.</h4>
                 </div>
-                <!-- تقييم 2 -->
                 <div
                     class="glass-panel p-8 rounded-3xl relative mt-8 border-brand-primary/30 shadow-[0_0_20px_rgba(255,107,0,0.1)] transform md:-translate-y-4">
                     <img src="https://randomuser.me/api/portraits/women/44.jpg"
                         class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
                             class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star-half-stroke"></i>
-                    </div>
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
                     <p class="text-gray-300 italic mb-4 text-sm">"البيتزا عندهم حكاية ثانية، العجينة رقيقة ومقرمشة
                         والمكونات باين إنها جودة عالية. صرت زبونة دائمة!"</p>
                     <h4 class="font-bold text-white">- سارة ال.</h4>
                 </div>
-                <!-- تقييم 3 -->
                 <div class="glass-panel p-8 rounded-3xl relative mt-8">
                     <img src="https://randomuser.me/api/portraits/men/62.jpg"
                         class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
                             class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                     <p class="text-gray-300 italic mb-4 text-sm">"جربت التاكوس ميكس صراحة حجمه كبير ويشبع والصلصة
                         الجزائرية اللي معاهم ولا غلطة. استمروا يا شباب."</p>
                     <h4 class="font-bold text-white">- يوسف ب.</h4>
@@ -674,32 +732,26 @@
         </div>
     </section>
 
-    <!-- السلة الجانبية (Cart Sidebar) -->
+    <!-- السلة الجانبية -->
     <div id="cartOverlay" onclick="toggleCart()"
-        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[50] opacity-0 pointer-events-none transition-opacity duration-300">
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] opacity-0 pointer-events-none transition-opacity duration-300">
     </div>
-
     <div id="cartSidebar"
-        class="fixed top-0 bottom-0 left-0 w-full sm:w-[450px] bg-brand-card z-[60] transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col border-r border-white/5 shadow-2xl">
-        <!-- رأس السلة -->
+        class="fixed top-0 bottom-0 left-0 w-full sm:w-[450px] bg-brand-card z-[70] transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col border-r border-white/5 shadow-2xl">
         <div class="p-6 border-b border-white/5 flex justify-between items-center bg-[#0a0a0a]">
             <h2 class="text-2xl font-black flex items-center gap-3">
                 <div
                     class="w-10 h-10 bg-brand-primary/20 rounded-full flex items-center justify-center text-brand-primary">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                </div>
+                    <i class="fa-solid fa-basket-shopping"></i></div>
                 سلة طلباتي
             </h2>
             <button onclick="toggleCart()"
-                class="w-10 h-10 bg-white/5 hover:bg-brand-danger hover:text-white rounded-full flex items-center justify-center transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+                class="w-10 h-10 bg-white/5 hover:bg-brand-danger hover:text-white rounded-full flex items-center justify-center transition-colors"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
         </div>
 
-        <!-- محتوى السلة -->
         <div id="cartItemsContainer"
             class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-card">
-            <!-- رسالة السلة الفارغة -->
             <div id="emptyCartMsg"
                 class="flex flex-col items-center justify-center h-full text-brand-grayMuted opacity-50 space-y-6">
                 <i class="fa-solid fa-cart-arrow-down text-7xl text-white/10"></i>
@@ -710,70 +762,57 @@
             </div>
         </div>
 
-        <!-- ذيل السلة (المجموع والدفع) -->
         <div class="p-6 border-t border-white/5 bg-[#0a0a0a] space-y-5">
             <div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
                 <span class="font-bold text-brand-grayMuted">المجموع الإجمالي:</span>
                 <span id="cartTotalPrice" class="font-black text-3xl text-brand-primary">0 <span
                         class="text-lg">درهم</span></span>
             </div>
-
             <button onclick="checkoutWhatsApp()" id="checkoutBtn" disabled
                 class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] hover:shadow-[0_0_20px_rgba(37,211,102,0.4)] disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-400 disabled:shadow-none disabled:cursor-not-allowed text-white py-4 rounded-2xl font-black transition-all duration-300 flex items-center justify-center gap-3 text-xl hover:-translate-y-1">
-                <i class="fa-brands fa-whatsapp text-3xl"></i>
-                أرسل الطلب للواتساب
+                <i class="fa-brands fa-whatsapp text-3xl"></i> أرسل الطلب للواتساب
             </button>
-            <p class="text-center text-[11px] text-brand-grayMuted"><i class="fa-solid fa-lock text-[9px] mr-1"></i> لن
-                يتم طلب الدفع أونلاين، الدفع عند الاستلام.</p>
+            <p class="text-center text-[11px] text-brand-grayMuted"><i class="fa-solid fa-lock text-[9px] mr-1"></i>
+                الدفع يكون عند الاستلام.</p>
         </div>
     </div>
 
-    <!-- الفوتر (Footer) -->
+    <!-- الفوتر -->
     <footer class="bg-[#050505] pt-16 pb-8 border-t border-white/5 relative overflow-hidden">
         <div class="absolute inset-0 bg-brand-primary/5 opacity-20 blur-[100px] pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 mb-12">
-
-            <!-- معلومات المطعم -->
             <div class="space-y-6">
-                <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار دار البنة"
+                <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار"
                     class="h-16 w-auto object-contain">
-                <p class="text-brand-grayMuted text-sm leading-relaxed">
-                    دار البنة، وجهتك الأولى للوجبات السريعة الفاخرة. نلتزم بتقديم أعلى معايير الجودة والمذاق الذي لا
-                    ينسى.
-                </p>
+                <p class="text-brand-grayMuted text-sm leading-relaxed">وجهتك الأولى للوجبات السريعة الفاخرة. نلتزم
+                    بتقديم أعلى معايير الجودة والمذاق.</p>
                 <div class="flex gap-3">
                     <a href="#"
-                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all hover:-translate-y-1 border border-white/10"><i
+                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all border border-white/10"><i
                             class="fa-brands fa-facebook-f"></i></a>
                     <a href="#"
-                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all hover:-translate-y-1 border border-white/10"><i
+                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all border border-white/10"><i
                             class="fa-brands fa-instagram"></i></a>
                     <a href="#"
-                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all hover:-translate-y-1 border border-white/10"><i
+                        class="w-10 h-10 bg-white/5 hover:bg-brand-primary rounded-full flex items-center justify-center transition-all border border-white/10"><i
                             class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-
-            <!-- روابط سريعة -->
             <div>
                 <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">روابط هامة
                 </h4>
                 <ul class="space-y-3">
                     <li><a href="#menu"
-                            class="text-brand-grayMuted hover:text-brand-primary transition-colors text-sm"><i
+                            class="text-brand-grayMuted hover:text-brand-primary text-sm transition-colors"><i
                                 class="fa-solid fa-angle-left text-[10px] ml-1"></i> قائمة الطعام</a></li>
                     <li><a href="#promo"
-                            class="text-brand-grayMuted hover:text-brand-primary transition-colors text-sm"><i
+                            class="text-brand-grayMuted hover:text-brand-primary text-sm transition-colors"><i
                                 class="fa-solid fa-angle-left text-[10px] ml-1"></i> عروض اليوم</a></li>
                     <li><a href="#gallery"
-                            class="text-brand-grayMuted hover:text-brand-primary transition-colors text-sm"><i
+                            class="text-brand-grayMuted hover:text-brand-primary text-sm transition-colors"><i
                                 class="fa-solid fa-angle-left text-[10px] ml-1"></i> معرض الصور</a></li>
-                    <li><a href="#" class="text-brand-grayMuted hover:text-brand-primary transition-colors text-sm"><i
-                                class="fa-solid fa-angle-left text-[10px] ml-1"></i> سياسة الخصوصية</a></li>
                 </ul>
             </div>
-
-            <!-- أوقات العمل -->
             <div>
                 <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">أوقات العمل
                 </h4>
@@ -783,28 +822,23 @@
                     <li class="flex justify-between border-b border-white/5 pb-2"><span>الجمعة:</span> <span
                             class="text-white">14:00 ب.ز - 02:00 ص</span></li>
                     <li class="flex justify-between pb-2 text-brand-primary font-bold"><span>السبت - الأحد:</span>
-                        <span>12:00 ز - 03:00 ص</span>
-                    </li>
+                        <span>12:00 ز - 03:00 ص</span></li>
                 </ul>
             </div>
-
-            <!-- تواصل معنا -->
             <div>
-                <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">للطلب
-                    والاستفسار</h4>
+                <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">تواصل معنا
+                </h4>
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
                         <div
                             class="w-8 h-8 rounded-full bg-brand-primary/20 text-brand-primary flex items-center justify-center shrink-0 mt-1">
-                            <i class="fa-solid fa-location-dot text-sm"></i>
-                        </div>
-                        <p class="text-brand-grayMuted text-sm">شارع محمد الخامس، وسط المدينة (بجانب البريد المركزي)</p>
+                            <i class="fa-solid fa-location-dot text-sm"></i></div>
+                        <p class="text-brand-grayMuted text-sm">شارع محمد الخامس، وسط المدينة</p>
                     </li>
                     <li class="flex items-center gap-3">
                         <div
                             class="w-8 h-8 rounded-full bg-[#25D366]/20 text-[#25D366] flex items-center justify-center shrink-0">
-                            <i class="fa-brands fa-whatsapp text-sm"></i>
-                        </div>
+                            <i class="fa-brands fa-whatsapp text-sm"></i></div>
                         <a href="javascript:void(0)"
                             onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
                             class="text-white font-bold hover:text-[#25D366] text-lg transition-colors"
@@ -812,132 +846,116 @@
                     </li>
                 </ul>
             </div>
-
         </div>
-
         <div
             class="max-w-7xl mx-auto px-4 pt-8 border-t border-white/5 text-center text-brand-grayMuted text-xs flex flex-col md:flex-row justify-between items-center gap-4">
             <p>© 2026 مطعم دار البنة (DAR ELBANNA). جميع الحقوق محفوظة.</p>
-            <p class="flex items-center gap-1">صنع بكل <i class="fa-solid fa-heart text-brand-danger animate-pulse"></i>
-                بواسطة مصمم محترف</p>
         </div>
     </footer>
 
-    <!-- زر الصعود للأعلى والواتساب العائم -->
-    <div class="fixed bottom-6 right-6 z-30 flex flex-col gap-3">
+    <!-- الأزرار العائمة (واتساب وصعود) -->
+    <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 flex flex-col gap-3">
         <a href="javascript:void(0)" onclick="window.scrollTo(0,0)"
             class="w-12 h-12 bg-black/50 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-brand-primary transition-all shadow-lg hidden"
-            id="scrollTopBtn">
-            <i class="fa-solid fa-arrow-up"></i>
-        </a>
+            id="scrollTopBtn"><i class="fa-solid fa-arrow-up"></i></a>
         <a href="javascript:void(0)" onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
-            class="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-[0_0_20px_rgba(37,211,102,0.4)] animate-pulse-glow">
-            <i class="fa-brands fa-whatsapp text-3xl"></i>
-        </a>
+            class="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-[0_0_20px_rgba(37,211,102,0.4)] animate-pulse-glow"><i
+                class="fa-brands fa-whatsapp text-3xl"></i></a>
     </div>
 
     <!-- ========================================== -->
-    <!--           xالسكربتات والمنطق البرمجي         -->
+    <!--           السكربتات والمنطق البرمجي          -->
     <!-- ========================================== -->
     <script>
-        // --- 1. قاعدة بيانات ضخمة للتصنيفات والمنتجات (ديناميكية) ---
         let categoriesData = [];
         let menuData = [];
-
         let cart = [];
+        let isVirtualPageOpen = false;
 
-        // --- 2. محرك الواجهة (Rendering Engine) ---
+        // --- 1. القوائم للهواتف (Mobile Menu) ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            menu.classList.toggle('mobile-menu-open');
+            overlay.classList.toggle('overlay-open');
+        }
 
-        // رسم التصنيفات الكبرى
+        // --- 2. رسم شبكة التصنيفات الكبرى ---
         function renderCategories() {
             const container = document.getElementById('categoriesContainer');
             container.innerHTML = '';
-
             categoriesData.forEach((cat, index) => {
                 const itemsCount = menuData.filter(i => i.category === cat.id).length;
                 container.innerHTML += `
-                    <div onclick="openCategory('${cat.id}', '${cat.title}', '${cat.icon}')" class="bg-brand-card rounded-3xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-2 shadow-lg" style="animation: fadeUp 0.5s ease forwards ${index * 0.1}s; opacity: 0;">
-                        <div class="relative h-40">
+                    <div onclick="openCategoryPage('${cat.id}', '${cat.title}', '${cat.icon}')" class="glass-panel rounded-3xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-2 shadow-lg" style="animation: fadeUp 0.5s ease forwards ${index * 0.05}s; opacity: 0;">
+                        <div class="relative h-32 md:h-40">
                             <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t ${cat.color} to-black/80 transition-colors duration-300"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
-                                <span class="text-5xl mb-2 drop-shadow-xl transform group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300">${cat.icon}</span>
-                                <h3 class="font-black text-xl drop-shadow-md text-center px-2">${cat.title}</h3>
+                                <span class="text-4xl md:text-5xl mb-2 drop-shadow-xl transform group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300">${cat.icon}</span>
+                                <h3 class="font-black text-lg md:text-xl drop-shadow-md text-center px-2">${cat.title}</h3>
                             </div>
                         </div>
                         <div class="p-3 text-center bg-[#0a0a0a]">
-                            <span class="text-xs text-brand-grayMuted font-bold group-hover:text-brand-primary transition-colors">استكشف ${itemsCount} أصناف</span>
+                            <span class="text-[11px] md:text-xs text-brand-grayMuted font-bold group-hover:text-brand-primary transition-colors">استكشف ${itemsCount} أصناف</span>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // فتح تصنيف معين
-        function openCategory(categoryId, categoryTitle, icon) {
-            document.getElementById('menuTitle').innerText = `${categoryTitle} ${icon}`;
-            document.getElementById('menuSubtitle').innerText = "اختر ما يروق لك من";
-            document.getElementById('currentCategoryTitle').innerHTML = `${icon} تشكيلة ${categoryTitle}`;
-
-            const catContainer = document.getElementById('categoriesContainer');
-            const itemsContainer = document.getElementById('itemsContainer');
-
-            catContainer.classList.add('hidden');
-            itemsContainer.classList.remove('hidden');
-            setTimeout(() => itemsContainer.classList.remove('opacity-0'), 50);
+        // --- 3. نافذة التصنيف الوهمية (App Experience) ---
+        function openCategoryPage(categoryId, title, icon) {
+            isVirtualPageOpen = true;
+            document.getElementById('virtualPageTitle').innerText = `${icon} ${title}`;
+            const page = document.getElementById('categoryVirtualPage');
+            document.body.style.overflow = 'hidden'; // منع تمرير الصفحة الرئيسية
+            page.classList.add('virtual-page-open');
 
             const filteredItems = menuData.filter(item => item.category === categoryId);
-            renderItems(filteredItems);
+            renderVirtualPageItems(filteredItems);
         }
 
-        // العودة لجميع التصنيفات
-        function showCategories() {
-            document.getElementById('menuTitle').innerText = "القائمة الرئيسية 📖";
-            document.getElementById('menuSubtitle').innerText = "اكتشف المذاق";
-
-            const catContainer = document.getElementById('categoriesContainer');
-            const itemsContainer = document.getElementById('itemsContainer');
-
-            itemsContainer.classList.add('opacity-0');
-            setTimeout(() => {
-                itemsContainer.classList.add('hidden');
-                catContainer.classList.remove('hidden');
-            }, 300);
+        function closeCategoryPage() {
+            isVirtualPageOpen = false;
+            const page = document.getElementById('categoryVirtualPage');
+            document.body.style.overflow = ''; // استعادة التمرير
+            page.classList.remove('virtual-page-open');
         }
 
-        // رسم المنتجات داخل التصنيف
-        function renderItems(items) {
-            const grid = document.getElementById('itemsGrid');
+        // رسم المنتجات بتصميم هجين (أفقي للموبايل، عمودي للديسكتوب) مع الجمالية الأصلية
+        function renderVirtualPageItems(items) {
+            const grid = document.getElementById('virtualPageItemsGrid');
             grid.innerHTML = '';
-
             items.forEach((item, index) => {
                 grid.innerHTML += `
-                    <div class="product-card bg-brand-card rounded-3xl p-4 border border-white/5 hover:border-brand-primary/30 transition-all duration-300 flex flex-col h-full shadow-lg relative group" id="product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.05}s; opacity: 0;">
-                        <!-- الصورة -->
-                        <div class="relative h-48 rounded-2xl overflow-hidden mb-4 bg-black">
+                    <div class="glass-panel rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all duration-300 flex flex-row sm:flex-col overflow-hidden shadow-lg relative group product-card" id="product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.05}s; opacity: 0;">
+                        
+                        <!-- الصورة (يسار في الموبايل، أعلى في الديسكتوب) -->
+                        <div class="w-[120px] sm:w-full min-w-[120px] sm:h-48 relative bg-black shrink-0">
                             <img src="${item.img}" alt="${item.title}" class="product-img w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100">
-                            <div class="absolute top-3 left-3 bg-brand-dark/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                                <span class="text-brand-primary font-black">${item.price} <span class="text-[10px]">درهم</span></span>
+                            <div class="absolute top-2 left-2 sm:top-3 sm:left-3 bg-brand-dark/80 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-1 rounded-full border border-white/10">
+                                <span class="text-brand-primary font-black text-xs sm:text-sm">${item.price} <span class="text-[9px]">درهم</span></span>
                             </div>
                         </div>
                         
-                        <!-- المعلومات -->
-                        <div class="flex-grow flex flex-col">
-                            <h3 class="font-bold text-lg text-white mb-2 group-hover:text-brand-primary transition-colors line-clamp-1">${item.title}</h3>
-                            <p class="text-[12px] text-brand-grayMuted line-clamp-2 mb-4 flex-grow leading-relaxed">${item.desc}</p>
+                        <!-- المعلومات وأدوات الإضافة -->
+                        <div class="flex-grow p-3 sm:p-4 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-sm sm:text-lg text-white mb-1 sm:mb-2 group-hover:text-brand-primary transition-colors line-clamp-1">${item.title}</h3>
+                                <p class="text-[11px] sm:text-[12px] text-brand-grayMuted line-clamp-2 leading-relaxed mb-3 sm:mb-4">${item.desc}</p>
+                            </div>
                             
-                            <!-- أدوات الإضافة -->
-                            <div class="flex items-center justify-between gap-3 mt-auto bg-[#0a0a0a] p-2 rounded-2xl border border-white/5">
-                                <!-- اختيار الكمية -->
-                                <div class="flex items-center gap-1 bg-brand-card rounded-xl border border-white/5 px-1 py-1">
-                                    <button onclick="changeLocalQty(${item.id}, -1)" class="w-8 h-8 rounded-lg flex justify-center items-center text-brand-grayMuted hover:bg-white/10 hover:text-white transition-colors"><i class="fa-solid fa-minus text-xs"></i></button>
-                                    <span id="local-qty-${item.id}" class="w-6 text-center font-bold text-sm select-none">1</span>
-                                    <button onclick="changeLocalQty(${item.id}, 1)" class="w-8 h-8 rounded-lg flex justify-center items-center text-brand-grayMuted hover:bg-white/10 hover:text-white transition-colors"><i class="fa-solid fa-plus text-xs"></i></button>
+                            <!-- أدوات الإضافة السفلية -->
+                            <div class="flex items-center gap-2 sm:gap-3 mt-auto bg-[#0a0a0a] p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border border-white/5">
+                                <div class="flex items-center gap-1 bg-brand-card rounded-lg sm:rounded-xl border border-white/5 px-1 py-0.5 sm:py-1">
+                                    <button onclick="changeLocalQty(${item.id}, -1)" class="w-6 h-6 sm:w-8 sm:h-8 rounded flex justify-center items-center text-brand-grayMuted hover:bg-white/10 hover:text-white transition-colors"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                    <span id="local-qty-${item.id}" class="w-5 sm:w-6 text-center font-bold text-xs sm:text-sm select-none">1</span>
+                                    <button onclick="changeLocalQty(${item.id}, 1)" class="w-6 h-6 sm:w-8 sm:h-8 rounded flex justify-center items-center text-brand-grayMuted hover:bg-white/10 hover:text-white transition-colors"><i class="fa-solid fa-plus text-[10px]"></i></button>
                                 </div>
                                 
-                                <!-- زر الإضافة -->
-                                <button onclick="addToCartWithAnimation(event, ${item.id})" class="flex-grow bg-brand-primary hover:bg-[#e05e00] text-white h-10 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-[0_5px_15px_rgba(255,107,0,0.3)] hover:-translate-y-0.5 transition-all">
-                                    <i class="fa-solid fa-cart-plus"></i> إضافة
+                                <button onclick="addToCartWithAnimation(event, ${item.id})" class="flex-grow bg-brand-primary hover:bg-[#e05e00] text-white h-8 sm:h-10 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 shadow-[0_5px_15px_rgba(255,107,0,0.3)] hover:-translate-y-0.5 transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i> <span class="hidden sm:inline">إضافة</span>
                                 </button>
                             </div>
                         </div>
@@ -946,13 +964,10 @@
             });
         }
 
-        // تغيير الكمية محلياً
         function changeLocalQty(id, change) {
-            const qtySpan = document.getElementById(`local-qty-${id}`);
-            let currentQty = parseInt(qtySpan.innerText);
-            if (currentQty + change >= 1 && currentQty + change <= 20) {
-                qtySpan.innerText = currentQty + change;
-            }
+            const el = document.getElementById(`local-qty-${id}`);
+            let val = parseInt(el.innerText) + change;
+            if (val >= 1 && val <= 20) el.innerText = val;
         }
 
         // تأثير CSS للصعود
@@ -960,20 +975,22 @@
         style.innerHTML = `@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`;
         document.head.appendChild(style);
 
-        // --- 3. نظام السلة (Cart System) و الأنيميشن ---
-
+        // --- 4. نظام السلة وتأثيرات الإضافة (Animations) ---
         function addToCartWithAnimation(event, itemId) {
             const productCard = document.getElementById(`product-${itemId}`);
             const productImg = productCard.querySelector('.product-img');
-            const cartIconBtn = document.getElementById('cartNavbarBtn');
-            const cartIcon = document.getElementById('cartBtnIcon');
+
+            // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا
+            const targetIconBtn = isVirtualPageOpen ? document.getElementById('virtualCartBtn') : document.getElementById('cartNavbarBtn');
+            const targetIcon = isVirtualPageOpen ? document.getElementById('virtualCartBtnIcon') : document.getElementById('cartBtnIcon');
+
             const qtySpan = document.getElementById(`local-qty-${itemId}`);
             const quantityToAdd = parseInt(qtySpan.innerText);
             const itemDef = menuData.find(i => i.id === itemId);
 
-            // 1. إنشاء تأثير الطيران
+            // تأثير الطيران للصورة (Flying Image)
             const imgRect = productImg.getBoundingClientRect();
-            const cartRect = cartIconBtn.getBoundingClientRect();
+            const targetRect = targetIconBtn.getBoundingClientRect();
 
             const flyingImg = document.createElement('img');
             flyingImg.src = productImg.src;
@@ -985,298 +1002,207 @@
             flyingImg.style.borderRadius = '50%';
             flyingImg.style.objectFit = 'cover';
             flyingImg.style.zIndex = '99999';
-            flyingImg.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+            flyingImg.style.transition = 'all 0.7s cubic-bezier(0.2, 1, 0.3, 1)';
             flyingImg.style.boxShadow = '0 10px 30px rgba(255, 107, 0, 0.6)';
 
             document.body.appendChild(flyingImg);
 
-            // بدء الحركة
             requestAnimationFrame(() => {
-                flyingImg.style.top = (cartRect.top + 10) + 'px';
-                flyingImg.style.left = (cartRect.left + 10) + 'px';
+                flyingImg.style.top = (targetRect.top + 10) + 'px';
+                flyingImg.style.left = (targetRect.left + 10) + 'px';
                 flyingImg.style.width = '20px';
                 flyingImg.style.height = '20px';
                 flyingImg.style.transform = 'rotate(720deg)';
                 flyingImg.style.opacity = '0.5';
             });
 
-            // بعد الوصول
             setTimeout(() => {
                 flyingImg.remove();
-
                 // اهتزاز السلة
-                cartIcon.classList.add('cart-bump');
-                setTimeout(() => cartIcon.classList.remove('cart-bump'), 400);
+                targetIcon.classList.add('cart-bump');
+                setTimeout(() => targetIcon.classList.remove('cart-bump'), 400);
 
-                // الإضافة الفعلية للمصفوفة
-                addItemsToCartArray(itemDef, quantityToAdd);
+                // الإضافة للبيانات
+                const existing = cart.find(i => i.id === itemId);
+                if (existing) existing.quantity += quantityToAdd;
+                else cart.push({ ...itemDef, quantity: quantityToAdd });
 
-                // إظهار إشعار (Toast)
-                showToast(`تم إضافة ${quantityToAdd}x ${itemDef.title} للسلة بنجاح!`, itemDef.img);
-
-                // إعادة الكمية لـ 1
+                updateCartUI();
+                showToast(`تمت إضافة ${quantityToAdd} ${itemDef.title} بنجاح!`, itemDef.img);
                 qtySpan.innerText = '1';
 
-            }, 800);
-        }
-
-        function addItemsToCartArray(itemDef, qty) {
-            const existingItem = cart.find(i => i.id === itemDef.id);
-            if (existingItem) {
-                existingItem.quantity += qty;
-            } else {
-                cart.push({ ...itemDef, quantity: qty });
-            }
-            updateCartUI();
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-        }
-
-        function changeCartItemQty(id, change) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                if (item.quantity + change >= 1) {
-                    item.quantity += change;
-                    updateCartUI();
-                } else if (item.quantity + change === 0) {
-                    removeFromCart(id);
-                }
-            }
+            }, 700);
         }
 
         function updateCartUI() {
-            const container = document.getElementById('cartItemsContainer');
-            const emptyMsg = document.getElementById('emptyCartMsg');
-            const badge = document.getElementById('cartBadge');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            const totalPriceEl = document.getElementById('cartTotalPrice');
-
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-            // تحديث العداد
-            if (totalItems > 0) {
-                badge.innerText = totalItems;
-                badge.classList.remove('scale-0');
-                badge.classList.add('scale-100');
+            // تحديث الشارات في كلا المكانين (الرئيسية والوهمية)
+            ['cartBadge', 'virtualPageCartBadge'].forEach(id => {
+                const badge = document.getElementById(id);
+                if (badge) {
+                    if (totalItems > 0) {
+                        badge.innerText = totalItems;
+                        badge.classList.remove('scale-0'); badge.classList.add('scale-100');
+                    } else {
+                        badge.classList.add('scale-0'); badge.classList.remove('scale-100');
+                    }
+                }
+            });
+
+            const container = document.getElementById('cartItemsContainer');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const totalEl = document.getElementById('cartTotalPrice');
+
+            if (cart.length > 0) {
                 emptyMsg.style.display = 'none';
                 checkoutBtn.disabled = false;
+                container.innerHTML = '';
+                let total = 0;
+
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    container.innerHTML += `
+                        <div class="flex gap-4 bg-[#141414] p-4 rounded-2xl border border-white/5 items-center shadow-md relative">
+                            <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10">
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
+                                <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
+                                <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5 mt-2 w-max">
+                                    <button onclick="changeCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                    <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
+                                    <button onclick="changeCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                </div>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 text-gray-500 hover:text-brand-danger transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    `;
+                });
+                totalEl.innerHTML = `${total} <span class="text-lg font-normal">درهم</span>`;
             } else {
-                badge.classList.remove('scale-100');
-                badge.classList.add('scale-0');
                 emptyMsg.style.display = 'flex';
                 checkoutBtn.disabled = true;
                 container.innerHTML = '';
                 container.appendChild(emptyMsg);
+                totalEl.innerHTML = `0 <span class="text-lg font-normal">درهم</span>`;
             }
+        }
 
-            // رسم محتوى السلة
-            if (cart.length > 0) {
-                container.innerHTML = '';
-                container.appendChild(emptyMsg);
-
-                let totalPrice = 0;
-
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    totalPrice += itemTotal;
-
-                    container.innerHTML += `
-                        <div class="flex gap-4 bg-[#141414] p-4 rounded-2xl border border-white/5 items-center shadow-md relative group">
-                            <img src="${item.img}" class="w-20 h-20 rounded-xl object-cover border border-white/10">
-                            <div class="flex-grow">
-                                <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
-                                <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
-                                
-                                <div class="flex items-center gap-3 mt-3">
-                                    <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5">
-                                        <button onclick="changeCartItemQty(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center rounded bg-white/5 text-brand-grayMuted hover:text-white transition-colors"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                                        <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
-                                        <button onclick="changeCartItemQty(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center rounded bg-white/5 text-brand-grayMuted hover:text-white transition-colors"><i class="fa-solid fa-plus text-[10px]"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-black/50 text-brand-grayMuted hover:bg-brand-danger hover:text-white text-xs transition-all flex items-center justify-center">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                });
-
-                totalPriceEl.innerHTML = `${totalPrice} <span class="text-lg font-normal">درهم</span>`;
-            } else {
-                totalPriceEl.innerHTML = `0 <span class="text-lg font-normal">درهم</span>`;
+        function changeCartQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                if (item.quantity + change > 0) item.quantity += change;
+                else removeFromCart(id);
+                updateCartUI();
             }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
         }
 
         function toggleCart() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
             sidebar.classList.toggle('cart-open');
-            overlay.classList.toggle('cart-overlay-open');
+            overlay.classList.toggle('overlay-open');
         }
 
-        // عرض الإشعار الجميل
         function showToast(message, imgSrc) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerHTML = `
-                <img src="${imgSrc}" class="w-10 h-10 rounded-lg object-cover">
-                <div class="flex flex-col">
-                    <span class="text-white text-sm font-bold">تم بنجاح!</span>
-                    <span class="text-brand-grayMuted text-xs">${message}</span>
-                </div>
-            `;
+            toast.innerHTML = `<img src="${imgSrc}" class="w-10 h-10 rounded-lg object-cover"><div class="flex flex-col"><span class="text-white text-sm font-bold">تم بنجاح!</span><span class="text-brand-grayMuted text-xs">${message}</span></div>`;
             container.appendChild(toast);
-
-            // إزالة الإشعار من DOM بعد انتهاء الحركة
-            setTimeout(() => {
-                if (toast.parentNode) toast.parentNode.removeChild(toast);
-            }, 3000);
+            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
         }
 
-        // --- 4. العروض والواتساب ---
-
         function addPromoToCart() {
-            const promoItem = {
-                id: 999,
-                title: "عرض نهاية الأسبوع العائلي 🔥",
-                price: 149,
-                img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500"
-            };
-            addItemsToCartArray(promoItem, 1);
-            showToast("تم إضافة العرض العائلي للسلة!", promoItem.img);
-            toggleCart(); // فتح السلة مباشرة
+            // إضافة عرض ترويجي وهمي
+            const promoItem = { id: 999, title: "عرض التوفير العائلي 🔥", price: 149, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" };
+            const existing = cart.find(i => i.id === 999);
+            if (existing) existing.quantity++; else cart.push({ ...promoItem, quantity: 1 });
+            updateCartUI();
+            showToast("تمت إضافة العرض للسلة!", promoItem.img);
+            toggleCart();
         }
 
         function checkoutWhatsApp() {
             if (cart.length === 0) return;
-
-            let message = "🌟 *مرحباً مطعم دار البنة* 🌟\nأود تقديم طلب جديد:\n\n";
-            message += "📋 *تفاصيل الطلب:*\n";
-            message += "--------------------------------\n";
-
+            let message = "🌟 *مرحباً مطعم دار البنة* 🌟\nأود تقديم طلب جديد:\n\n📋 *التفاصيل:*\n--------------------\n";
             let grandTotal = 0;
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 grandTotal += itemTotal;
-                message += `▪️ *${item.quantity}x* ${item.title}\n      └ (${itemTotal} درهم)\n`;
+                message += `▪️ *${item.quantity}x* ${item.title} (${itemTotal} درهم)\n`;
             });
-
-            message += "--------------------------------\n";
-            message += `💰 *المجموع الإجمالي: ${grandTotal} درهم*\n\n`;
-            message += "📍 الرجاء تأكيد استلام الطلب وتحديد مدة التجهيز.\nشكراً لخدمتكم! 🍔";
-
-            const encodedMessage = encodeURIComponent(message);
-            const waUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodedMessage}`;
-
-            window.open(waUrl, '_blank');
+            message += "--------------------\n";
+            message += `💰 *الإجمالي: ${grandTotal} درهم*\n\nالرجاء تأكيد استلام الطلب. شكراً! 🍔`;
+            window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        // --- 5. أدوات متقدمة للواجهة ---
-
-        // Hero Slider Logic
+        // --- 5. أدوات الواجهة الإضافية (Slider, Countdown, Scroll) ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
-
         function goToSlide(index) {
+            if (slides.length === 0) return;
             slides[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('bg-brand-primary');
-            dots[currentSlide].classList.remove('w-8');
-            dots[currentSlide].classList.add('bg-white/30');
-            dots[currentSlide].classList.add('w-3');
-
+            dots[currentSlide]?.classList.remove('bg-brand-primary', 'w-8');
+            dots[currentSlide]?.classList.add('bg-white/30', 'w-3');
             currentSlide = index;
-
             slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.remove('bg-white/30');
-            dots[currentSlide].classList.remove('w-3');
-            dots[currentSlide].classList.add('bg-brand-primary');
-            dots[currentSlide].classList.add('w-8');
+            dots[currentSlide]?.classList.remove('bg-white/30', 'w-3');
+            dots[currentSlide]?.classList.add('bg-brand-primary', 'w-8');
         }
+        setInterval(() => { if (slides.length > 0) goToSlide((currentSlide + 1) % slides.length); }, 5000);
 
-        setInterval(() => {
-            let next = (currentSlide + 1) % slides.length;
-            goToSlide(next);
-        }, 5000);
-
-        // Countdown Logic
         function updateCountdown() {
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-
-            let h = parseInt(hoursEl.innerText);
-            let m = parseInt(minutesEl.innerText);
-            let s = parseInt(secondsEl.innerText);
-
-            if (s > 0) { s--; }
-            else {
-                s = 59;
-                if (m > 0) { m--; }
-                else { m = 59; if (h > 0) h--; }
-            }
-
-            hoursEl.innerText = h.toString().padStart(2, '0');
-            minutesEl.innerText = m.toString().padStart(2, '0');
-            secondsEl.innerText = s.toString().padStart(2, '0');
+            const hEl = document.getElementById('hours'), mEl = document.getElementById('minutes'), sEl = document.getElementById('seconds');
+            if (!hEl) return;
+            let h = parseInt(hEl.innerText), m = parseInt(mEl.innerText), s = parseInt(sEl.innerText);
+            if (s > 0) s--; else { s = 59; if (m > 0) m--; else { m = 59; if (h > 0) h--; } }
+            hEl.innerText = h.toString().padStart(2, '0'); mEl.innerText = m.toString().padStart(2, '0'); sEl.innerText = s.toString().padStart(2, '0');
         }
         setInterval(updateCountdown, 1000);
 
-        // Scroll Animations (AOS Logic) & Navbar Transparency & ScrollToTop
+        // Scroll Reveals & Navbar Transparency
         const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
         document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => scrollObserver.observe(el));
 
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
-
+            const nav = document.getElementById('navbar'), scrollBtn = document.getElementById('scrollTopBtn');
             if (window.scrollY > 50) {
                 nav.classList.add('bg-brand-dark/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl');
                 nav.classList.remove('bg-gradient-to-b', 'border-transparent');
-                scrollTopBtn.classList.remove('hidden');
+                scrollBtn.classList.remove('hidden');
             } else {
                 nav.classList.remove('bg-brand-dark/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl');
                 nav.classList.add('bg-gradient-to-b', 'border-transparent');
-                scrollTopBtn.classList.add('hidden');
+                scrollBtn.classList.add('hidden');
             }
         });
 
-        // التهيئة النهائية وجلب البيانات
+        // --- 6. الإقلاع النهائي ---
         window.onload = async () => {
             try {
                 const response = await fetch('menu.json?v=' + Date.now());
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
                 const data = await response.json();
                 categoriesData = data.categoriesData || data.categories || [];
                 menuData = data.menuData || data.menu || [];
-
-                // رسم التصنيفات وتحديث السلة
                 renderCategories();
-                updateCartUI();
             } catch (error) {
-                console.error("فشل في تحميل القائمة من menu.json:", error);
+                console.error("فشل التحميل:", error);
             } finally {
-                // إخفاء شاشة التحميل بعد انتهاء التحميل والرسم
                 setTimeout(() => {
                     const preloader = document.getElementById('preloader');
-                    if (preloader) {
-                        preloader.style.opacity = '0';
-                        setTimeout(() => preloader.style.display = 'none', 500);
-                    }
+                    preloader.style.opacity = '0';
+                    setTimeout(() => preloader.style.display = 'none', 500);
                 }, 800);
             }
         };
