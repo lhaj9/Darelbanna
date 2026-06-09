@@ -931,14 +931,29 @@
 
             const filteredItems = menuData.filter(item => item.category === categoryId);
             renderVirtualPageItems(filteredItems);
+
+            // إضافة حالة وهمية في تاريخ المتصفح لدعم زر الرجوع في الهاتف
+            history.pushState({ categoryPage: true }, '');
         }
 
-        function closeCategoryPage() {
+        function closeCategoryPage(fromPopState = false) {
             isVirtualPageOpen = false;
             const page = document.getElementById('categoryVirtualPage');
             document.body.style.overflow = ''; // استعادة التمرير
             page.classList.remove('virtual-page-open');
+
+            // إذا تم الإغلاق يدوياً بالضغط على زر الإغلاق وليس زر الرجوع في الهاتف
+            if (!fromPopState && window.history.state && window.history.state.categoryPage) {
+                history.back();
+            }
         }
+
+        // الاستماع لزر الرجوع لإغلاق الصفحة الوهمية بدلاً من مغادرة الموقع
+        window.addEventListener('popstate', function(event) {
+            if (isVirtualPageOpen) {
+                closeCategoryPage(true);
+            }
+        });
 
         // رسم المنتجات بتصميم هجين (أفقي للموبايل، عمودي للديسكتوب) مع الجمالية الأصلية
         function renderVirtualPageItems(items) {
@@ -1493,6 +1508,7 @@
                 if (item.note && item.note.trim() !== '') {
                     message += `> 📝 *ملاحظة:* _${item.note.trim()}_\n`;
                 }
+                message += "\n"; // سطر فارغ إضافي في نهاية الرسالة المخصصة لكل عنصر لضمان استقلاليته في الواتساب
             });
             
             message += "----------------------------------------\n\n";
@@ -1515,6 +1531,20 @@
             message += "الرجاء تأكيد استلام الطلب وتجهيزه. شكراً لكم! 🍔";
             
             window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
+
+            // تفريغ السلة وتحديث الواجهة بعد التوجيه للواتساب لتجنب تكرار الطلب
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                
+                // إغلاق السلة الجانبية تلقائياً إن كانت مفتوحة
+                const sidebar = document.getElementById('cartSidebar');
+                const overlay = document.getElementById('cartOverlay');
+                if (sidebar) sidebar.classList.remove('cart-open');
+                if (overlay) overlay.classList.remove('overlay-open');
+
+                showToast("تم تفريغ السلة لتجهيز طلباتك القادمة", "https://lhaj9.github.io/Darelbanna/resources/logo.png");
+            }, 1000);
         }
 
         // --- 5. أدوات الواجهة الإضافية (Slider, Countdown, Scroll) ---
