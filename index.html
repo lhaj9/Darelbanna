@@ -1054,40 +1054,11 @@
     <!-- آراء الزبائن -->
     <section id="testimonials" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative hidden md:block">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-black mb-16 reveal">ماذا يقول عشاق دار البنة؟ 💬</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-                <div class="glass-panel p-8 rounded-3xl relative mt-8">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                        class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p class="text-gray-300 italic mb-4 text-sm">"أفضل برجر ذقته في المدينة! اللحم طري جداً والخبز فريش.
-                        التوصيل كان في الوقت المحدد والوجبة ساخنة."</p>
-                    <h4 class="font-bold text-white">- أحمد م.</h4>
-                </div>
-                <div
-                    class="glass-panel p-8 rounded-3xl relative mt-8 border-brand-primary/30 shadow-[0_0_20px_rgba(255,107,0,0.1)] transform md:-translate-y-4">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                        class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
-                    <p class="text-gray-300 italic mb-4 text-sm">"البيتزا عندهم حكاية ثانية، العجينة رقيقة ومقرمشة
-                        والمكونات باين إنها جودة عالية. صرت زبونة دائمة!"</p>
-                    <h4 class="font-bold text-white">- سارة ال.</h4>
-                </div>
-                <div class="glass-panel p-8 rounded-3xl relative mt-8">
-                    <img src="https://randomuser.me/api/portraits/men/62.jpg"
-                        class="w-16 h-16 rounded-full border-4 border-brand-dark absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div class="text-brand-accent mb-4 text-sm mt-4"><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p class="text-gray-300 italic mb-4 text-sm">"جربت التاكوس ميكس صراحة حجمه كبير ويشبع والصلصة
-                        الجزائرية اللي معاهم ولا غلطة. استمروا يا شباب."</p>
-                    <h4 class="font-bold text-white">- يوسف ب.</h4>
-                </div>
-            </div>
+            <h2 class="text-3xl md:text-4xl font-black mb-12 reveal">ماذا يقول عشاق دار البنة؟ 💬</h2>
+            <!-- ملخص التقييمات (Summary Widget) - يُحقن برمجياً -->
+            <div id="desktopReviewsSummary" class="mb-12 reveal"></div>
+            <!-- شبكة بطاقات المراجعات - تُحقن برمجياً -->
+            <div id="desktopReviewsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal"></div>
         </div>
     </section>
 
@@ -1342,6 +1313,19 @@
             </div>
         </div>
 
+        <!-- آراء الزبائن في لوحة تحكم الهاتف (Mobile Reviews Section) -->
+        <div id="mobileDashReviews" class="mt-6 mb-6">
+            <div class="flex items-center justify-between px-4 mb-3">
+                <h2 class="text-base font-black text-white">💬 ماذا يقول زوارنا؟</h2>
+            </div>
+            <!-- ملخص مصغر للتقييم -->
+            <div id="mobileReviewsSummary" class="px-4 mb-4"></div>
+            <!-- شريط المراجعات الأفقي -->
+            <div id="mobileReviewsScroll" class="flex gap-4 overflow-x-auto no-scrollbar snap-x px-4 pb-4">
+                <!-- يتم ملؤه برمجياً -->
+            </div>
+        </div>
+
         <!-- فوتر التطبيق المصغر (Minimalist App Footer) -->
         <div id="mobileDashFooter" class="bg-[#050505] border-t border-white/5 pt-6 pb-32">
             <!-- الشعار -->
@@ -1416,6 +1400,8 @@
         let categoriesData = [];
         let menuData = [];
         let popularItemIds = [];
+        let reviewsData = [];
+        let reviewsSummary = {};
         let cart = [];
         let isVirtualPageOpen = false;
         let isCheckoutPageOpen = false;
@@ -1564,6 +1550,132 @@
             });
         }
 
+        // --- 2.7. نظام التقييمات الديناميكي (Dynamic Reviews Engine) ---
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    stars += '<i class="fa-solid fa-star text-amber-400"></i>';
+                } else if (i - rating < 1 && i - rating > 0) {
+                    stars += '<i class="fa-solid fa-star-half-stroke text-amber-400"></i>';
+                } else {
+                    stars += '<i class="fa-regular fa-star text-gray-600"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function buildReviewCard(review, extraClasses = '') {
+            // النجوم
+            const starsHtml = generateStars(review.rating);
+
+            // النص (إذا وُجد)
+            const textHtml = review.text
+                ? `<p class="text-gray-300 text-xs leading-relaxed mt-2">${review.text.replace(/\n/g, '<br>')}</p>`
+                : '';
+
+            // تفاصيل غنية (شارات الطعام/الخدمة/الأجواء)
+            let detailsBadges = '';
+            if (review.details && Object.keys(review.details).length > 0) {
+                const numericDetails = Object.entries(review.details).filter(([k, v]) => typeof v === 'number');
+                if (numericDetails.length > 0) {
+                    detailsBadges = `<div class="flex flex-wrap gap-1.5 mt-2">${numericDetails.map(([key, val]) =>
+                        `<span class="bg-white/5 text-[9px] text-gray-400 px-2 py-0.5 rounded-full border border-white/5">${key}: ${val}/5</span>`
+                    ).join('')}</div>`;
+                }
+            }
+
+            // صور المراجعة
+            let photosHtml = '';
+            if (review.photos && review.photos.length > 0) {
+                photosHtml = `<div class="flex gap-2 overflow-x-auto no-scrollbar mt-3">${review.photos.map(url =>
+                    `<img src="${url}" alt="صورة مراجعة" class="w-20 h-20 rounded-lg object-cover shrink-0 border border-white/10 hover:scale-105 transition-transform cursor-pointer" onclick="window.open('${url}', '_blank')">`
+                ).join('')}</div>`;
+            }
+
+            return `
+                <div class="bg-[#141414] rounded-2xl p-4 border border-white/5 shadow-lg ${extraClasses}">
+                    <div class="flex items-start gap-3 mb-2">
+                        <a href="${review.profile_url}" target="_blank" rel="noopener noreferrer" class="shrink-0">
+                            <img src="${review.avatar}" alt="${review.name}" class="w-10 h-10 rounded-full object-cover border-2 border-white/10 hover:border-brand-primary transition-colors">
+                        </a>
+                        <div class="flex-1 min-w-0">
+                            <a href="${review.profile_url}" target="_blank" rel="noopener noreferrer" class="text-white text-sm font-bold hover:text-brand-primary transition-colors line-clamp-1">${review.name}</a>
+                            <p class="text-[10px] text-gray-500">${review.status || ''} · ${review.date}</p>
+                        </div>
+                    </div>
+                    <div class="text-sm flex items-center gap-1">${starsHtml}</div>
+                    ${textHtml}
+                    ${detailsBadges}
+                    ${photosHtml}
+                </div>
+            `;
+        }
+
+        function renderReviewsSummaryWidget(containerId, compact = false) {
+            const container = document.getElementById(containerId);
+            if (!container || !reviewsSummary.overall_rating) return;
+
+            const dist = reviewsSummary.stars_distribution || {};
+            const total = reviewsSummary.total_reviews || 0;
+
+            // حساب عرض أشرطة التوزيع
+            const bars = [5, 4, 3, 2, 1].map(star => {
+                const key = star === 1 ? '1_star' : `${star}_stars`;
+                const count = dist[key] || 0;
+                const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                return { star, count, pct };
+            });
+
+            const sizeClass = compact ? 'text-4xl' : 'text-5xl';
+            const starsHtml = generateStars(reviewsSummary.overall_rating);
+
+            container.innerHTML = `
+                <div class="bg-[#141414] rounded-2xl p-5 border border-white/5 flex ${compact ? 'flex-col gap-4' : 'flex-col md:flex-row gap-6'} items-center md:items-start text-right">
+                    <div class="flex flex-col items-center ${compact ? '' : 'md:w-1/3'} gap-2">
+                        <span class="font-black ${sizeClass} text-white">${reviewsSummary.overall_rating}</span>
+                        <div class="text-base flex gap-0.5">${starsHtml}</div>
+                        <p class="text-[11px] text-gray-400">بناءً على ${total} تقييماً</p>
+                    </div>
+                    <div class="flex-1 w-full space-y-1.5">
+                        ${bars.map(b => `
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] text-gray-400 w-4 text-center font-bold">${b.star}</span>
+                                <i class="fa-solid fa-star text-amber-400 text-[9px]"></i>
+                                <div class="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 rounded-full transition-all duration-700" style="width: ${b.pct}%"></div>
+                                </div>
+                                <span class="text-[9px] text-gray-500 w-6 text-left">${b.count}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDesktopReviews() {
+            // ملخص الديسكتوب
+            renderReviewsSummaryWidget('desktopReviewsSummary', false);
+
+            // بطاقات المراجعات
+            const grid = document.getElementById('desktopReviewsGrid');
+            if (!grid || reviewsData.length === 0) return;
+            grid.innerHTML = reviewsData.map(r => buildReviewCard(r)).join('');
+        }
+
+        function renderMobileReviews() {
+            // ملخص مصغر للهاتف
+            renderReviewsSummaryWidget('mobileReviewsSummary', true);
+
+            // بطاقات أفقية
+            const scroll = document.getElementById('mobileReviewsScroll');
+            if (!scroll || reviewsData.length === 0) return;
+            // فقط المراجعات التي تحتوي على نص أو صور (لتكون البطاقات ذات معنى)
+            const visibleReviews = reviewsData.filter(r => r.text || (r.photos && r.photos.length > 0));
+            const toShow = visibleReviews.length > 0 ? visibleReviews : reviewsData.slice(0, 8);
+            scroll.innerHTML = toShow.map(r => buildReviewCard(r, 'w-[280px] shrink-0 snap-center')).join('');
+        }
+
         function renderMobileItemCard(item, index, extraClasses = '') {
             return `
                 <div class="mobile-popular-card glass-panel rounded-2xl overflow-hidden border border-white/5 shadow-lg ${extraClasses}" id="mobile-product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.06}s; opacity: 0;">
@@ -1600,6 +1712,7 @@
             const curatedRows = document.getElementById('mobileDashCuratedRows');
             const trustBadges = document.getElementById('mobileDashTrustBadges');
             const appFooter = document.getElementById('mobileDashFooter');
+            const reviewsSection = document.getElementById('mobileDashReviews');
 
             if (!query || query.trim() === '') {
                 if (searchResults) searchResults.classList.add('hidden');
@@ -1608,6 +1721,7 @@
                 if (curatedRows) curatedRows.style.display = '';
                 if (trustBadges) trustBadges.style.display = '';
                 if (appFooter) appFooter.style.display = '';
+                if (reviewsSection) reviewsSection.style.display = '';
                 return;
             }
 
@@ -1623,6 +1737,7 @@
             if (curatedRows) curatedRows.style.display = 'none';
             if (trustBadges) trustBadges.style.display = 'none';
             if (appFooter) appFooter.style.display = 'none';
+            if (reviewsSection) reviewsSection.style.display = 'none';
 
             if (results.length > 0) {
                 if (searchResults) searchResults.classList.remove('hidden');
@@ -2898,18 +3013,42 @@
             updateActiveTabOnScroll();
 
             try {
-                const response = await fetch('menu.json?v=' + Date.now());
-                const data = await response.json();
-                categoriesData = data.categoriesData || data.categories || [];
-                menuData = data.menuData || data.menu || [];
-                popularItemIds = data.popularItemIds || [];
+                // جلب متزامن لبيانات المنيو والتقييمات (Promise.all)
+                const cacheBuster = Date.now();
+                const [menuResponse, reviewsResponse] = await Promise.all([
+                    fetch('menu.json?v=' + cacheBuster),
+                    fetch('reviews.json?v=' + cacheBuster).catch(() => null)
+                ]);
+
+                // معالجة بيانات المنيو
+                const menuJson = await menuResponse.json();
+                categoriesData = menuJson.categoriesData || menuJson.categories || [];
+                menuData = menuJson.menuData || menuJson.menu || [];
+                popularItemIds = menuJson.popularItemIds || [];
                 renderCategories();
+
+                // معالجة بيانات التقييمات (اختيارية - لن تكسر التطبيق)
+                if (reviewsResponse && reviewsResponse.ok) {
+                    try {
+                        const reviewsJson = await reviewsResponse.json();
+                        reviewsSummary = reviewsJson.summary || {};
+                        reviewsData = reviewsJson.reviews || [];
+                    } catch (e) {
+                        console.warn('تعذر تحليل بيانات التقييمات:', e);
+                    }
+                }
+
                 // لا داعي لرسم لوحة التحكم المحمولة عند عرض الفاتورة (يمنع الوميض)
                 if (!orderData) {
                     renderMobileDashCategories();
                     renderPopularItems();
                     renderCuratedRows();
+                    renderMobileReviews();
                 }
+
+                // رسم التقييمات في الديسكتوب دائماً
+                renderDesktopReviews();
+
             } catch (error) {
                 console.error("فشل التحميل:", error);
             } finally {
