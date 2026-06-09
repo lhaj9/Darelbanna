@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>دار البنة | DAR ELBANNA - مطعم الوجبات السريعة الفاخرة</title>
     <meta name="description" content="اطلب أشهى البرجر، البيتزا، والتاكوس من دار البنة. توصيل سريع ومذاق لا ينسى.">
+    
+    <!-- إعدادات تطبيق الويب التقدمي PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="دار البنة">
+    <link rel="apple-touch-icon" href="resources/icon-192.png">
 
     <!-- الخطوط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -415,6 +422,11 @@
             <button onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
                 class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-4 rounded-xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(37,211,102,0.3)]">
                 <i class="fa-brands fa-whatsapp text-2xl"></i> تواصل معنا
+            </button>
+            <!-- زر تنزيل التطبيق للهواتف -->
+            <button id="mobileMenuInstallBtn" onclick="installPWA()"
+                class="w-full mt-3 bg-gradient-to-r from-brand-primary to-brand-primaryHover text-white py-4 rounded-xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,107,0,0.3)] hidden">
+                <i class="fa-solid fa-download text-2xl"></i> تنزيل التطبيق
             </button>
         </div>
     </div>
@@ -1010,6 +1022,13 @@
         <div
             class="max-w-7xl mx-auto px-4 pt-8 border-t border-white/5 text-center text-brand-grayMuted text-xs flex flex-col md:flex-row justify-between items-center gap-4">
             <p>© 2026 مطعم دار البنة (DAR ELBANNA). جميع الحقوق محفوظة.</p>
+            <!-- زر تثبيت التطبيق في الفوتر -->
+            <div id="footerInstallBtnContainer" class="hidden">
+                <button onclick="installPWA()" class="bg-brand-primary hover:bg-brand-primaryHover text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md flex items-center justify-center gap-2 mx-auto text-sm hover:-translate-y-0.5">
+                    <i class="fa-solid fa-download"></i>
+                    <span>تثبيت تطبيق دار البنة</span>
+                </button>
+            </div>
         </div>
     </footer>
 
@@ -1994,10 +2013,115 @@
             updateCartUI();
         }
 
+        // --- 5.5. منطق تثبيت التطبيق (PWA Install Logic) ---
+        let deferredPrompt = null;
+
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        }
+
+        function isStandaloneMode() {
+            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        }
+
+        function showInstallUI() {
+            const footerBtnContainer = document.getElementById('footerInstallBtnContainer');
+            const mobileMenuBtn = document.getElementById('mobileMenuInstallBtn');
+            
+            if (footerBtnContainer) footerBtnContainer.classList.remove('hidden');
+            if (mobileMenuBtn) mobileMenuBtn.classList.remove('hidden');
+        }
+
+        function initPWAInstall() {
+            const isIOSDevice = isIOS();
+            const isStandalone = isStandaloneMode();
+
+            if (isStandalone) {
+                console.log('التطبيق يعمل بالفعل كـ standalone.');
+                return;
+            }
+
+            if (isIOSDevice) {
+                // هواتف الآيفون لا تطلق حدث beforeinstallprompt ولكن يمكن إظهار زر التثبيت لعرض الإرشادات
+                showInstallUI();
+            } else {
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    showInstallUI();
+                });
+            }
+        }
+
+        function installPWA() {
+            const isIOSDevice = isIOS();
+
+            if (isIOSDevice) {
+                openIosInstallModal();
+            } else if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('قبل المستخدم التثبيت');
+                        hideInstallUI();
+                    } else {
+                        console.log('رفض المستخدم التثبيت');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                showToast("تثبيت التطبيق متاح عبر قائمة إعدادات المتصفح الخاصة بك.", "resources/icon-192.png");
+            }
+        }
+
+        function hideInstallUI() {
+            const footerBtnContainer = document.getElementById('footerInstallBtnContainer');
+            const mobileMenuBtn = document.getElementById('mobileMenuInstallBtn');
+            
+            if (footerBtnContainer) footerBtnContainer.classList.add('hidden');
+            if (mobileMenuBtn) mobileMenuBtn.classList.add('hidden');
+        }
+
+        // التحكم في المودال التوضيحي للـ iOS
+        function openIosInstallModal() {
+            const modal = document.getElementById('iosInstallModal');
+            const modalContent = document.getElementById('iosInstallModalContent');
+            if (modal && modalContent) {
+                modal.classList.add('overlay-open');
+                modalContent.classList.remove('scale-90');
+                modalContent.classList.add('scale-100');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeIosInstallModal() {
+            const modal = document.getElementById('iosInstallModal');
+            const modalContent = document.getElementById('iosInstallModalContent');
+            if (modal && modalContent) {
+                modal.classList.remove('overlay-open');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-90');
+                if (!isVirtualPageOpen && !isCheckoutPageOpen) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
         // --- 6. الإقلاع النهائي ---
         window.onload = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const orderData = urlParams.get('order');
+
+            // تسجيل Service Worker لـ PWA
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
+                    .catch((err) => console.error('Service Worker registration failed:', err));
+            }
+
+            // تهيئة تثبيت التطبيق
+            initPWAInstall();
 
             try {
                 const response = await fetch('menu.json?v=' + Date.now());
@@ -2025,6 +2149,39 @@
             }
         };
     </script>
+
+    <!-- نافذة توضيحية لتثبيت التطبيق على هواتف iOS (iOS Install Instruction Modal) -->
+    <div id="iosInstallModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[80] opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 border border-white/10 text-center relative transform scale-90 transition-transform duration-300" id="iosInstallModalContent">
+            <button onclick="closeIosInstallModal()" class="absolute top-4 left-4 w-8 h-8 bg-white/5 hover:bg-brand-danger hover:text-white rounded-full flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-16 h-16 bg-brand-primary/20 text-brand-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+                <i class="fa-brands fa-apple"></i>
+            </div>
+            <h3 class="text-xl font-black text-white mb-2">تثبيت التطبيق على الآيفون 📱</h3>
+            <p class="text-sm text-brand-grayMuted mb-6 leading-relaxed">قم بتثبيت تطبيق "دار البنة" على شاشتك الرئيسية للوصول السريع وتصفح المنيو بدون إنترنت.</p>
+            
+            <div class="space-y-4 text-right text-sm border-t border-white/5 pt-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">1</div>
+                    <p class="text-white">اضغط على زر <strong class="text-brand-primary">مشاركة (Share)</strong> <i class="fa-solid fa-arrow-up-from-bracket text-brand-primary mx-1"></i> في شريط Safari السفلي.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">2</div>
+                    <p class="text-white">اسحب القائمة لأسفل أو لأعلى واختر <strong class="text-brand-primary">إضافة إلى الشاشة الرئيسية (Add to Home Screen)</strong> <i class="fa-regular fa-square-plus text-brand-primary mx-1"></i>.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">3</div>
+                    <p class="text-white">اضغط على <strong class="text-brand-primary">إضافة (Add)</strong> في الزاوية العلوية لتأكيد التثبيت.</p>
+                </div>
+            </div>
+            
+            <button onclick="closeIosInstallModal()" class="w-full mt-6 bg-brand-primary hover:bg-brand-primaryHover text-white py-3.5 rounded-xl font-bold transition-all shadow-md">
+                حسناً، فهمت
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>
