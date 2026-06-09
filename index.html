@@ -1313,6 +1313,11 @@
             </div>
         </div>
 
+        <!-- الصفوف الأفقية المنسقة (Curated Horizontal Rows) -->
+        <div id="mobileDashCuratedRows" class="mt-6 space-y-5 pb-24">
+            <!-- يتم ملؤه برمجياً بواسطة renderCuratedRows() -->
+        </div>
+
         <!-- نتائج بحث الموبايل -->
         <div id="mobileDashSearchResults" class="px-4 mt-4 hidden">
             <h3 class="text-sm font-bold text-brand-grayMuted mb-3">نتائج البحث:</h3>
@@ -1342,6 +1347,7 @@
     <script>
         let categoriesData = [];
         let menuData = [];
+        let popularItemIds = [];
         let cart = [];
         let isVirtualPageOpen = false;
         let isCheckoutPageOpen = false;
@@ -1429,19 +1435,24 @@
             const container = document.getElementById('mobileDashPopularItems');
             if (!container || menuData.length === 0) return;
 
-            // اختيار وجبات متنوعة من تصنيفات مختلفة
-            const popularIds = ['burger', 'pizza', 'tacos', 'sandwich', 'pâtes', 'plats'];
+            // جلب الوجبات المحددة يدوياً بواسطة مدير المطعم من popularItemIds
             let popular = [];
-            popularIds.forEach(catId => {
-                const items = menuData.filter(i => i.category === catId);
-                if (items.length > 0) {
-                    // اختيار العنصر ذو السعر الأعلى كـ "الأكثر طلباً"
-                    const best = items.reduce((a, b) => a.price > b.price ? a : b);
-                    popular.push(best);
-                }
-            });
-            // الحد الأقصى 6 وجبات
-            popular = popular.slice(0, 6);
+            if (popularItemIds.length > 0) {
+                popularItemIds.forEach(id => {
+                    const item = menuData.find(i => i.id === id);
+                    if (item) popular.push(item);
+                });
+            }
+
+            // إذا لم تتوفر بيانات مخصصة، نستخدم فلترة احتياطية
+            if (popular.length === 0) {
+                const fallbackCats = ['burger', 'pizza', 'tacos', 'sandwich', 'pâtes', 'plats'];
+                fallbackCats.forEach(catId => {
+                    const items = menuData.filter(i => i.category === catId);
+                    if (items.length > 0) popular.push(items[0]);
+                });
+                popular = popular.slice(0, 6);
+            }
 
             container.innerHTML = '';
             popular.forEach((item, index) => {
@@ -1449,9 +1460,45 @@
             });
         }
 
-        function renderMobileItemCard(item, index) {
+        // --- 2.6. الصفوف الأفقية المنسقة (Curated Horizontal Rows) ---
+        function renderCuratedRows() {
+            const container = document.getElementById('mobileDashCuratedRows');
+            if (!container || menuData.length === 0) return;
+
+            const rows = [
+                {
+                    title: 'عشاق التاكوس والباستيشيو 🔥',
+                    categories: ['tacos', 'pasticcio - gratin']
+                },
+                {
+                    title: 'بيتزا وبرجر لا يقاوم 🍕🍔',
+                    categories: ['burger', 'pizza']
+                },
+                {
+                    title: 'عصائر ومشروبات تبرد على القلب 🥤',
+                    categories: ['jus frais', 'boisson']
+                }
+            ];
+
+            container.innerHTML = '';
+            rows.forEach(row => {
+                const items = menuData.filter(i => row.categories.includes(i.category));
+                if (items.length === 0) return;
+
+                container.innerHTML += `
+                    <div class="curated-row">
+                        <h3 class="text-base font-black text-white px-4 mb-3">${row.title}</h3>
+                        <div class="flex gap-3 overflow-x-auto no-scrollbar pb-3 px-4">
+                            ${items.map((item, idx) => renderMobileItemCard(item, idx, 'shrink-0 w-[165px]')).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderMobileItemCard(item, index, extraClasses = '') {
             return `
-                <div class="mobile-popular-card glass-panel rounded-2xl overflow-hidden border border-white/5 shadow-lg" id="mobile-product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.06}s; opacity: 0;">
+                <div class="mobile-popular-card glass-panel rounded-2xl overflow-hidden border border-white/5 shadow-lg ${extraClasses}" id="mobile-product-${item.id}" style="animation: fadeUp 0.4s ease forwards ${index * 0.06}s; opacity: 0;">
                     <div class="relative h-28">
                         <img src="${item.img}" alt="${item.title}" class="product-img w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
@@ -1482,11 +1529,13 @@
             const searchGrid = document.getElementById('mobileDashSearchGrid');
             const popularSection = document.getElementById('mobileDashPopularItems')?.closest('.px-4');
             const categoriesSection = document.getElementById('mobileDashCategories')?.closest('.mb-5');
+            const curatedRows = document.getElementById('mobileDashCuratedRows');
 
             if (!query || query.trim() === '') {
                 if (searchResults) searchResults.classList.add('hidden');
                 if (popularSection) popularSection.style.display = '';
                 if (categoriesSection) categoriesSection.style.display = '';
+                if (curatedRows) curatedRows.style.display = '';
                 return;
             }
 
@@ -1496,18 +1545,19 @@
                 item.desc.toLowerCase().includes(q)
             ).slice(0, 8);
 
+            // إخفاء الأقسام الرئيسية عند البحث
+            if (popularSection) popularSection.style.display = 'none';
+            if (categoriesSection) categoriesSection.style.display = 'none';
+            if (curatedRows) curatedRows.style.display = 'none';
+
             if (results.length > 0) {
                 if (searchResults) searchResults.classList.remove('hidden');
-                if (popularSection) popularSection.style.display = 'none';
-                if (categoriesSection) categoriesSection.style.display = 'none';
                 searchGrid.innerHTML = '';
                 results.forEach((item, index) => {
                     searchGrid.innerHTML += renderMobileItemCard(item, index);
                 });
             } else {
                 if (searchResults) searchResults.classList.remove('hidden');
-                if (popularSection) popularSection.style.display = 'none';
-                if (categoriesSection) categoriesSection.style.display = 'none';
                 searchGrid.innerHTML = `
                     <div class="col-span-2 text-center py-8">
                         <i class="fa-solid fa-search text-3xl text-white/10 mb-3"></i>
@@ -2778,11 +2828,13 @@
                 const data = await response.json();
                 categoriesData = data.categoriesData || data.categories || [];
                 menuData = data.menuData || data.menu || [];
+                popularItemIds = data.popularItemIds || [];
                 renderCategories();
                 // لا داعي لرسم لوحة التحكم المحمولة عند عرض الفاتورة (يمنع الوميض)
                 if (!orderData) {
                     renderMobileDashCategories();
                     renderPopularItems();
+                    renderCuratedRows();
                 }
             } catch (error) {
                 console.error("فشل التحميل:", error);
