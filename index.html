@@ -398,31 +398,31 @@
     <!-- شريط التنقل السفلي (Bottom Navigation Bar) للهواتف -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)]">
         <!-- الرئيسية -->
-        <a href="#home" onclick="setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
+        <a href="#home" onclick="closeMobileMenuPage(); setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
             <i class="fa-solid fa-house text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">الرئيسية</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full"></span>
         </a>
         
         <!-- المنيو -->
-        <a href="#menu" onclick="setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+        <button onclick="openMobileMenuPage(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <i class="fa-solid fa-utensils text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">المنيو</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
-        </a>
+        </button>
         
         <!-- السلة -->
-        <button id="mobileCartBtn" onclick="toggleCart(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+        <button id="mobileCartBtn" onclick="toggleCart(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <div class="relative">
                 <i id="mobileCartIcon" class="fa-solid fa-basket-shopping text-xl mb-0.5"></i>
-                <span id="mobileCartBadge" class="absolute -top-2 -right-2.5 bg-brand-primary text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
+                <span id="mobileCartBadge" class="absolute -top-2 -right-2.5 bg-brand-primary text-white text-[9px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
             </div>
             <span class="text-[10px] font-bold">السلة</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
         </button>
         
         <!-- المزيد -->
-        <button onclick="toggleMobileMenu(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+        <button onclick="toggleMobileMenu(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <i class="fa-solid fa-ellipsis text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">المزيد</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
@@ -451,7 +451,7 @@
         
         <!-- شبكة الخيارات التفاعلية (2x2 Grid) -->
         <div class="grid grid-cols-2 gap-3 p-6 overflow-y-auto max-h-[50vh] flex-grow">
-            <a href="#home" onclick="toggleMobileMenu()"
+            <a href="#home" onclick="toggleMobileMenu(); closeMobileMenuPage()"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-house text-lg"></i>
@@ -472,7 +472,7 @@
                 </div>
                 <span class="text-white">عروض اليوم</span>
             </a>
-            <a href="#menu" onclick="toggleMobileMenu()"
+            <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileMenuPage()"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
                 <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-utensils text-lg"></i>
@@ -554,7 +554,7 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <a href="#menu"
+                    <a href="#menu" onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
                         class="bg-brand-primary hover:bg-[#ff4500] text-white px-8 py-4 rounded-xl font-black transition-all duration-300 shadow-[0_10px_20px_rgba(255,107,0,0.3)] hover:-translate-y-1 flex items-center justify-center gap-3 text-lg">
                         <span>أطلب الآن</span>
                         <i class="fa-solid fa-arrow-down animate-bounce"></i>
@@ -715,10 +715,40 @@
     </section>
 
     <!-- ========================================================================= -->
+    <!-- الصفحة الوهمية للمنيو (Menu Virtual Page Container) للهواتف -->
+    <!-- ========================================================================= -->
+    <div id="menuVirtualPage"
+        class="fixed inset-0 bg-[#0a0a0a] z-30 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] md:hidden">
+
+        <!-- الهيدر الخاص بالصفحة الوهمية للمنيو -->
+        <div
+            class="glass-panel border-b border-white/10 px-4 py-4 flex items-center justify-between sticky top-0 z-20 bg-brand-dark/90 backdrop-blur-xl">
+            <div class="w-10 h-10"></div> <!-- موازن الهيدر بدلاً من زر الرجوع -->
+            <h2 class="text-xl md:text-2xl font-black text-brand-primary flex-1 text-center drop-shadow-md">قائمة الطعام</h2>
+            <button onclick="toggleCart()"
+                class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center relative hover:bg-brand-primary/20 transition-colors border border-brand-primary/30"
+                id="menuVirtualCartBtn">
+                <i class="fa-solid fa-basket-shopping text-lg" id="menuVirtualCartBtnIcon"></i>
+                <span id="menuVirtualPageCartBadge"
+                    class="absolute -top-1.5 -right-1.5 bg-brand-danger text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform shadow-lg border-2 border-[#0a0a0a]">0</span>
+            </button>
+        </div>
+
+        <!-- حاوية التصنيفات داخل الصفحة الوهمية للمنيو -->
+        <div
+            class="flex-1 overflow-y-auto p-4 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
+            <div id="mobileMenuGridContainer"
+                class="grid grid-cols-2 gap-4 pb-24 max-w-7xl mx-auto">
+                <!-- جافاسكريبت سيملأ هذا بالتصنيفات للموبايل -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
     <!-- الصفحة الوهمية الخاصة بفتح التصنيف (App-like Virtual Page Bottom Sheet) -->
     <!-- ========================================================================= -->
     <div id="categoryVirtualPage"
-        class="fixed inset-0 bg-[#0a0a0a] z-[55] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+        class="fixed inset-0 bg-[#0a0a0a] z-50 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
 
         <!-- الهيدر الخاص بالصفحة الوهمية -->
         <div
@@ -752,7 +782,7 @@
     <!-- صفحة تأكيد الطلب الوهمية (Checkout Virtual Page Bottom Sheet) -->
     <!-- ========================================================================= -->
     <div id="checkoutVirtualPage"
-        class="fixed inset-0 bg-[#0a0a0a] z-[56] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-cairo">
+        class="fixed inset-0 bg-[#0a0a0a] z-55 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-cairo">
 
         <!-- الهيدر الخاص بصفحة التأكيد -->
         <div
@@ -1048,7 +1078,7 @@
                 <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">روابط هامة
                 </h4>
                 <ul class="space-y-3">
-                    <li><a href="#menu"
+                    <li><a href="#menu" onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
                             class="text-brand-grayMuted hover:text-brand-primary text-sm transition-colors"><i
                                 class="fa-solid fa-angle-left text-[10px] ml-1"></i> قائمة الطعام</a></li>
                     <li><a href="#promo"
@@ -1145,26 +1175,53 @@
 
         // --- 2. رسم شبكة التصنيفات الكبرى ---
         function renderCategories() {
+            // الحاوية الأساسية (للديسكتوب)
             const container = document.getElementById('categoriesContainer');
-            container.innerHTML = '';
-            categoriesData.forEach((cat, index) => {
-                const itemsCount = menuData.filter(i => i.category === cat.id).length;
-                container.innerHTML += `
-                    <div onclick="openCategoryPage('${cat.id}', '${cat.title}', '${cat.icon}')" class="glass-panel rounded-3xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-2 shadow-lg" style="animation: fadeUp 0.5s ease forwards ${index * 0.05}s; opacity: 0;">
-                        <div class="relative h-32 md:h-40">
-                            <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t ${cat.color} to-black/80 transition-colors duration-300"></div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
-                                <span class="text-4xl md:text-5xl mb-2 drop-shadow-xl transform group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300">${cat.icon}</span>
-                                <h3 class="font-black text-lg md:text-xl drop-shadow-md text-center px-2">${cat.title}</h3>
+            if (container) {
+                container.innerHTML = '';
+                categoriesData.forEach((cat, index) => {
+                    const itemsCount = menuData.filter(i => i.category === cat.id).length;
+                    container.innerHTML += `
+                        <div onclick="openCategoryPage('${cat.id}', '${cat.title}', '${cat.icon}')" class="glass-panel rounded-3xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-2 shadow-lg" style="animation: fadeUp 0.5s ease forwards ${index * 0.05}s; opacity: 0;">
+                            <div class="relative h-32 md:h-40">
+                                <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t ${cat.color} to-black/80 transition-colors duration-300"></div>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                    <span class="text-4xl md:text-5xl mb-2 drop-shadow-xl transform group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300">${cat.icon}</span>
+                                    <h3 class="font-black text-lg md:text-xl drop-shadow-md text-center px-2">${cat.title}</h3>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center bg-[#0a0a0a]">
+                                <span class="text-[11px] md:text-xs text-brand-grayMuted font-bold group-hover:text-brand-primary transition-colors">استكشف ${itemsCount} أصناف</span>
                             </div>
                         </div>
-                        <div class="p-3 text-center bg-[#0a0a0a]">
-                            <span class="text-[11px] md:text-xs text-brand-grayMuted font-bold group-hover:text-brand-primary transition-colors">استكشف ${itemsCount} أصناف</span>
+                    `;
+                });
+            }
+
+            // الحاوية الفرعية للهواتف (Menu Virtual Page)
+            const mobileContainer = document.getElementById('mobileMenuGridContainer');
+            if (mobileContainer) {
+                mobileContainer.innerHTML = '';
+                categoriesData.forEach((cat, index) => {
+                    const itemsCount = menuData.filter(i => i.category === cat.id).length;
+                    mobileContainer.innerHTML += `
+                        <div onclick="openCategoryPage('${cat.id}', '${cat.title}', '${cat.icon}')" class="glass-panel rounded-2xl overflow-hidden border border-white/5 hover:border-brand-primary cursor-pointer group transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                            <div class="relative h-28">
+                                <img src="${cat.img}" alt="${cat.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t ${cat.color} to-black/80 transition-colors duration-300"></div>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                    <span class="text-3xl mb-1.5 drop-shadow-xl transform group-hover:scale-125 transition-transform duration-300">${cat.icon}</span>
+                                    <h3 class="font-black text-sm drop-shadow-md text-center px-2">${cat.title}</h3>
+                                </div>
+                            </div>
+                            <div class="p-2 text-center bg-[#0a0a0a]">
+                                <span class="text-[10px] text-brand-grayMuted font-bold group-hover:text-brand-primary transition-colors">استكشف ${itemsCount} أصناف</span>
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
         }
 
         // --- 3. نافذة التصنيف الوهمية (App Experience) ---
@@ -1200,6 +1257,8 @@
                 closeCategoryPage(true);
             } else if (isCheckoutPageOpen) {
                 closeCheckoutPage(true);
+            } else if (isMobileMenuPageOpen) {
+                closeMobileMenuPage(true);
             }
         });
 
@@ -1262,12 +1321,21 @@
 
             // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا أو شاشة الهاتف
             const isMobile = window.innerWidth < 768;
-            const defaultCartBtn = isMobile 
+            let defaultCartBtn = isMobile 
                 ? (document.getElementById('mobileCartBtn') || document.getElementById('cartNavbarBtn'))
                 : (document.getElementById('cartNavbarBtn') || document.getElementById('mobileCartBtn'));
-            const defaultCartIcon = isMobile
+            
+            if (isMobileMenuPageOpen) {
+                defaultCartBtn = document.getElementById('menuVirtualCartBtn') || defaultCartBtn;
+            }
+
+            let defaultCartIcon = isMobile
                 ? (document.getElementById('mobileCartIcon') || document.getElementById('cartBtnIcon'))
                 : (document.getElementById('cartBtnIcon') || document.getElementById('mobileCartIcon'));
+            
+            if (isMobileMenuPageOpen) {
+                defaultCartIcon = document.getElementById('menuVirtualCartBtnIcon') || defaultCartIcon;
+            }
 
             const targetIconBtn = isVirtualPageOpen
                 ? (document.getElementById('virtualCartBtn') || defaultCartBtn)
@@ -1345,7 +1413,7 @@
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
             // تحديث الشارات في جميع الأماكن (الرئيسية، شريط التنقل السفلي، والوهمية)
-            ['cartBadge', 'mobileCartBadge', 'virtualPageCartBadge'].forEach(id => {
+            ['cartBadge', 'mobileCartBadge', 'virtualPageCartBadge', 'menuVirtualPageCartBadge'].forEach(id => {
                 const badge = document.getElementById(id);
                 if (badge) {
                     if (totalItems > 0) {
@@ -2099,6 +2167,45 @@
         }
 
         // --- 5.2. منطق شريط التنقل السفلي للهواتف (Bottom Tab Navigation Logic) ---
+        let isMobileMenuPageOpen = false;
+
+        function openMobileMenuPage(pushState = true) {
+            isMobileMenuPageOpen = true;
+            document.body.style.overflow = 'hidden';
+
+            const page = document.getElementById('menuVirtualPage');
+            if (page) page.classList.add('virtual-page-open');
+
+            // تحديث التبويب النشط في البار السفلي
+            const menuTab = document.querySelector('.nav-tab-item[onclick*="openMobileMenuPage"]');
+            if (menuTab) setActiveTab(menuTab);
+
+            if (pushState) {
+                history.pushState({ mobileMenuPage: true }, '');
+            }
+        }
+
+        function closeMobileMenuPage(fromPopState = false) {
+            isMobileMenuPageOpen = false;
+            
+            // تحقق ما إذا كانت هناك صفحات وهمية أخرى مفتوحة
+            if (!isVirtualPageOpen && !isCheckoutPageOpen) {
+                document.body.style.overflow = '';
+            }
+
+            const page = document.getElementById('menuVirtualPage');
+            if (page) page.classList.remove('virtual-page-open');
+
+            // تحديث التبويب النشط في البار السفلي
+            const homeTab = document.querySelector('.nav-tab-item[href="#home"]');
+            if (homeTab) setActiveTab(homeTab);
+
+            // تراجع خطوة في التاريخ إذا أغلق يدوياً ولم يأت من popstate
+            if (!fromPopState && window.history.state && window.history.state.mobileMenuPage) {
+                history.back();
+            }
+        }
+
         function setActiveTab(el) {
             document.querySelectorAll('.nav-tab-item').forEach(item => {
                 item.classList.remove('active-tab');
@@ -2111,6 +2218,9 @@
         }
 
         function updateActiveTabOnScroll() {
+            // لا نحدث التبويب تلقائياً بالتمرير إذا كانت صفحة المنيو الوهمية مفتوحة
+            if (isMobileMenuPageOpen) return;
+
             const scrollPos = window.scrollY;
             const menuSection = document.getElementById('menu');
             
@@ -2125,7 +2235,7 @@
                     setActiveTab(homeTab);
                 }
             } else if (activeId === 'menu') {
-                const menuTab = document.querySelector('.nav-tab-item[href="#menu"]');
+                const menuTab = document.querySelector('.nav-tab-item[onclick*="openMobileMenuPage"]');
                 if (menuTab && !menuTab.classList.contains('active-tab')) {
                     setActiveTab(menuTab);
                 }
