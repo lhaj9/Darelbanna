@@ -1109,6 +1109,13 @@
                 if (itemsList) itemsList.innerHTML = '';
                 if (totalEl) totalEl.innerHTML = `0 <span class="text-lg font-normal">درهم</span>`;
             }
+
+            // حفظ حالة السلة تلقائياً في ذاكرة المتصفح
+            try {
+                localStorage.setItem('darelBannaCart', JSON.stringify(cart));
+            } catch (error) {
+                console.error("خطأ أثناء حفظ السلة في localStorage:", error);
+            }
         }
 
         function changeCartQty(id, change) {
@@ -1212,6 +1219,41 @@
             }
         });
 
+        // استرداد حالة السلة من ذاكرة المتصفح
+        function loadCartFromLocalStorage() {
+            try {
+                const savedCart = localStorage.getItem('darelBannaCart');
+                if (savedCart) {
+                    const parsed = JSON.parse(savedCart);
+                    if (Array.isArray(parsed)) {
+                        if (menuData && menuData.length > 0) {
+                            // مطابقة وحل البيانات المستردة مع قائمة الطعام المحدثة
+                            cart = parsed.map(savedItem => {
+                                if (savedItem.id === 999) {
+                                    return savedItem; // العرض الترويجي الخاص
+                                }
+                                const currentItem = menuData.find(m => m.id === savedItem.id);
+                                if (currentItem) {
+                                    return {
+                                        ...currentItem,
+                                        quantity: savedItem.quantity
+                                    };
+                                }
+                                return null;
+                            }).filter(item => item !== null);
+                        } else {
+                            // استرداد السلة بدون مطابقة في حال تعذر الاتصال بالخادم
+                            cart = parsed;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("خطأ أثناء استرداد السلة من localStorage:", error);
+                cart = [];
+            }
+            updateCartUI();
+        }
+
         // --- 6. الإقلاع النهائي ---
         window.onload = async () => {
             try {
@@ -1223,10 +1265,15 @@
             } catch (error) {
                 console.error("فشل التحميل:", error);
             } finally {
+                // استعادة حالة السلة عند الإقلاع
+                loadCartFromLocalStorage();
+
                 setTimeout(() => {
                     const preloader = document.getElementById('preloader');
-                    preloader.style.opacity = '0';
-                    setTimeout(() => preloader.style.display = 'none', 500);
+                    if (preloader) {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => preloader.style.display = 'none', 500);
+                    }
                 }, 800);
             }
         };
