@@ -244,7 +244,23 @@
         }
 
         .mobile-menu-open {
-            transform: translateX(0) !important;
+            transform: translateY(0) !important;
+        }
+
+        /* تنسيقات شريط التنقل السفلي */
+        .active-tab {
+            color: #ff6b00 !important;
+            transform: translateY(-4px);
+        }
+
+        .active-tab .active-dot {
+            opacity: 1 !important;
+            transform: scale(1.2);
+            box-shadow: 0 0 8px #ff6b00;
+        }
+
+        .nav-tab-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .overlay-open {
@@ -311,7 +327,7 @@
     </style>
 </head>
 
-<body class="selection:bg-brand-primary selection:text-white relative pb-20 md:pb-0">
+<body class="selection:bg-brand-primary selection:text-white relative pb-24 md:pb-0">
 
     <script>
         const RESTAURANT_WHATSAPP = "212636696742";
@@ -334,13 +350,7 @@
     <!-- شريط التنقل (Navbar) -->
     <nav id="navbar"
         class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-3 md:py-4 px-4 md:px-8 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-
-            <!-- زر قائمة الهواتف (Hamburger) -->
-            <button onclick="toggleMobileMenu()"
-                class="md:hidden text-white text-2xl p-2 hover:text-brand-primary transition-colors focus:outline-none">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </button>
+        <div class="max-w-7xl mx-auto flex justify-center md:justify-between items-center w-full">
 
             <!-- الشعار -->
             <a href="#" class="flex items-center gap-3 group">
@@ -366,8 +376,8 @@
                 <a href="#gallery" class="text-sm font-bold hover:text-brand-primary transition-colors">معرض الصور</a>
             </div>
 
-            <!-- أزرار الإجراءات -->
-            <div class="flex items-center gap-3">
+            <!-- أزراب الإجراءات (للشاشات الكبيرة) -->
+            <div class="hidden md:flex items-center gap-3">
                 <a href="javascript:void(0)" onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
                     class="hidden md:flex items-center justify-center w-10 h-10 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white rounded-full transition-colors border border-[#25D366]/30">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -385,48 +395,115 @@
         </div>
     </nav>
 
-    <!-- قائمة الهواتف الجانبية (Mobile Menu) -->
+    <!-- شريط التنقل السفلي (Bottom Navigation Bar) للهواتف -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)]">
+        <!-- الرئيسية -->
+        <a href="#home" onclick="setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
+            <i class="fa-solid fa-house text-xl mb-0.5"></i>
+            <span class="text-[10px] font-bold">الرئيسية</span>
+            <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full"></span>
+        </a>
+        
+        <!-- المنيو -->
+        <a href="#menu" onclick="setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+            <i class="fa-solid fa-utensils text-xl mb-0.5"></i>
+            <span class="text-[10px] font-bold">المنيو</span>
+            <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
+        </a>
+        
+        <!-- السلة -->
+        <button id="mobileCartBtn" onclick="toggleCart(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+            <div class="relative">
+                <i id="mobileCartIcon" class="fa-solid fa-basket-shopping text-xl mb-0.5"></i>
+                <span id="mobileCartBadge" class="absolute -top-2 -right-2.5 bg-brand-primary text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
+            </div>
+            <span class="text-[10px] font-bold">السلة</span>
+            <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
+        </button>
+        
+        <!-- المزيد -->
+        <button onclick="toggleMobileMenu(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item">
+            <i class="fa-solid fa-ellipsis text-xl mb-0.5"></i>
+            <span class="text-[10px] font-bold">المزيد</span>
+            <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
+        </button>
+    </nav>
+
+    <!-- قائمة الهواتف السفلية (Mobile Menu - Bottom Sheet) -->
     <div id="mobileMenuOverlay" onclick="toggleMobileMenu()"
         class="fixed inset-0 bg-black/80 backdrop-blur-md z-[45] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
     </div>
     <div id="mobileMenu"
-        class="fixed top-0 right-0 bottom-0 w-[280px] bg-[#0a0a0a] z-[50] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col md:hidden border-l border-white/5 shadow-2xl">
-        <div
-            class="p-6 border-b border-white/5 flex justify-between items-center bg-gradient-to-b from-brand-primary/10 to-transparent">
-            <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار" class="h-10">
+        class="fixed bottom-0 left-0 right-0 w-full max-h-[85vh] bg-[#0a0a0a] z-[50] transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col md:hidden rounded-t-3xl border-t border-white/10 shadow-2xl pb-2">
+        <!-- مؤشر سحب القائمة السفلي (App Drawer Handle) -->
+        <div class="w-12 h-1 bg-white/20 rounded-full mx-auto my-3 shrink-0"></div>
+        
+        <div class="px-6 pb-4 border-b border-white/5 flex justify-between items-center bg-gradient-to-b from-brand-primary/5 to-transparent">
+            <div class="flex items-center gap-3">
+                <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار" class="h-8">
+                <span class="font-black text-sm text-white">قائمة الخيارات</span>
+            </div>
             <button onclick="toggleMobileMenu()"
-                class="w-10 h-10 bg-white/5 rounded-full flex justify-center items-center text-white hover:bg-brand-primary transition-colors"><i
-                    class="fa-solid fa-xmark text-xl"></i></button>
+                class="w-8 h-8 bg-white/5 rounded-full flex justify-center items-center text-white hover:bg-brand-danger transition-colors">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
         </div>
-        <div class="flex flex-col p-6 gap-2 overflow-y-auto flex-grow">
+        
+        <!-- شبكة الخيارات التفاعلية (2x2 Grid) -->
+        <div class="grid grid-cols-2 gap-3 p-6 overflow-y-auto max-h-[50vh] flex-grow">
             <a href="#home" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-house text-brand-primary"></i> الرئيسية</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-house text-lg"></i>
+                </div>
+                <span class="text-white">الرئيسية</span>
+            </a>
             <a href="#features" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-star text-brand-primary"></i> مميزاتنا</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-star text-lg"></i>
+                </div>
+                <span class="text-white">مميزاتنا</span>
+            </a>
             <a href="#promo" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-fire text-brand-primary"></i> عروض اليوم</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-fire text-lg"></i>
+                </div>
+                <span class="text-white">عروض اليوم</span>
+            </a>
             <a href="#menu" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-utensils text-brand-primary"></i> قائمة الطعام</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-utensils text-lg"></i>
+                </div>
+                <span class="text-white">قائمة الطعام</span>
+            </a>
             <a href="#gallery" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-images text-brand-primary"></i> معرض الصور</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-images text-lg"></i>
+                </div>
+                <span class="text-white">معرض الصور</span>
+            </a>
             <a href="#testimonials" onclick="toggleMobileMenu()"
-                class="text-lg font-bold p-4 glass-panel rounded-xl hover:bg-brand-primary transition-colors flex items-center gap-4"><i
-                    class="fa-solid fa-comments text-brand-primary"></i> آراء الزبائن</a>
+                class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-comments text-lg"></i>
+                </div>
+                <span class="text-white">آراء الزبائن</span>
+            </a>
         </div>
-        <div class="p-6 border-t border-white/5 bg-black">
+        
+        <div class="p-6 border-t border-white/5 bg-black/40 space-y-3">
             <button onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
-                class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-4 rounded-xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(37,211,102,0.3)]">
-                <i class="fa-brands fa-whatsapp text-2xl"></i> تواصل معنا
+                class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-3.5 rounded-2xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(37,211,102,0.3)] transition-all hover:scale-[1.02]">
+                <i class="fa-brands fa-whatsapp text-xl"></i> تواصل معنا
             </button>
             <!-- زر تنزيل التطبيق للهواتف -->
             <button id="mobileMenuInstallBtn" onclick="installPWA()"
-                class="w-full mt-3 bg-gradient-to-r from-brand-primary to-brand-primaryHover text-white py-4 rounded-xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,107,0,0.3)] hidden">
-                <i class="fa-solid fa-download text-2xl"></i> تنزيل التطبيق
+                class="w-full bg-gradient-to-r from-brand-primary to-brand-primaryHover text-white py-3.5 rounded-2xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,107,0,0.3)] transition-all hover:scale-[1.02] hidden">
+                <i class="fa-solid fa-download text-xl"></i> تنزيل التطبيق
             </button>
         </div>
     </div>
@@ -1183,13 +1260,21 @@
             const productCard = document.getElementById(`product-${itemId}`);
             const productImg = productCard ? productCard.querySelector('.product-img') : null;
 
-            // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا
+            // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا أو شاشة الهاتف
+            const isMobile = window.innerWidth < 768;
+            const defaultCartBtn = isMobile 
+                ? (document.getElementById('mobileCartBtn') || document.getElementById('cartNavbarBtn'))
+                : (document.getElementById('cartNavbarBtn') || document.getElementById('mobileCartBtn'));
+            const defaultCartIcon = isMobile
+                ? (document.getElementById('mobileCartIcon') || document.getElementById('cartBtnIcon'))
+                : (document.getElementById('cartBtnIcon') || document.getElementById('mobileCartIcon'));
+
             const targetIconBtn = isVirtualPageOpen
-                ? (document.getElementById('virtualCartBtn') || document.getElementById('cartNavbarBtn'))
-                : (document.getElementById('cartNavbarBtn') || document.getElementById('virtualCartBtn'));
+                ? (document.getElementById('virtualCartBtn') || defaultCartBtn)
+                : (defaultCartBtn || document.getElementById('virtualCartBtn'));
             const targetIcon = isVirtualPageOpen
-                ? (document.getElementById('virtualCartBtnIcon') || document.getElementById('cartBtnIcon'))
-                : (document.getElementById('cartBtnIcon') || document.getElementById('virtualCartBtnIcon'));
+                ? (document.getElementById('virtualCartBtnIcon') || defaultCartIcon)
+                : (defaultCartIcon || document.getElementById('virtualCartBtnIcon'));
 
             const qtySpan = document.getElementById(`local-qty-${itemId}`);
             const quantityToAdd = qtySpan ? parseInt(qtySpan.innerText) : 1;
@@ -1259,8 +1344,8 @@
         function updateCartUI() {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-            // تحديث الشارات في كلا المكانين (الرئيسية والوهمية)
-            ['cartBadge', 'virtualPageCartBadge'].forEach(id => {
+            // تحديث الشارات في جميع الأماكن (الرئيسية، شريط التنقل السفلي، والوهمية)
+            ['cartBadge', 'mobileCartBadge', 'virtualPageCartBadge'].forEach(id => {
                 const badge = document.getElementById(id);
                 if (badge) {
                     if (totalItems > 0) {
@@ -2013,6 +2098,41 @@
             updateCartUI();
         }
 
+        // --- 5.2. منطق شريط التنقل السفلي للهواتف (Bottom Tab Navigation Logic) ---
+        function setActiveTab(el) {
+            document.querySelectorAll('.nav-tab-item').forEach(item => {
+                item.classList.remove('active-tab');
+                const dot = item.querySelector('.active-dot');
+                if (dot) dot.classList.add('opacity-0');
+            });
+            el.classList.add('active-tab');
+            const dot = el.querySelector('.active-dot');
+            if (dot) dot.classList.remove('opacity-0');
+        }
+
+        function updateActiveTabOnScroll() {
+            const scrollPos = window.scrollY;
+            const menuSection = document.getElementById('menu');
+            
+            let activeId = 'home';
+            if (menuSection && scrollPos >= menuSection.offsetTop - 200) {
+                activeId = 'menu';
+            }
+            
+            if (activeId === 'home') {
+                const homeTab = document.querySelector('.nav-tab-item[href="#home"]');
+                if (homeTab && !homeTab.classList.contains('active-tab')) {
+                    setActiveTab(homeTab);
+                }
+            } else if (activeId === 'menu') {
+                const menuTab = document.querySelector('.nav-tab-item[href="#menu"]');
+                if (menuTab && !menuTab.classList.contains('active-tab')) {
+                    setActiveTab(menuTab);
+                }
+            }
+        }
+        window.addEventListener('scroll', updateActiveTabOnScroll);
+
         // --- 5.5. منطق تثبيت التطبيق (PWA Install Logic) ---
         let deferredPrompt = null;
 
@@ -2120,8 +2240,9 @@
                     .catch((err) => console.error('Service Worker registration failed:', err));
             }
 
-            // تهيئة تثبيت التطبيق
+            // تهيئة تثبيت التطبيق وتحديث التبويب النشط
             initPWAInstall();
+            updateActiveTabOnScroll();
 
             try {
                 const response = await fetch('menu.json?v=' + Date.now());
