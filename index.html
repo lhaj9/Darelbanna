@@ -1086,18 +1086,28 @@
                         const itemTotal = item.price * item.quantity;
                         total += itemTotal;
                         itemsList.innerHTML += `
-                            <div class="flex gap-4 bg-[#141414] p-4 rounded-2xl border border-white/5 items-center shadow-md relative">
-                                <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10">
-                                <div class="flex-grow">
-                                    <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
-                                    <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
-                                    <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5 mt-2 w-max">
-                                        <button onclick="changeCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                                        <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
-                                        <button onclick="changeCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                            <div class="flex flex-col bg-[#141414] p-4 rounded-2xl border border-white/5 shadow-md relative gap-3">
+                                <div class="flex gap-4 items-center">
+                                    <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
+                                        <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
+                                        <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5 mt-2 w-max">
+                                            <button onclick="changeCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                            <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
+                                            <button onclick="changeCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                        </div>
                                     </div>
+                                    <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 text-gray-500 hover:text-brand-danger transition-colors"><i class="fa-solid fa-trash-can"></i></button>
                                 </div>
-                                <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 text-gray-500 hover:text-brand-danger transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+                                <!-- حقل الملاحظات الخاصة بالوجبة -->
+                                <div class="w-full">
+                                    <input type="text" 
+                                           oninput="updateItemNote(${item.id}, this.value)" 
+                                           value="${item.note || ''}" 
+                                           placeholder="📝 إضافة ملاحظة خاصة (مثال: بدون بصل)..." 
+                                           class="w-full bg-[#0a0a0a] border border-white/5 focus:border-brand-primary/50 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none transition-all duration-300">
+                                </div>
                             </div>
                         `;
                     });
@@ -1135,6 +1145,19 @@
             updateCartUI();
         }
 
+        // تحديث ملاحظة وجبة معينة وحفظها تلقائياً
+        function updateItemNote(id, noteText) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.note = noteText;
+                try {
+                    localStorage.setItem('darelBannaCart', JSON.stringify(cart));
+                } catch (error) {
+                    console.error("خطأ أثناء حفظ السلة في localStorage:", error);
+                }
+            }
+        }
+
         function toggleCart() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
@@ -1169,6 +1192,9 @@
                 const itemTotal = item.price * item.quantity;
                 grandTotal += itemTotal;
                 message += `▪️ *${item.quantity}x* ${item.title} (${itemTotal} درهم)\n`;
+                if (item.note && item.note.trim() !== '') {
+                    message += `  📝 *ملاحظة:* _${item.note.trim()}_\n`;
+                }
             });
             message += "--------------------\n";
             message += `💰 *الإجمالي: ${grandTotal} درهم*\n\nالرجاء تأكيد استلام الطلب. شكراً! 🍔`;
@@ -1236,7 +1262,8 @@
                                 if (currentItem) {
                                     return {
                                         ...currentItem,
-                                        quantity: savedItem.quantity
+                                        quantity: savedItem.quantity,
+                                        note: savedItem.note || ''
                                     };
                                 }
                                 return null;
