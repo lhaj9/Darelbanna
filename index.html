@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>دار البنة | DAR ELBANNA - مطعم الوجبات السريعة الفاخرة</title>
     <meta name="description" content="اطلب أشهى البرجر، البيتزا، والتاكوس من دار البنة. توصيل سريع ومذاق لا ينسى.">
-    
+
     <!-- إعدادات تطبيق الويب التقدمي PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -215,7 +215,7 @@
             border-right: 4px solid #ff6b00;
             padding: 12px 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255,107,0,0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 107, 0, 0.1);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -224,7 +224,7 @@
             pointer-events: auto;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         @keyframes toastDropIn {
@@ -232,6 +232,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -331,22 +332,26 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         /* Mobile Dashboard */
         .mobile-dash-search {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.3s ease;
         }
+
         .mobile-dash-search:focus-within {
-            border-color: rgba(255,107,0,0.5);
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 0 20px rgba(255,107,0,0.1);
+            border-color: rgba(255, 107, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
         }
+
         .mobile-promo-card {
             background: linear-gradient(135deg, #ff6b00 0%, #cc5500 100%);
             position: relative;
             overflow: hidden;
         }
+
         .mobile-promo-card::before {
             content: '';
             position: absolute;
@@ -354,27 +359,38 @@
             right: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
             pointer-events: none;
         }
+
         .mobile-cat-item {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .mobile-cat-item:active {
             transform: scale(0.92);
         }
+
         .mobile-popular-card {
             transition: all 0.3s ease;
         }
+
         .mobile-popular-card:active {
             transform: scale(0.97);
         }
+
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
         }
+
         .promo-shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
             background-size: 200% 100%;
             animation: shimmer 3s infinite;
         }
@@ -450,33 +466,39 @@
     </nav>
 
     <!-- شريط التنقل السفلي (Bottom Navigation Bar) للهواتف -->
-    <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 z-[50] bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)] transition-transform duration-300">
+    <nav id="mobileBottomNav"
+        class="fixed bottom-0 left-0 right-0 z-[50] bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)] transition-transform duration-300">
         <!-- الرئيسية -->
-        <a href="#home" onclick="goToMobileDashboard(); setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
+        <a href="#home" onclick="goToMobileDashboard(); setActiveTab(this)"
+            class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
             <i class="fa-solid fa-house text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">الرئيسية</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full"></span>
         </a>
-        
+
         <!-- المنيو -->
-        <button onclick="openMobileMenuPage(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
+        <button onclick="openMobileMenuPage(); setActiveTab(this)"
+            class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <i class="fa-solid fa-utensils text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">المنيو</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
         </button>
-        
+
         <!-- السلة -->
-        <button id="mobileCartBtn" onclick="toggleCart(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
+        <button id="mobileCartBtn" onclick="toggleCart(); setActiveTab(this)"
+            class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <div class="relative">
                 <i id="mobileCartIcon" class="fa-solid fa-basket-shopping text-xl mb-0.5"></i>
-                <span id="mobileCartBadge" class="absolute -top-2 -right-2.5 bg-brand-primary text-white text-[9px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
+                <span id="mobileCartBadge"
+                    class="absolute -top-2 -right-2.5 bg-brand-primary text-white text-[9px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-brand-dark transform scale-0 transition-transform duration-300">0</span>
             </div>
             <span class="text-[10px] font-bold">السلة</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
         </button>
-        
+
         <!-- المزيد -->
-        <button onclick="toggleMobileMenu(); setActiveTab(this)" class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
+        <button onclick="toggleMobileMenu(); setActiveTab(this)"
+            class="flex flex-col items-center justify-center text-gray-400 hover:text-white w-16 h-12 transition-all duration-300 relative nav-tab-item focus:outline-none bg-transparent border-none">
             <i class="fa-solid fa-ellipsis text-xl mb-0.5"></i>
             <span class="text-[10px] font-bold">المزيد</span>
             <span class="active-dot absolute bottom-0.5 w-1 h-1 bg-brand-primary rounded-full opacity-0"></span>
@@ -491,8 +513,9 @@
         class="fixed bottom-0 left-0 right-0 w-full max-h-[85vh] bg-[#0a0a0a] z-[55] transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col md:hidden rounded-t-3xl border-t border-white/10 shadow-2xl pb-2">
         <!-- مؤشر سحب القائمة السفلي (App Drawer Handle) -->
         <div class="w-12 h-1 bg-white/20 rounded-full mx-auto my-3 shrink-0"></div>
-        
-        <div class="px-6 pb-4 border-b border-white/5 flex justify-between items-center bg-gradient-to-b from-brand-primary/5 to-transparent">
+
+        <div
+            class="px-6 pb-4 border-b border-white/5 flex justify-between items-center bg-gradient-to-b from-brand-primary/5 to-transparent">
             <div class="flex items-center gap-3">
                 <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار" class="h-8">
                 <span class="font-black text-sm text-white">قائمة الخيارات</span>
@@ -502,53 +525,59 @@
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
         </div>
-        
+
         <!-- شبكة الخيارات التفاعلية (2x2 Grid) -->
         <div class="grid grid-cols-2 gap-3 p-6 overflow-y-auto max-h-[50vh] flex-grow">
             <a href="#home" onclick="toggleMobileMenu(); goToMobileDashboard()"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-house text-lg"></i>
                 </div>
                 <span class="text-white">الرئيسية</span>
             </a>
             <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('features')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-star text-lg"></i>
                 </div>
                 <span class="text-white">مميزاتنا</span>
             </a>
             <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('promo')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-fire text-lg"></i>
                 </div>
                 <span class="text-white">عروض اليوم</span>
             </a>
             <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileMenuPage()"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-utensils text-lg"></i>
                 </div>
                 <span class="text-white">قائمة الطعام</span>
             </a>
             <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('gallery')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-images text-lg"></i>
                 </div>
                 <span class="text-white">معرض الصور</span>
             </a>
             <a href="javascript:void(0)" onclick="toggleMobileMenu(); openMobileInfoPage('testimonials')"
                 class="text-sm font-bold p-4 glass-panel rounded-2xl hover:bg-brand-primary/20 transition-all duration-300 flex flex-col items-center justify-center gap-2.5 text-center border border-white/5 group">
-                <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
+                <div
+                    class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-comments text-lg"></i>
                 </div>
                 <span class="text-white">آراء الزبائن</span>
             </a>
         </div>
-        
+
         <div class="p-6 border-t border-white/5 bg-black/40 space-y-3">
             <button onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
                 class="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-3.5 rounded-2xl font-black flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(37,211,102,0.3)] transition-all hover:scale-[1.02]">
@@ -563,7 +592,8 @@
     </div>
 
     <!-- الواجهة الرئيسية (Hero Slider) -->
-    <header id="home" class="relative h-screen hidden md:flex items-center justify-center overflow-hidden bg-brand-darker">
+    <header id="home"
+        class="relative h-screen hidden md:flex items-center justify-center overflow-hidden bg-brand-darker">
         <!-- شرائح الخلفية -->
         <div id="heroSlider" class="absolute inset-0 z-0">
             <div class="slide active bg-cover bg-center"
@@ -608,7 +638,8 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <a href="#menu" onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
+                    <a href="#menu"
+                        onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
                         class="bg-brand-primary hover:bg-[#ff4500] text-white px-8 py-4 rounded-xl font-black transition-all duration-300 shadow-[0_10px_20px_rgba(255,107,0,0.3)] hover:-translate-y-1 flex items-center justify-center gap-3 text-lg">
                         <span>أطلب الآن</span>
                         <i class="fa-solid fa-arrow-down animate-bounce"></i>
@@ -778,7 +809,8 @@
         <div
             class="glass-panel border-b border-white/10 px-4 py-4 flex items-center justify-between sticky top-0 z-20 bg-brand-dark/90 backdrop-blur-xl">
             <div class="w-10 h-10"></div> <!-- موازن الهيدر بدلاً من زر الرجوع -->
-            <h2 class="text-xl md:text-2xl font-black text-brand-primary flex-1 text-center drop-shadow-md">قائمة الطعام</h2>
+            <h2 class="text-xl md:text-2xl font-black text-brand-primary flex-1 text-center drop-shadow-md">قائمة الطعام
+            </h2>
             <button onclick="toggleCart()"
                 class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center relative hover:bg-brand-primary/20 transition-colors border border-brand-primary/30"
                 id="menuVirtualCartBtn">
@@ -791,15 +823,14 @@
         <!-- حاوية التصنيفات داخل الصفحة الوهمية للمنيو -->
         <div
             class="flex-1 overflow-y-auto p-4 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
-            <div id="mobileMenuGridContainer"
-                class="grid grid-cols-2 gap-4 pb-24 max-w-7xl mx-auto">
+            <div id="mobileMenuGridContainer" class="grid grid-cols-2 gap-4 pb-24 max-w-7xl mx-auto">
                 <!-- جافاسكريبت سيملأ هذا بالتصنيفات للموبايل -->
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- الصفحة الوهمية الخاصة بفتح التصنيف (App-like Virtual Page Bottom Sheet) -->
+    <!--  الصفحة الوهمية الخاصة بفتح التصنيف (App-like Virtual Page Bottom Sheet) -->
     <!-- ========================================================================= -->
     <div id="categoryVirtualPage"
         class="fixed inset-0 bg-[#0a0a0a] z-[40] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
@@ -1132,7 +1163,8 @@
                 <h4 class="text-white font-black text-lg mb-6 border-b border-white/10 pb-2 inline-block">روابط هامة
                 </h4>
                 <ul class="space-y-3">
-                    <li><a href="#menu" onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
+                    <li><a href="#menu"
+                            onclick="if(window.innerWidth < 768) { event.preventDefault(); openMobileMenuPage(); }"
                             class="text-brand-grayMuted hover:text-brand-primary text-sm transition-colors"><i
                                 class="fa-solid fa-angle-left text-[10px] ml-1"></i> قائمة الطعام</a></li>
                     <li><a href="#promo"
@@ -1185,7 +1217,8 @@
             <p>© 2026 مطعم دار البنة (DAR ELBANNA). جميع الحقوق محفوظة.</p>
             <!-- زر تثبيت التطبيق في الفوتر -->
             <div id="footerInstallBtnContainer" class="hidden">
-                <button onclick="installPWA()" class="bg-brand-primary hover:bg-brand-primaryHover text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md flex items-center justify-center gap-2 mx-auto text-sm hover:-translate-y-0.5">
+                <button onclick="installPWA()"
+                    class="bg-brand-primary hover:bg-brand-primaryHover text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md flex items-center justify-center gap-2 mx-auto text-sm hover:-translate-y-0.5">
                     <i class="fa-solid fa-download"></i>
                     <span>تثبيت تطبيق دار البنة</span>
                 </button>
@@ -1203,7 +1236,8 @@
             <!-- شعار وترحيب -->
             <div class="flex items-center justify-between mb-5">
                 <div class="flex items-center gap-3">
-                    <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار دار البنة" class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.4)]">
+                    <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="شعار دار البنة"
+                        class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,107,0,0.4)]">
                     <div>
                         <p class="text-sm text-gray-400 leading-tight">مرحباً بك في</p>
                         <h1 class="text-lg font-black text-white leading-tight">دار البنة 🍔</h1>
@@ -1220,23 +1254,31 @@
             <!-- شريط البحث -->
             <div class="mobile-dash-search flex items-center gap-3 rounded-2xl px-4 py-3">
                 <i class="fa-solid fa-magnifying-glass text-brand-grayMuted text-sm"></i>
-                <input type="text" id="mobileDashSearch" placeholder="ابحث عن وجبتك المفضلة..." class="bg-transparent border-none outline-none text-white text-sm flex-grow placeholder-gray-500" oninput="filterMobileDashboard(this.value)">
+                <input type="text" id="mobileDashSearch" placeholder="ابحث عن وجبتك المفضلة..."
+                    class="bg-transparent border-none outline-none text-white text-sm flex-grow placeholder-gray-500"
+                    oninput="filterMobileDashboard(this.value)">
             </div>
         </div>
 
         <!-- بانر العروض (Promo Card) -->
         <div class="px-4 mb-5">
-            <div class="mobile-promo-card rounded-2xl p-5 flex items-center justify-between gap-3 shadow-[0_8px_30px_rgba(255,107,0,0.25)]">
+            <div
+                class="mobile-promo-card rounded-2xl p-5 flex items-center justify-between gap-3 shadow-[0_8px_30px_rgba(255,107,0,0.25)]">
                 <div class="flex-1 z-10">
-                    <span class="bg-black/25 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white/90 border border-white/15 inline-block mb-2">عرض نهاية الأسبوع 🔥</span>
+                    <span
+                        class="bg-black/25 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white/90 border border-white/15 inline-block mb-2">عرض
+                        نهاية الأسبوع 🔥</span>
                     <h3 class="text-base font-black text-white leading-snug mb-1">وجبة التوفير العائلية</h3>
-                    <p class="text-[11px] text-white/80 mb-3 leading-relaxed">2 بيتزا + 2 برجر + بطاطس + مشروب فقط بـ <strong>149 درهم</strong></p>
-                    <button onclick="addPromoToCart()" class="bg-white text-brand-primary px-4 py-2 rounded-xl text-xs font-black hover:bg-gray-100 transition-all shadow-md flex items-center gap-1.5">
+                    <p class="text-[11px] text-white/80 mb-3 leading-relaxed">2 بيتزا + 2 برجر + بطاطس + مشروب فقط بـ
+                        <strong>149 درهم</strong></p>
+                    <button onclick="addPromoToCart()"
+                        class="bg-white text-brand-primary px-4 py-2 rounded-xl text-xs font-black hover:bg-gray-100 transition-all shadow-md flex items-center gap-1.5">
                         <i class="fa-solid fa-cart-plus"></i> اطلب الآن
                     </button>
                 </div>
                 <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-white/20 shadow-lg shrink-0 z-10">
-                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&q=80" alt="عرض عائلي" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&q=80" alt="عرض عائلي"
+                        class="w-full h-full object-cover">
                 </div>
                 <!-- تأثير الوميض -->
                 <div class="absolute inset-0 promo-shimmer rounded-2xl pointer-events-none"></div>
@@ -1247,7 +1289,8 @@
         <div class="mb-5">
             <div class="flex items-center justify-between px-4 mb-3">
                 <h2 class="text-base font-black text-white">التصنيفات</h2>
-                <button onclick="openMobileMenuPage()" class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
+                <button onclick="openMobileMenuPage()"
+                    class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
                     عرض الكل <i class="fa-solid fa-arrow-left text-[10px]"></i>
                 </button>
             </div>
@@ -1260,7 +1303,8 @@
         <div class="px-4">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-base font-black text-white">⭐ الأكثر طلباً</h2>
-                <button onclick="openMobileMenuPage()" class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
+                <button onclick="openMobileMenuPage()"
+                    class="text-xs text-brand-primary font-bold flex items-center gap-1 hover:underline">
                     قائمة الطعام <i class="fa-solid fa-arrow-left text-[10px]"></i>
                 </button>
             </div>
@@ -1447,8 +1491,8 @@
             }
 
             const q = query.trim().toLowerCase();
-            const results = menuData.filter(item => 
-                item.title.toLowerCase().includes(q) || 
+            const results = menuData.filter(item =>
+                item.title.toLowerCase().includes(q) ||
                 item.desc.toLowerCase().includes(q)
             ).slice(0, 8);
 
@@ -1499,11 +1543,11 @@
             // إظهار القسم مؤقتاً
             section.classList.remove('hidden');
             section.classList.add('block');
-            
+
             // إخفاء لوحة التحكم
             const dashboard = document.getElementById('mobileDashboard');
             if (dashboard) dashboard.classList.add('hidden');
-            
+
             // تمرير للقسم
             section.scrollIntoView({ behavior: 'smooth' });
 
@@ -1511,7 +1555,7 @@
             history.pushState({ mobileInfoPage: sectionId }, '');
 
             // الاستماع للرجوع
-            const handlePop = function() {
+            const handlePop = function () {
                 section.classList.add('hidden');
                 section.classList.remove('block');
                 if (dashboard) {
@@ -1656,10 +1700,10 @@
 
             // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا أو شاشة الهاتف
             const isMobile = window.innerWidth < 768;
-            let defaultCartBtn = isMobile 
+            let defaultCartBtn = isMobile
                 ? (document.getElementById('mobileCartBtn') || document.getElementById('cartNavbarBtn'))
                 : (document.getElementById('cartNavbarBtn') || document.getElementById('mobileCartBtn'));
-            
+
             if (isMobileMenuPageOpen) {
                 defaultCartBtn = document.getElementById('menuVirtualCartBtn') || defaultCartBtn;
             }
@@ -1667,7 +1711,7 @@
             let defaultCartIcon = isMobile
                 ? (document.getElementById('mobileCartIcon') || document.getElementById('cartBtnIcon'))
                 : (document.getElementById('cartBtnIcon') || document.getElementById('mobileCartIcon'));
-            
+
             if (isMobileMenuPageOpen) {
                 defaultCartIcon = document.getElementById('menuVirtualCartBtnIcon') || defaultCartIcon;
             }
@@ -2556,7 +2600,7 @@
 
         function closeMobileMenuPage(fromPopState = false) {
             isMobileMenuPageOpen = false;
-            
+
             // تحقق ما إذا كانت هناك صفحات وهمية أخرى مفتوحة
             if (!isVirtualPageOpen && !isCheckoutPageOpen) {
                 document.body.style.overflow = '';
@@ -2592,12 +2636,12 @@
 
             const scrollPos = window.scrollY;
             const menuSection = document.getElementById('menu');
-            
+
             let activeId = 'home';
             if (menuSection && scrollPos >= menuSection.offsetTop - 200) {
                 activeId = 'menu';
             }
-            
+
             if (activeId === 'home') {
                 const homeTab = document.querySelector('.nav-tab-item[href="#home"]');
                 if (homeTab && !homeTab.classList.contains('active-tab')) {
@@ -2616,8 +2660,8 @@
         let deferredPrompt = null;
 
         function isIOS() {
-            return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
         }
 
         function isStandaloneMode() {
@@ -2627,7 +2671,7 @@
         function showInstallUI() {
             const footerBtnContainer = document.getElementById('footerInstallBtnContainer');
             const mobileMenuBtn = document.getElementById('mobileMenuInstallBtn');
-            
+
             if (footerBtnContainer) footerBtnContainer.classList.remove('hidden');
             if (mobileMenuBtn) mobileMenuBtn.classList.remove('hidden');
         }
@@ -2677,7 +2721,7 @@
         function hideInstallUI() {
             const footerBtnContainer = document.getElementById('footerInstallBtnContainer');
             const mobileMenuBtn = document.getElementById('mobileMenuInstallBtn');
-            
+
             if (footerBtnContainer) footerBtnContainer.classList.add('hidden');
             if (mobileMenuBtn) mobileMenuBtn.classList.add('hidden');
         }
@@ -2753,33 +2797,50 @@
     </script>
 
     <!-- نافذة توضيحية لتثبيت التطبيق على هواتف iOS (iOS Install Instruction Modal) -->
-    <div id="iosInstallModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[80] opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 border border-white/10 text-center relative transform scale-90 transition-transform duration-300" id="iosInstallModalContent">
-            <button onclick="closeIosInstallModal()" class="absolute top-4 left-4 w-8 h-8 bg-white/5 hover:bg-brand-danger hover:text-white rounded-full flex items-center justify-center transition-colors">
+    <div id="iosInstallModal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[80] opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 border border-white/10 text-center relative transform scale-90 transition-transform duration-300"
+            id="iosInstallModalContent">
+            <button onclick="closeIosInstallModal()"
+                class="absolute top-4 left-4 w-8 h-8 bg-white/5 hover:bg-brand-danger hover:text-white rounded-full flex items-center justify-center transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="w-16 h-16 bg-brand-primary/20 text-brand-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+            <div
+                class="w-16 h-16 bg-brand-primary/20 text-brand-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
                 <i class="fa-brands fa-apple"></i>
             </div>
             <h3 class="text-xl font-black text-white mb-2">تثبيت التطبيق على الآيفون 📱</h3>
-            <p class="text-sm text-brand-grayMuted mb-6 leading-relaxed">قم بتثبيت تطبيق "دار البنة" على شاشتك الرئيسية للوصول السريع وتصفح المنيو بدون إنترنت.</p>
-            
+            <p class="text-sm text-brand-grayMuted mb-6 leading-relaxed">قم بتثبيت تطبيق "دار البنة" على شاشتك الرئيسية
+                للوصول السريع وتصفح المنيو بدون إنترنت.</p>
+
             <div class="space-y-4 text-right text-sm border-t border-white/5 pt-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">1</div>
-                    <p class="text-white">اضغط على زر <strong class="text-brand-primary">مشاركة (Share)</strong> <i class="fa-solid fa-arrow-up-from-bracket text-brand-primary mx-1"></i> في شريط Safari السفلي.</p>
+                    <div
+                        class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">
+                        1</div>
+                    <p class="text-white">اضغط على زر <strong class="text-brand-primary">مشاركة (Share)</strong> <i
+                            class="fa-solid fa-arrow-up-from-bracket text-brand-primary mx-1"></i> في شريط Safari
+                        السفلي.</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">2</div>
-                    <p class="text-white">اسحب القائمة لأسفل أو لأعلى واختر <strong class="text-brand-primary">إضافة إلى الشاشة الرئيسية (Add to Home Screen)</strong> <i class="fa-regular fa-square-plus text-brand-primary mx-1"></i>.</p>
+                    <div
+                        class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">
+                        2</div>
+                    <p class="text-white">اسحب القائمة لأسفل أو لأعلى واختر <strong class="text-brand-primary">إضافة إلى
+                            الشاشة الرئيسية (Add to Home Screen)</strong> <i
+                            class="fa-regular fa-square-plus text-brand-primary mx-1"></i>.</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">3</div>
-                    <p class="text-white">اضغط على <strong class="text-brand-primary">إضافة (Add)</strong> في الزاوية العلوية لتأكيد التثبيت.</p>
+                    <div
+                        class="w-7 h-7 bg-brand-primary text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">
+                        3</div>
+                    <p class="text-white">اضغط على <strong class="text-brand-primary">إضافة (Add)</strong> في الزاوية
+                        العلوية لتأكيد التثبيت.</p>
                 </div>
             </div>
-            
-            <button onclick="closeIosInstallModal()" class="w-full mt-6 bg-brand-primary hover:bg-brand-primaryHover text-white py-3.5 rounded-xl font-bold transition-all shadow-md">
+
+            <button onclick="closeIosInstallModal()"
+                class="w-full mt-6 bg-brand-primary hover:bg-brand-primaryHover text-white py-3.5 rounded-xl font-bold transition-all shadow-md">
                 حسناً، فهمت
             </button>
         </div>
