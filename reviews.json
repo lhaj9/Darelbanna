@@ -1,0 +1,368 @@
+{
+    "summary": {
+        "overall_rating": 4.5,
+        "total_reviews": 24,
+        "stars_distribution": {
+            "5_stars": 17,
+            "4_stars": 4,
+            "3_stars": 2,
+            "2_stars": 0,
+            "1_star": 1
+        }
+    },
+    "reviews": [
+        {
+            "name": "Brahim Battah",
+            "profile_url": "https://www.google.com/maps/contrib/115521429317560153190/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWQAvdiSopgltpz04GyJB8_YT73S7gfTW9L6qgNq2RF_0zRbPUS=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "53 مراجعة · 625 صورة",
+            "rating": 5,
+            "date": "قبل سنة (معدل)",
+            "text": "تبارك الله على نبيل. حسن الاستقبال و الاكل الطيب.",
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "هشام العسلي",
+            "profile_url": "https://www.google.com/maps/contrib/104303648492804730808/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjURYhzBGphcRapsOVz0bKTZBUbNXVpSjMaxawwxj20tTx3q4_V_Kg=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "38 مراجعة · 91 صورة",
+            "rating": 5,
+            "date": "قبل 3 سنوات",
+            "text": "مكان دو خدمة جيدة وأطباق شهية",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": [
+                "https://lh3.googleusercontent.com/grass-cs/ANxoTn3T_mUl-2dus7s0iTbwUWQwluTCrBdHeeyvafiz6_iEk5jo7H1Uod4G1PA-PzujxcXS9HUJ7AwNb2V4URnX2Nao3D02JNbFgHmFC0dTy90XU3hDHHVU3Iw_iGklo8oMq7Jd10sy=w300-h450-p-k-no",
+                "https://lh3.googleusercontent.com/grass-cs/ANxoTn1EfX3nPmhbyPH-loUr4-FCD-MaTY55BydEqfsOr6iInti-ihxYOoHpMtaBOmaCsAiQ21E7CSN5rmhBo5Xs0jnPMdVK1HtrJHEXuNRsHlWTjw4T2C16gxV3vVFGt_R5nDX9VdAL=w300-h450-p-k-no"
+            ]
+        },
+        {
+            "name": "Immo abdo",
+            "profile_url": "https://www.google.com/maps/contrib/110559496184847814455/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVGoMXPorKh7DstWGP7q1EXE2pMdStwtW-w_RX7f0oMMAr18-WiwQ=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "7 مراجعات · 48 صورة",
+            "rating": 4,
+            "date": "قبل 3 سنوات",
+            "text": "tahiya lkouya nabil",
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "Ham Far",
+            "profile_url": "https://www.google.com/maps/contrib/114679566332312594165/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocL0tOrvu98CxJPBNNqoR_wyZmFufypJ87xfKCPg0Za5NMTPxdA=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "6 مراجعات · 32 صورة",
+            "rating": 5,
+            "date": "قبل سنة",
+            "text": "Très bon petit restaurant. Le patron est toujours sur place et tout respire le propre. Excellent.",
+            "details": {},
+            "photos": [
+                "https://lh3.googleusercontent.com/grass-cs/ANxoTn37HMNOb9E32zLimEnOQ6blKtEKL9L8T2Fda9Y2hzRe6NiKQAVQdZP3wKJ14tQRvQykna_obsq7bPWopRHUIoxMTqQAFPqJqaWf_YIF9HQg71p5BWO9R0oGayOfc5MX3S_zCD4y=w600-h450-p-k-no"
+            ]
+        },
+        {
+            "name": "mohcine benyoussef",
+            "profile_url": "https://www.google.com/maps/contrib/111730443291435059908/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVWcS5X5lkQyy9BACAEZNBwSziHUH9HblOSg9QFotR0qJo-Jaw4=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "4 مراجعات",
+            "rating": 5,
+            "date": "قبل 4 أشهر",
+            "text": "Très bonne Plat espace calme",
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "kamal benzaouia",
+            "profile_url": "https://www.google.com/maps/contrib/105073210118096025017/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVLiRH5T_8fVHJGkXd1gWhth8pUugAw_XohcCDl4ysMfQKgx6H1-g=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "12 مراجعة · 3 صور",
+            "rating": 3,
+            "date": "قبل 3 سنوات",
+            "text": "Lieu juste pour manger\nDes poulet délicieux",
+            "details": {
+                "نوع الطلب": "داخل المطعم",
+                "السعر للشخص الواحد": "1–50 د.م.",
+                "الطعام": 3,
+                "الخدمة": 3,
+                "الأجواء": 3
+            },
+            "photos": []
+        },
+        {
+            "name": "The other Guy",
+            "profile_url": "https://www.google.com/maps/contrib/106715345658128889110/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjUZg7jkClDMMWjYFk37M4xEqhr6VPLw9pBZgKkoGs-tyTs8fkM=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "9 مراجعات",
+            "rating": 3,
+            "date": "قبل 3 سنوات",
+            "text": "Not bad",
+            "details": {
+                "الطعام": 3,
+                "الخدمة": 4,
+                "الأجواء": 3
+            },
+            "photos": []
+        },
+        {
+            "name": "Mahdi Mekhf",
+            "profile_url": "https://www.google.com/maps/contrib/103605091324327519018/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKwcnndKG32mZOVFh4YIQnsbSUj4vgsSs1aZ6f-3zE33U_iaA=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل 5 أشهر",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 3
+            },
+            "photos": []
+        },
+        {
+            "name": "Chada Bouti",
+            "profile_url": "https://www.google.com/maps/contrib/115258198936060031170/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLy_Nkp7L-ogdIGCsA8fIBsM-2SJQVEoY58tQjbk35IsgnUdg=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل 5 أشهر",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "zakaria El gassy",
+            "profile_url": "https://www.google.com/maps/contrib/116339907728266882430/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWcc45QiAGC8YiexfuVo-70NfPDe07hMirFUB9DG7oKwkYOm9YT=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل 8 أشهر",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "Voyages R.M",
+            "profile_url": "https://www.google.com/maps/contrib/109630677795519195061/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjUuoQoJmv3N77tL4t93_Xs80RdKq0zuOWw8KDHxxsWa7RtDcls_OQ=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "14 مراجعة · 33 صورة",
+            "rating": 5,
+            "date": "قبل سنة",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "Ahmed taha Riad",
+            "profile_url": "https://www.google.com/maps/contrib/112711049229612450856/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWWasPmSZ_0V2tRopGK8qLq09KKWACjoXeg57-dOmcF8txdxP4N=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل 10 أشهر",
+            "text": "",
+            "details": {
+                "نوع الوجبة": "عشاء",
+                "السعر للشخص الواحد": "1–50 د.م.",
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5,
+                "وقت الانتظار": "ما يصل إلى 10 دقائق"
+            },
+            "photos": []
+        },
+        {
+            "name": "adil boumalk",
+            "profile_url": "https://www.google.com/maps/contrib/107917858675005062614/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXCbXd0brSWhBbmjyBdXXZm4owmjTGjdqw00OdDOfWcleasC-s=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "7 مراجعات · 3 صور",
+            "rating": 5,
+            "date": "قبل سنة",
+            "text": "",
+            "details": {
+                "نوع الطلب": "داخل المطعم"
+            },
+            "photos": []
+        },
+        {
+            "name": "Redouane Fakir",
+            "profile_url": "https://www.google.com/maps/contrib/110155901872252126952/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjV_nyJoD4uRXUY89YmkZkomnAbUY_Mw_Wpx0DUydrwM4VNFYIZd=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "4 مراجعات · صورة واحدة",
+            "rating": 5,
+            "date": "قبل سنة",
+            "text": "",
+            "details": {
+                "السعر للشخص الواحد": "1–50 د.م."
+            },
+            "photos": []
+        },
+        {
+            "name": "ToP VeDio",
+            "profile_url": "https://www.google.com/maps/contrib/100218883053112187795/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVLekC9VEkEpiAtsDL1qFmgF-Pu8LreaNRjDdAxo6yxAmP1dWP9=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعتان · صورة واحدة",
+            "rating": 4,
+            "date": "قبل سنة",
+            "text": "",
+            "details": {
+                "الطعام": 4,
+                "الخدمة": 3
+            },
+            "photos": []
+        },
+        {
+            "name": "MUSTAPHA ER.REQYBY",
+            "profile_url": "https://www.google.com/maps/contrib/103933090857024009704/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXfWwP-sdt6zOh41rU2abMgJTWLsEzO4qU7psoTbxgeNB9Pf2CcaA=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعتان · صورة واحدة",
+            "rating": 5,
+            "date": "قبل سنة",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "sanaa Sanaa",
+            "profile_url": "https://www.google.com/maps/contrib/101115230881075030070/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIPJinRcPQr8YiCHPgCiuMP6ZqgktGzdUM0N3E3RkK-JAKZGQ=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل سنتين",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "Mourad Elbousaady",
+            "profile_url": "https://www.google.com/maps/contrib/105531068663465821951/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjW4NKRl1pdA-5ZlBav1hKQQqrZjMnTpbxVGFerDedcZcT7fSD3fuw=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "31 مراجعة",
+            "rating": 5,
+            "date": "قبل سنتين",
+            "text": "",
+            "details": {
+                "الطعام": 5,
+                "الخدمة": 5,
+                "الأجواء": 5
+            },
+            "photos": []
+        },
+        {
+            "name": "Chada Safae",
+            "profile_url": "https://www.google.com/maps/contrib/110838516707386686993/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLAIPlGrQAHf4aBzb9jbt6Gk8PiOj-4473U1WvsaggP4pHmHg=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 5,
+            "date": "قبل سنتين",
+            "text": "",
+            "details": {
+                "نوع الطلب": "خدمة التوصيل"
+            },
+            "photos": []
+        },
+        {
+            "name": "Zahi Farida",
+            "profile_url": "https://www.google.com/maps/contrib/117063733699535945461/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKzKeNEuTzAdiZ_8Pd5AVxSPD0hbamJbdx5fs1oa_fk55ttxw=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "3 صور",
+            "rating": 4,
+            "date": "قبل سنتين",
+            "text": "",
+            "details": {
+                "نوع الطلب": "داخل المطعم"
+            },
+            "photos": []
+        },
+        {
+            "name": "Nabil Zahir",
+            "profile_url": "https://www.google.com/maps/contrib/105932827240304911128/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLC7k9BJFr93_iUqPq023ww2YYd4SkPYeJKJ3_he9Lyt8DzSw=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "23 صورة",
+            "rating": 5,
+            "date": "قبل أسبوع",
+            "text": "",
+            "is_new": true,
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "Mhamed Elgrimy",
+            "profile_url": "https://www.google.com/maps/contrib/100008247685497317485/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXeiTnHzXdAUpnxguEmMJvh0C7cDKMgQDN0hp7RFEu7KVzjSHCKBw=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "5 مراجعات · 11 صورة",
+            "rating": 4,
+            "date": "قبل سنتين",
+            "text": "",
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "Abderrahim Aalaou",
+            "profile_url": "https://www.google.com/maps/contrib/110958817173351386168/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXt6AoqpHdfndCiBkyAf8e72qCEbaV6o8qzbBrFyqxUWkfudTvz=w36-h36-p-rp-mo-br100",
+            "status": "مغرد عادّي",
+            "stats": "مراجعة واحدة",
+            "rating": 1,
+            "date": "قبل 3 سنوات",
+            "text": "",
+            "details": {},
+            "photos": []
+        },
+        {
+            "name": "Ahmed El Idrissi",
+            "profile_url": "https://www.google.com/maps/contrib/114916179097126696199/reviews?hl=ar",
+            "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjV8iaYGrb4a4g_dOnIm0eLF1YanwAHnyVegR7nA7lEvr3JNbQZNGA=w36-h36-p-rp-mo-ba12-br100",
+            "status": "مرشد محلي",
+            "stats": "5 مراجعات · 68 صورة",
+            "rating": 5,
+            "date": "قبل 3 سنوات",
+            "text": "",
+            "details": {},
+            "photos": []
+        }
+    ]
+}

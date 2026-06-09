@@ -1314,8 +1314,76 @@
         </div>
 
         <!-- الصفوف الأفقية المنسقة (Curated Horizontal Rows) -->
-        <div id="mobileDashCuratedRows" class="mt-6 space-y-5 pb-24">
+        <div id="mobileDashCuratedRows" class="mt-6 space-y-5">
             <!-- يتم ملؤه برمجياً بواسطة renderCuratedRows() -->
+        </div>
+
+        <!-- شارات الثقة (Trust Badges) -->
+        <div id="mobileDashTrustBadges" class="px-4 mt-8 mb-6">
+            <div class="grid grid-cols-3 gap-2.5">
+                <div class="flex flex-col items-center gap-2 bg-white/[0.03] rounded-2xl py-4 px-2 border border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                        <i class="fa-solid fa-motorcycle text-emerald-400 text-base"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-300 text-center leading-tight">توصيل سريع</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 bg-white/[0.03] rounded-2xl py-4 px-2 border border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center">
+                        <i class="fa-solid fa-leaf text-brand-primary text-base"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-300 text-center leading-tight">مكونات طازجة</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 bg-white/[0.03] rounded-2xl py-4 px-2 border border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center">
+                        <i class="fa-solid fa-fire-burner text-amber-400 text-base"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-300 text-center leading-tight">تحضير يومي</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- فوتر التطبيق المصغر (Minimalist App Footer) -->
+        <div id="mobileDashFooter" class="bg-[#050505] border-t border-white/5 pt-6 pb-32">
+            <!-- الشعار -->
+            <div class="flex justify-center mb-4">
+                <img src="https://lhaj9.github.io/Darelbanna/resources/logo.png" alt="دار البنة"
+                    class="h-10 w-auto opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+            </div>
+
+            <!-- أيقونات التواصل الاجتماعي -->
+            <div class="flex items-center justify-center gap-5 mb-4">
+                <a href="https://www.facebook.com/share/16YyE6L6u4/" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#1877F2]/20 hover:border-[#1877F2]/40 transition-all duration-300">
+                    <i class="fa-brands fa-facebook-f text-sm"></i>
+                </a>
+                <a href="https://www.instagram.com/darelbanna_tiznit/" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#E4405F]/20 hover:border-[#E4405F]/40 transition-all duration-300">
+                    <i class="fa-brands fa-instagram text-sm"></i>
+                </a>
+                <a href="https://www.tiktok.com/@dar_el_banna" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                    <i class="fa-brands fa-tiktok text-sm"></i>
+                </a>
+                <a href="javascript:void(0)" onclick="window.open(`https://wa.me/${RESTAURANT_WHATSAPP}`, '_blank')"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#25D366]/20 hover:border-[#25D366]/40 transition-all duration-300">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                </a>
+            </div>
+
+            <!-- الروابط القانونية -->
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <a href="javascript:void(0)" class="text-[9px] text-gray-500 hover:text-brand-primary transition-colors">سياسة الخصوصية</a>
+                <span class="text-gray-600 text-[8px]">|</span>
+                <a href="javascript:void(0)" class="text-[9px] text-gray-500 hover:text-brand-primary transition-colors">شروط الاستخدام</a>
+            </div>
+
+            <!-- رسالة الإغلاق -->
+            <p class="text-center text-[10px] text-gray-600 leading-relaxed">
+                ✨ صُنع بحب في دار البنة ✨
+            </p>
+            <p class="text-center text-[8px] text-gray-700 mt-1">
+                © 2026 DAR ELBANNA. جميع الحقوق محفوظة.
+            </p>
         </div>
 
         <!-- نتائج بحث الموبايل -->
@@ -1530,12 +1598,16 @@
             const popularSection = document.getElementById('mobileDashPopularItems')?.closest('.px-4');
             const categoriesSection = document.getElementById('mobileDashCategories')?.closest('.mb-5');
             const curatedRows = document.getElementById('mobileDashCuratedRows');
+            const trustBadges = document.getElementById('mobileDashTrustBadges');
+            const appFooter = document.getElementById('mobileDashFooter');
 
             if (!query || query.trim() === '') {
                 if (searchResults) searchResults.classList.add('hidden');
                 if (popularSection) popularSection.style.display = '';
                 if (categoriesSection) categoriesSection.style.display = '';
                 if (curatedRows) curatedRows.style.display = '';
+                if (trustBadges) trustBadges.style.display = '';
+                if (appFooter) appFooter.style.display = '';
                 return;
             }
 
@@ -1549,6 +1621,8 @@
             if (popularSection) popularSection.style.display = 'none';
             if (categoriesSection) categoriesSection.style.display = 'none';
             if (curatedRows) curatedRows.style.display = 'none';
+            if (trustBadges) trustBadges.style.display = 'none';
+            if (appFooter) appFooter.style.display = 'none';
 
             if (results.length > 0) {
                 if (searchResults) searchResults.classList.remove('hidden');
