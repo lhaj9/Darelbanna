@@ -760,6 +760,7 @@
                     class="px-6 py-3 bg-brand-primary/20 text-brand-primary rounded-full text-sm font-bold hover:bg-brand-primary hover:text-white transition-colors border border-brand-primary/30">تصفح
                     قائمة الطعام</button>
             </div>
+            <div id="cartItemsList" class="space-y-4"></div>
         </div>
 
         <div class="p-6 border-t border-white/5 bg-[#0a0a0a] space-y-5">
@@ -978,60 +979,79 @@
         // --- 4. نظام السلة وتأثيرات الإضافة (Animations) ---
         function addToCartWithAnimation(event, itemId) {
             const productCard = document.getElementById(`product-${itemId}`);
-            const productImg = productCard.querySelector('.product-img');
+            const productImg = productCard ? productCard.querySelector('.product-img') : null;
 
             // تحديد أيقونة السلة الهدف بناءً على ما إذا كانت الصفحة الوهمية مفتوحة أم لا
-            const targetIconBtn = isVirtualPageOpen ? document.getElementById('virtualCartBtn') : document.getElementById('cartNavbarBtn');
-            const targetIcon = isVirtualPageOpen ? document.getElementById('virtualCartBtnIcon') : document.getElementById('cartBtnIcon');
+            const targetIconBtn = isVirtualPageOpen 
+                ? (document.getElementById('virtualCartBtn') || document.getElementById('cartNavbarBtn'))
+                : (document.getElementById('cartNavbarBtn') || document.getElementById('virtualCartBtn'));
+            const targetIcon = isVirtualPageOpen 
+                ? (document.getElementById('virtualCartBtnIcon') || document.getElementById('cartBtnIcon'))
+                : (document.getElementById('cartBtnIcon') || document.getElementById('virtualCartBtnIcon'));
 
             const qtySpan = document.getElementById(`local-qty-${itemId}`);
-            const quantityToAdd = parseInt(qtySpan.innerText);
+            const quantityToAdd = qtySpan ? parseInt(qtySpan.innerText) : 1;
             const itemDef = menuData.find(i => i.id === itemId);
 
+            if (!itemDef) return;
+
             // تأثير الطيران للصورة (Flying Image)
-            const imgRect = productImg.getBoundingClientRect();
-            const targetRect = targetIconBtn.getBoundingClientRect();
+            if (productImg && targetIconBtn) {
+                const imgRect = productImg.getBoundingClientRect();
+                const targetRect = targetIconBtn.getBoundingClientRect();
 
-            const flyingImg = document.createElement('img');
-            flyingImg.src = productImg.src;
-            flyingImg.style.position = 'fixed';
-            flyingImg.style.top = imgRect.top + 'px';
-            flyingImg.style.left = imgRect.left + 'px';
-            flyingImg.style.width = imgRect.width + 'px';
-            flyingImg.style.height = imgRect.height + 'px';
-            flyingImg.style.borderRadius = '50%';
-            flyingImg.style.objectFit = 'cover';
-            flyingImg.style.zIndex = '99999';
-            flyingImg.style.transition = 'all 0.7s cubic-bezier(0.2, 1, 0.3, 1)';
-            flyingImg.style.boxShadow = '0 10px 30px rgba(255, 107, 0, 0.6)';
+                const flyingImg = document.createElement('img');
+                flyingImg.src = productImg.src;
+                flyingImg.style.position = 'fixed';
+                flyingImg.style.top = imgRect.top + 'px';
+                flyingImg.style.left = imgRect.left + 'px';
+                flyingImg.style.width = imgRect.width + 'px';
+                flyingImg.style.height = imgRect.height + 'px';
+                flyingImg.style.borderRadius = '50%';
+                flyingImg.style.objectFit = 'cover';
+                flyingImg.style.zIndex = '99999';
+                flyingImg.style.transition = 'all 0.7s cubic-bezier(0.2, 1, 0.3, 1)';
+                flyingImg.style.boxShadow = '0 10px 30px rgba(255, 107, 0, 0.6)';
 
-            document.body.appendChild(flyingImg);
+                document.body.appendChild(flyingImg);
 
-            requestAnimationFrame(() => {
-                flyingImg.style.top = (targetRect.top + 10) + 'px';
-                flyingImg.style.left = (targetRect.left + 10) + 'px';
-                flyingImg.style.width = '20px';
-                flyingImg.style.height = '20px';
-                flyingImg.style.transform = 'rotate(720deg)';
-                flyingImg.style.opacity = '0.5';
-            });
+                requestAnimationFrame(() => {
+                    flyingImg.style.top = (targetRect.top + 10) + 'px';
+                    flyingImg.style.left = (targetRect.left + 10) + 'px';
+                    flyingImg.style.width = '20px';
+                    flyingImg.style.height = '20px';
+                    flyingImg.style.transform = 'rotate(720deg)';
+                    flyingImg.style.opacity = '0.5';
+                });
 
-            setTimeout(() => {
-                flyingImg.remove();
-                // اهتزاز السلة
-                targetIcon.classList.add('cart-bump');
-                setTimeout(() => targetIcon.classList.remove('cart-bump'), 400);
+                setTimeout(() => {
+                    flyingImg.remove();
+                    // اهتزاز السلة
+                    if (targetIcon) {
+                        targetIcon.classList.add('cart-bump');
+                        setTimeout(() => targetIcon.classList.remove('cart-bump'), 400);
+                    }
 
-                // الإضافة للبيانات
+                    // الإضافة للبيانات
+                    const existing = cart.find(i => i.id === itemId);
+                    if (existing) existing.quantity += quantityToAdd;
+                    else cart.push({ ...itemDef, quantity: quantityToAdd });
+
+                    updateCartUI();
+                    showToast(`تمت إضافة ${quantityToAdd} ${itemDef.title} بنجاح!`, itemDef.img);
+                    if (qtySpan) qtySpan.innerText = '1';
+
+                }, 700);
+            } else {
+                // إضافة بدون انميشن في حال عدم وجود العناصر
                 const existing = cart.find(i => i.id === itemId);
                 if (existing) existing.quantity += quantityToAdd;
                 else cart.push({ ...itemDef, quantity: quantityToAdd });
 
                 updateCartUI();
                 showToast(`تمت إضافة ${quantityToAdd} ${itemDef.title} بنجاح!`, itemDef.img);
-                qtySpan.innerText = '1';
-
-            }, 700);
+                if (qtySpan) qtySpan.innerText = '1';
+            }
         }
 
         function updateCartUI() {
@@ -1050,52 +1070,56 @@
                 }
             });
 
-            const container = document.getElementById('cartItemsContainer');
             const emptyMsg = document.getElementById('emptyCartMsg');
             const checkoutBtn = document.getElementById('checkoutBtn');
             const totalEl = document.getElementById('cartTotalPrice');
+            const itemsList = document.getElementById('cartItemsList');
 
             if (cart.length > 0) {
-                emptyMsg.style.display = 'none';
-                checkoutBtn.disabled = false;
-                container.innerHTML = '';
-                let total = 0;
+                if (emptyMsg) emptyMsg.style.display = 'none';
+                if (checkoutBtn) checkoutBtn.disabled = false;
+                if (itemsList) {
+                    itemsList.innerHTML = '';
+                    let total = 0;
 
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    container.innerHTML += `
-                        <div class="flex gap-4 bg-[#141414] p-4 rounded-2xl border border-white/5 items-center shadow-md relative">
-                            <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10">
-                            <div class="flex-grow">
-                                <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
-                                <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
-                                <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5 mt-2 w-max">
-                                    <button onclick="changeCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                                    <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
-                                    <button onclick="changeCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        itemsList.innerHTML += `
+                            <div class="flex gap-4 bg-[#141414] p-4 rounded-2xl border border-white/5 items-center shadow-md relative">
+                                <img src="${item.img}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10">
+                                <div class="flex-grow">
+                                    <h4 class="font-bold text-sm text-white line-clamp-1 pr-6">${item.title}</h4>
+                                    <div class="text-brand-primary font-black text-sm mt-1">${itemTotal} درهم</div>
+                                    <div class="flex items-center gap-1 bg-[#0a0a0a] rounded-lg px-1 py-1 border border-white/5 mt-2 w-max">
+                                        <button onclick="changeCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                        <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
+                                        <button onclick="changeCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-white/5 text-gray-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                    </div>
                                 </div>
+                                <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 text-gray-500 hover:text-brand-danger transition-colors"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
-                            <button onclick="removeFromCart(${item.id})" class="absolute top-4 left-4 text-gray-500 hover:text-brand-danger transition-colors"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    `;
-                });
-                totalEl.innerHTML = `${total} <span class="text-lg font-normal">درهم</span>`;
+                        `;
+                    });
+                    if (totalEl) totalEl.innerHTML = `${total} <span class="text-lg font-normal">درهم</span>`;
+                }
             } else {
-                emptyMsg.style.display = 'flex';
-                checkoutBtn.disabled = true;
-                container.innerHTML = '';
-                container.appendChild(emptyMsg);
-                totalEl.innerHTML = `0 <span class="text-lg font-normal">درهم</span>`;
+                if (emptyMsg) emptyMsg.style.display = 'flex';
+                if (checkoutBtn) checkoutBtn.disabled = true;
+                if (itemsList) itemsList.innerHTML = '';
+                if (totalEl) totalEl.innerHTML = `0 <span class="text-lg font-normal">درهم</span>`;
             }
         }
 
         function changeCartQty(id, change) {
             const item = cart.find(i => i.id === id);
             if (item) {
-                if (item.quantity + change > 0) item.quantity += change;
-                else removeFromCart(id);
-                updateCartUI();
+                if (item.quantity + change > 0) {
+                    item.quantity += change;
+                    updateCartUI();
+                } else {
+                    removeFromCart(id);
+                }
             }
         }
 
