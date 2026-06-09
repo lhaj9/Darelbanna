@@ -396,7 +396,7 @@
     </nav>
 
     <!-- شريط التنقل السفلي (Bottom Navigation Bar) للهواتف -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)]">
+    <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 z-[50] bg-brand-dark/95 backdrop-blur-xl border-t border-white/10 h-16 md:hidden flex justify-around items-center px-2 select-none shadow-[0_-5px_20px_rgba(0,0,0,0.6)] transition-transform duration-300">
         <!-- الرئيسية -->
         <a href="#home" onclick="closeMobileMenuPage(); setActiveTab(this)" class="flex flex-col items-center justify-center text-brand-primary w-16 h-12 transition-all duration-300 relative nav-tab-item active-tab">
             <i class="fa-solid fa-house text-xl mb-0.5"></i>
@@ -431,10 +431,10 @@
 
     <!-- قائمة الهواتف السفلية (Mobile Menu - Bottom Sheet) -->
     <div id="mobileMenuOverlay" onclick="toggleMobileMenu()"
-        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[45] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[54] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
     </div>
     <div id="mobileMenu"
-        class="fixed bottom-0 left-0 right-0 w-full max-h-[85vh] bg-[#0a0a0a] z-[50] transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col md:hidden rounded-t-3xl border-t border-white/10 shadow-2xl pb-2">
+        class="fixed bottom-0 left-0 right-0 w-full max-h-[85vh] bg-[#0a0a0a] z-[55] transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col md:hidden rounded-t-3xl border-t border-white/10 shadow-2xl pb-2">
         <!-- مؤشر سحب القائمة السفلي (App Drawer Handle) -->
         <div class="w-12 h-1 bg-white/20 rounded-full mx-auto my-3 shrink-0"></div>
         
@@ -718,7 +718,7 @@
     <!-- الصفحة الوهمية للمنيو (Menu Virtual Page Container) للهواتف -->
     <!-- ========================================================================= -->
     <div id="menuVirtualPage"
-        class="fixed inset-0 bg-[#0a0a0a] z-30 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] md:hidden">
+        class="fixed inset-0 bg-[#0a0a0a] z-[35] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] md:hidden">
 
         <!-- الهيدر الخاص بالصفحة الوهمية للمنيو -->
         <div
@@ -748,7 +748,7 @@
     <!-- الصفحة الوهمية الخاصة بفتح التصنيف (App-like Virtual Page Bottom Sheet) -->
     <!-- ========================================================================= -->
     <div id="categoryVirtualPage"
-        class="fixed inset-0 bg-[#0a0a0a] z-50 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+        class="fixed inset-0 bg-[#0a0a0a] z-[40] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
 
         <!-- الهيدر الخاص بالصفحة الوهمية -->
         <div
@@ -770,7 +770,7 @@
 
         <!-- حاوية المنتجات داخل الصفحة الوهمية -->
         <div
-            class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
+            class="flex-1 overflow-y-auto p-4 pb-28 md:p-8 custom-scrollbar bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#111] to-brand-darker">
             <div id="virtualPageItemsGrid"
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto pb-20">
                 <!-- المنتجات تظهر هنا عبر الجافاسكريبت بتصميم هجين (أفقي للموبايل، عمودي للكمبيوتر) -->
@@ -782,7 +782,7 @@
     <!-- صفحة تأكيد الطلب الوهمية (Checkout Virtual Page Bottom Sheet) -->
     <!-- ========================================================================= -->
     <div id="checkoutVirtualPage"
-        class="fixed inset-0 bg-[#0a0a0a] z-55 transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-cairo">
+        class="fixed inset-0 bg-[#0a0a0a] z-[60] transform translate-y-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-cairo">
 
         <!-- الهيدر الخاص بصفحة التأكيد -->
         <div
@@ -1008,10 +1008,10 @@
 
     <!-- السلة الجانبية -->
     <div id="cartOverlay" onclick="toggleCart()"
-        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] opacity-0 pointer-events-none transition-opacity duration-300">
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[45] opacity-0 pointer-events-none transition-opacity duration-300">
     </div>
     <div id="cartSidebar"
-        class="fixed top-0 bottom-0 left-0 w-full sm:w-[450px] bg-brand-card z-[70] transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col border-r border-white/5 shadow-2xl">
+        class="fixed top-0 bottom-16 md:bottom-0 left-0 w-full sm:w-[450px] bg-brand-card z-[45] transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col border-r border-white/5 shadow-2xl">
         <div class="p-6 border-b border-white/5 flex justify-between items-center bg-[#0a0a0a]">
             <h2 class="text-2xl font-black flex items-center gap-3">
                 <div
@@ -1577,7 +1577,7 @@
             const elementsToHide = [
                 'navbar', 'home', 'features', 'promo', 'menu',
                 'gallery', 'testimonials', 'cartOverlay', 'cartSidebar',
-                'scrollTopBtn', 'floatingActions'
+                'scrollTopBtn', 'floatingActions', 'mobileBottomNav'
             ];
             elementsToHide.forEach(id => {
                 const el = document.getElementById(id);
@@ -1821,6 +1821,10 @@
             const checkoutPage = document.getElementById('checkoutVirtualPage');
             if (checkoutPage) checkoutPage.classList.add('virtual-page-open');
 
+            // إخفاء شريط التنقل السفلي
+            const bottomNav = document.getElementById('mobileBottomNav');
+            if (bottomNav) bottomNav.classList.add('translate-y-full');
+
             // بناء معاينة السلة المصغرة
             const summaryList = document.getElementById('checkoutSummaryList');
             const totalAmountEl = document.getElementById('checkoutTotalAmount');
@@ -1885,6 +1889,10 @@
 
             const checkoutPage = document.getElementById('checkoutVirtualPage');
             if (checkoutPage) checkoutPage.classList.remove('virtual-page-open');
+
+            // إظهار شريط التنقل السفلي
+            const bottomNav = document.getElementById('mobileBottomNav');
+            if (bottomNav) bottomNav.classList.remove('translate-y-full');
 
             // إعادة فتح السلة الجانبية
             const sidebar = document.getElementById('cartSidebar');
