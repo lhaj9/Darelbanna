@@ -3,7 +3,7 @@
         {
             "id": "boisson",
             "title": "مشروبات منعشة",
-            "icon": "🥤",
+            "icon": "",
             "img": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500",
             "color": "from-blue-500/20"
         },
@@ -17,7 +17,7 @@
         {
             "id": "dessert",
             "title": "حلويات ولذائذ",
-            "icon": "🍰",
+            "icon": "",
             "img": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500",
             "color": "from-pink-500/20"
         },
@@ -146,7 +146,7 @@
             "title": "بيج برجر",
             "desc": "برجر ضخم مع شريحتين لحم، جبن ذائب، خس وصلصة خاصة",
             "price": 45,
-            "img": "https://lhaj9.github.io/Darelbanna/images/Burger/Bigg.jpeg"
+            "img": "https://lhaj9.github.io/Darelbanna/images/Burger/bigg2.jpg"
         },
         {
             "id": 7,
@@ -757,5 +757,12 @@
             "img": "https://lhaj9.github.io/Darelbanna/images/tacos/Viande hachée.jpg"
         }
     ],
-    "popularItemIds": [78, 29, 6, 24, 32, 73]
+    "popularItemIds": [
+        78,
+        29,
+        6,
+        24,
+        32,
+        73
+    ]
 }
